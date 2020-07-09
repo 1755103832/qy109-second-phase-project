@@ -4,7 +4,7 @@ import static com.aaa.pro.status.LoginStatus.*;
 import static com.aaa.pro.status.CrudStatus.*;
 
 /**
- * @Author zyb
+ * @Author project
  * @Date Create in 2020/7/8 14:51
  * @Description 统一controller
  * 也就是说所有的controller都需要继承这个controller，进行统一返回
@@ -21,7 +21,7 @@ import static com.aaa.pro.status.CrudStatus.*;
 public class BaseController {
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 登录成功，使用系统消息
      * @Date 2020/7/8 14:54
      * @Param []
@@ -35,7 +35,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 登录成功，自定义返回消息
      * @Date 2020/7/8 14:55
      * @Param [message]
@@ -49,7 +49,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 登录成功，返回数据信息，使用系统消息
      * @Date 2020/7/8 14:58
      * @Param [data]
@@ -64,7 +64,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 登录成功, 返回数据信息，自定义消息
      * @Date 2020/7/8 15:00
      * @Param [message, data]
@@ -79,7 +79,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 登录失败，使用系统消息
      * @Date 2020/7/8 15:02
      * @Param []
@@ -93,7 +93,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 登录失败，使用系统消息，详细解释说明
      * @Date 2020/7/8 15:04
      * @Param [detail]
@@ -108,7 +108,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 用户已经存在，使用系统消息
      * @Date 2020/7/8 15:49
      * @Param []
@@ -122,7 +122,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 用户不存在，使用系统消息
      * @Date 2020/7/8 15:50
      * @Param []
@@ -136,7 +136,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 密码输入错误，使用系统消息
      * @Date 2020/7/8 15:51
      * @Param []
@@ -150,7 +150,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 用户退出异常，使用系统消息
      * @Date 2020/7/8 15:52
      * @Param []
@@ -166,7 +166,7 @@ public class BaseController {
     // TODO: 2020/7/8 seven code here
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 添加数据成功，使用系统消息
      * @Date 2020/7/8 15:38
      * @Param []
@@ -180,7 +180,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 添加数据失败，使用系统消息
      * @Date 2020/7/8 15:40
      * @Param []
@@ -194,7 +194,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 删除数据成功，使用系统消息
      * @Date 2020/7/8 15:41
      * @Param []
@@ -208,7 +208,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 删除数据失败，使用系统消息
      * @Date 2020/7/8 15:42
      * @Param []
@@ -222,7 +222,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 修改数据成功，使用系统消息
      * @Date 2020/7/8 15:43
      * @Param []
@@ -236,7 +236,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 修改数据失败，使用系统消息
      * @Date 2020/7/8 15:44
      * @Param []
@@ -250,7 +250,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 查询数据成功，使用系统消息
      * @Date 2020/7/8 15:45
      * @Param []
@@ -264,7 +264,7 @@ public class BaseController {
     }
 
     /**
-     * @Author zyb
+     * @Author project
      * @Description 查询数据失败，使用系统消息
      * @Date 2020/7/8 15:46
      * @Param []
