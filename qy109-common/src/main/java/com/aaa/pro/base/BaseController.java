@@ -2,6 +2,7 @@ package com.aaa.pro.base;
 
 import static com.aaa.pro.status.LoginStatus.*;
 import static com.aaa.pro.status.CrudStatus.*;
+import static com.aaa.pro.status.OperationStatus.*;
 
 /**
  * @Author zyb
@@ -11,12 +12,12 @@ import static com.aaa.pro.status.CrudStatus.*;
  * <p>
  * eg:
  * 登录成功和失败
- * code:200 msg:登录成功
- * code:400 msg:登录失败，系统异常
- * code:201 msg:用户已经存在
- * code:401 msg:用户不存在
- * code:402 msg:密码错误
- * code:405 msg:用户退出异常
+ * code:200 Message:登录成功
+ * code:400 Message:登录失败，系统异常
+ * code:201 Message:用户已经存在
+ * code:401 Message:用户不存在
+ * code:402 Message:密码错误
+ * code:405 Message:用户退出异常
  **/
 public class BaseController {
 
@@ -274,6 +275,114 @@ public class BaseController {
         ResultData resultData = new ResultData();
         resultData.setCode(QUERY_FAILED.getCode());
         resultData.setMessage(QUERY_FAILED.getMessage());
+        return resultData;
+    }
+
+    /**
+     * 操作成功，返回系统消息
+     * @return
+     */
+    protected ResultData operationSuccess() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(OPERATION_SUCCESS.getCode());
+        resultData.setMessage(OPERATION_SUCCESS.getMessage());
+        return resultData;
+    }
+
+    /**
+     * 操作失败，返回系统消息
+     * @return
+     */
+    protected ResultData operationFailed() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(OPERATION_FAILED.getCode());
+        resultData.setMessage(OPERATION_FAILED.getMessage());
+        return resultData;
+    }
+
+    /**
+     * 删除操作,使用系统消息
+     * @return
+     */
+    protected ResultData deleteOperation(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(DELETE_OPERATION.getCode());
+        resultData.setMessage(DELETE_OPERATION.getMessage());
+        return resultData;
+    }
+    /**
+     * 修改操作,使用系统消息
+     * @return
+     */
+    protected ResultData updateOperation(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(UPDATE_OPERATION.getCode());
+        resultData.setMessage(UPDATE_OPERATION.getMessage());
+        return resultData;
+    }
+    /**
+     * 新增操作,使用系统消息
+     * @return
+     */
+    protected ResultData insertOperation(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(INSERT_OPERATION.getCode());
+        resultData.setMessage(INSERT_OPERATION.getMessage());
+        return resultData;
+    }
+
+    /**
+     * 路由过滤成功,使用系统消息
+     * @return
+     */
+    protected ResultData zuulFilterSuccess(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(ZUUL_FILTER_SUCCESS.getCode());
+        resultData.setMessage(ZUUL_FILTER_SUCCESS.getMessage());
+        return resultData;
+    }
+
+    /**
+     * 路由过滤失败,使用系统消息
+     * @return
+     */
+    protected ResultData zuulFilterFailed(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(ZUUL_FILTER_FAILED.getCode());
+        resultData.setMessage(ZUUL_FILTER_FAILED.getMessage());
+        return resultData;
+    }
+
+    /**
+     * token值存在,使用系统消息
+     * @return
+     */
+    protected ResultData zuulFilterTokenSuccess(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(ZUUL_FILTER_TOKEN_SUCCESS.getCode());
+        resultData.setMessage(ZUUL_FILTER_TOKEN_SUCCESS.getMessage());
+        return resultData;
+    }
+
+    /**
+     * token值不存在,使用系统消息
+     * @return
+     */
+    protected ResultData zuulFilterTokenFailed(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(ZUUL_FILTER_TOKEN_FAILED.getCode());
+        resultData.setMessage(ZUUL_FILTER_TOKEN_FAILED.getMessage());
+        return resultData;
+    }
+
+    /**
+     * request对象为null
+     * @return
+     */
+    protected ResultData requestIsNull(){
+        ResultData resultData= new ResultData();
+        resultData.setCode(REQUEST_IS_NULL.getCode());
+        resultData.setMessage(REQUEST_IS_NULL.getMessage());
         return resultData;
     }
 }
