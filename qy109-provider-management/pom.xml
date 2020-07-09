@@ -12,6 +12,9 @@
     <artifactId>qy109-provider-management</artifactId>
 
     <packaging>pom</packaging>
+    <modules>
+        <module>backup-project-provider</module>
+    </modules>
 
     <dependencies>
 

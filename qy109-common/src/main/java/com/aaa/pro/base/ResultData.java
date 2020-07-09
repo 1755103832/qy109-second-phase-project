@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * @Author zyb
+ * @Author project
  * @Date Create in 2020/7/8 14:49
  * @Description 通过接口返回值
  * 也就是说把后端的controller的返回值统一了
