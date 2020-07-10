@@ -1,18 +1,39 @@
 package com.aaa.pro.staticproperties;
 
 /**
- * @Company: com.aaa.pro
- * @ProjectName: qy-109110-project
- * @PackageName: com.aaa.pro.staticproperties
- * @Author： pro
- * @Date： Create in 17:49 2020/7/9
- * @description：
- */
+ * @Author zyb
+ * @Date Create in 2020/7/10 10:36
+ * @Description
+ **/
 public class RedisProperties {
-    public static final String NX = "nx";
-    public static final String PX = "px";
-    public static final String XX = "xx";
-    public static final String EX = "ex";
-    public static final String NO = "no";
 
+    /**
+     * nx静态常量
+     */
+    public static final String NX = "nx";
+
+    /**
+     * px静态常量
+     */
+    public static final String PX = "px";
+
+    /**
+     * xx静态常量
+     */
+    public static final String XX = "xx";
+
+    /**
+     * ex静态常量
+     */
+    public static final String EX = "ex";
+
+    /**
+     * NO静态常量
+     */
+    public static final String NO = "NO";
+
+    /**
+     * .静态常量
+     */
+    public static final String POINT = ".";
 }

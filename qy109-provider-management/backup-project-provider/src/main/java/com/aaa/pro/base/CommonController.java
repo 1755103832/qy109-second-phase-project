@@ -1,5 +1,6 @@
 package com.aaa.pro.base;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
@@ -136,11 +137,6 @@ public abstract class CommonController<T> extends BaseController {
         return super.updateFailed();
     }
 
-//    public ResultData batchUpdate(@RequestParam("ids[]") Integer[] ids,T t){
-//        getBaseService().newInstance((Map) t)
-//        getBaseService().batchUpdate()
-//    }
-
     /**
      * @Author zyb
      * @Description 查询一条数据
@@ -167,7 +163,7 @@ public abstract class CommonController<T> extends BaseController {
     public ResultData selectList(@RequestBody Map map) {
         T instance = getBaseService().newInstance(map);
         List<T> list = getBaseService().selectList(instance);
-        if (null != list && !"".equals(list)) {
+        if (list.size() > 0) {
             return super.querySuccess();
         }
         return super.queryFailed();
@@ -175,8 +171,42 @@ public abstract class CommonController<T> extends BaseController {
 
     /**
      * @Author zyb
+     * @Description 带条件的分页查询
+     * @Date 2020/7/10 16:00
+     * @Param [map, pageNo, pageSize]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    public ResultData getListByPage(@RequestBody Map map, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
+        T t = getBaseService().newInstance(map);
+        PageInfo<T> pageInfo = getBaseService().selectListByPage(t, pageNo, pageSize);
+        List<T> resultList = pageInfo.getList();
+        if (resultList.size() > 0) {
+            return super.querySuccess(pageInfo);
+        }
+        return super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 不带条件的分页查询
+     * @Date 2020/7/10 16:06
+     * @Param [pageNo, pageSize]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    public ResultData getListByPage(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<T> pageInfo = getBaseService().selectListByPage(null, pageNo, pageSize);
+        List<T> resultList = pageInfo.getList();
+        if (resultList.size() > 0) {
+            return super.querySuccess(pageInfo);
+        }
+        return super.queryFailed("未找到查询结果");
+    }
+
+
+    /**
+     * @Author zyb
      * @Description 防止数据不安全，所以不能直接在controller某个方法中直接接收HttpServletRequest对象
-     * 必须要从本地当前线程中获取对象
+     * 必须要从本地当前线程中获取request对象
      * @Date 2020/7/9 21:18
      * @Param []
      * @Return javax.servlet.http.HttpServletRequest

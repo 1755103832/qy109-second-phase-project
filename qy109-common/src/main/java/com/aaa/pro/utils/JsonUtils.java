@@ -6,25 +6,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 
 /**
- * @Company AAA软件教育
- * @Author Seven Lee
- * @Date Create in 2020/3/23 16:33
+ * @Author project
+ * @Date Create in 2020/7/10 10:31
  * @Description
  **/
-public class JSONUtil {
+public class JsonUtils {
 
-    // 1.定义私有静态常量ObjectMapper(命名规则：所有字母全部大写，单词与单词之间使用_连接)
-    // ObjectMapper:就是fastjson包中进行类型转换的工具类
+    /**
+     * 1.定义私有静态常量ObjectMapper(命名规则：所有字母全部大写，单词与单词之间使用_连接)
+     * ObjectMapper:就是fastjson包中进行类型转换的工具类
+     */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     /**
-     * @author Seven Lee
-     * @description
-     *      把对象转换为json字符串
-     * @param object
-     * @date 2019/7/27
-     * @return java.lang.String
-     * @throws
+     * prevent to new this class
+     */
+    private JsonUtils() {
+    }
+
+    /**
+     * @Author project
+     * @Description 把对象转换为json字符串
+     * @Date 2020/7/10 10:33
+     * @Param [object]
+     * @Return java.lang.String
      **/
     public static String toJsonString(Object object) {
         try {
@@ -37,17 +42,15 @@ public class JSONUtil {
     }
 
     /**
-     * @author Seven Lee
-     * @description
-     *      把json转换为指定的对象
-     *      <T>:定义了一个类型
-     *      T:返回值的类型
-     * @param jsonData:传入的json对象
-     *        beanType:所需要转换对象的目标类型
-     *                  User.class, Book.class
-     * @date 2019/7/27
-     * @return T
-     * @throws
+     * @Author project
+     * @Description jsonData:传入的json对象 beanType:所需要转换对象的目标类型
+     * User.class, Book.class
+     * 把json转换为指定的对象
+     * <T>:定义了一个类型
+     * T:返回值的类型
+     * @Date 2020/7/10 10:33
+     * @Param [jsonData, beanType]
+     * @Return T
      **/
     public static <T> T toObject(String jsonData, Class<T> beanType) {
         try {
@@ -60,13 +63,11 @@ public class JSONUtil {
     }
 
     /**
-     * @author Seven Lee
-     * @description
-     *      把Json转换为List集合
-     * @param jsonData, beanType
-     * @date 2019/7/27
-     * @return java.util.List<T>
-     * @throws
+     * @Author project
+     * @Description 把Json转换为List集合
+     * @Date 2020/7/10 10:34
+     * @Param [jsonData, beanType]
+     * @Return java.util.List<T>
      **/
     public static <T> List<T> toList(String jsonData, Class<T> beanType) {
         // 1.为List集合添加一个指定的泛型

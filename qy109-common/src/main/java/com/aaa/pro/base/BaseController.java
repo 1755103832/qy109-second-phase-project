@@ -2,6 +2,7 @@ package com.aaa.pro.base;
 
 import static com.aaa.pro.status.LoginStatus.*;
 import static com.aaa.pro.status.CrudStatus.*;
+import static com.aaa.pro.status.OperationStatus.*;
 
 /**
  * @Author project
@@ -163,8 +164,6 @@ public class BaseController {
         return resultData;
     }
 
-    // TODO: 2020/7/8 seven code here
-
     /**
      * @Author project
      * @Description 添加数据成功，使用系统消息
@@ -256,6 +255,21 @@ public class BaseController {
      * @Param []
      * @Return com.aaa.pro.base.ResultData
      **/
+    protected ResultData querySuccess(Object data) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(QUERY_SUCCESS.getCode());
+        resultData.setMessage(QUERY_SUCCESS.getMessage());
+        resultData.setData(data);
+        return resultData;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 查询数据成功，自定义返回消息
+     * @Date 2020/7/10 16:04
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
     protected ResultData querySuccess() {
         ResultData resultData = new ResultData();
         resultData.setCode(QUERY_SUCCESS.getCode());
@@ -274,6 +288,90 @@ public class BaseController {
         ResultData resultData = new ResultData();
         resultData.setCode(QUERY_FAILED.getCode());
         resultData.setMessage(QUERY_FAILED.getMessage());
+        return resultData;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 方法重载，查询数据失败，自定义返回消息
+     * @Date 2020/7/10 16:05
+     * @Param [message]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData queryFailed(String message) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(QUERY_FAILED.getCode());
+        resultData.setMessage(message);
+        return resultData;
+    }
+
+    /**
+     * @Author project
+     * @Description 路由过滤成功, 返回系统消息
+     * @Date 2020/7/10 14:45
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData zuulFilterSuccess() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(ZUUL_FILTER_SUCCESS.getCode());
+        resultData.setMessage(ZUUL_FILTER_SUCCESS.getMessage());
+        return resultData;
+    }
+
+    /**
+     * @Author project
+     * @Description 路由过滤失败, 返回系统消息
+     * @Date 2020/7/10 14:45
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData zuulFilterFailed() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(ZUUL_FILTER_FAILED.getCode());
+        resultData.setMessage(ZUUL_FILTER_FAILED.getMessage());
+        return resultData;
+    }
+
+    /**
+     * @Author project
+     * @Description token值存在, 返回系统消息
+     * @Date 2020/7/10 14:47
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData zuulTokenExist() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(ZUUL_FILTER_TOKEN_EXIST.getCode());
+        resultData.setMessage(ZUUL_FILTER_TOKEN_EXIST.getMessage());
+        return resultData;
+    }
+
+    /**
+     * @Author project
+     * @Description token值不存在, 返回系统消息
+     * @Date 2020/7/10 14:48
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData zuulTokenNotExist() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(ZUUL_FILTER_TOKEN_NOT_EXIST.getCode());
+        resultData.setMessage(ZUUL_FILTER_TOKEN_NOT_EXIST.getMessage());
+        return resultData;
+    }
+
+    /**
+     * @Author project
+     * @Description request对象为null, 返回系统消息
+     * @Date 2020/7/10 14:49
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData requestIsNull() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(REQUEST_IS_NULL.getCode());
+        resultData.setMessage(REQUEST_IS_NULL.getMessage());
         return resultData;
     }
 }

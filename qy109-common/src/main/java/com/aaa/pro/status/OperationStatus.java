@@ -10,8 +10,8 @@ public enum OperationStatus {
     // 其他操作状态码
     ZUUL_FILTER_SUCCESS("1", "路由过滤成功"),
     ZUUL_FILTER_FAILED("2", "路由过滤失败"),
-    ZUUL_FILTER_TOKEN_SUCCESS("3", "token值存在"),
-    ZUUL_FILTER_TOKEN_FAILED("4", "token值不存在"),
+    ZUUL_FILTER_TOKEN_EXIST("3", "token值存在"),
+    ZUUL_FILTER_TOKEN_NOT_EXIST("4", "token值不存在"),
     REQUEST_IS_NULL("5", "request对象为null");
 
     private String code;
