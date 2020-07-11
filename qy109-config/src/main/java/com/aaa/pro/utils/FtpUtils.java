@@ -10,7 +10,11 @@ import java.io.InputStream;
 /**
  * @Author zyb
  * @Date Create in 2020/7/10 15:33
- * @Description
+ * @Description 这个工具类就是文件上传的通用工具类
+ * 按照咱们架构的原则，config就依赖了common
+ * 这个时候假设把FTPUtils放到了common项目中，那么也就意味着所有的有关于ftp的jar包
+ * 都必须要出现在common项目中，假设如果consumer项目使用到了common，那最终consumer
+ * 也会把ftp的jar包引入到项目中，从而增大了项目的负担，无法实现职责单一化！！
  **/
 public class FtpUtils {
 
