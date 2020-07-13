@@ -12,6 +12,9 @@
     <artifactId>qy109-consumer-management</artifactId>
 
     <packaging>pom</packaging>
+    <modules>
+        <module>backup-project-consumer</module>
+    </modules>
 
     <dependencies>
 

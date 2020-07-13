@@ -28,6 +28,11 @@ public class RedisProperties {
     public static final String EX = "ex";
 
     /**
+     * OK静态常量
+     */
+    public static final String OK = "OK";
+
+    /**
      * NO静态常量
      */
     public static final String NO = "NO";
@@ -36,4 +41,14 @@ public class RedisProperties {
      * .静态常量
      */
     public static final String POINT = ".";
+
+    /**
+     * 返回受影响的行数
+     */
+    public static final String ONE = "1";
+
+    /**
+     * true静态常量
+     */
+    public static final String TRUE = "true";
 }
