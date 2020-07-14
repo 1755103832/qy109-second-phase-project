@@ -374,4 +374,33 @@ public class BaseController {
         resultData.setMessage(REQUEST_IS_NULL.getMessage());
         return resultData;
     }
+
+
+    /**
+     * @return com.aaa.pro.base.ResultData
+     * @Author: project
+     * @Description: 文件上传成功，返回系统消息
+     * @Date: 21:00 2020/7/14
+     * @param: []
+     */
+    protected ResultData uploadSuccess() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(UPLOAD_SUCCESS.getCode());
+        resultData.setMessage(UPLOAD_SUCCESS.getMessage());
+        return resultData;
+    }
+
+    /**
+     * @return com.aaa.pro.base.ResultData
+     * @Author: project
+     * @Description: 文件上传失败，返回系统消息
+     * @Date: 21:08 2020/7/14
+     * @param: []
+     */
+    protected ResultData uploadFalse() {
+        ResultData resultData = new ResultData();
+        resultData.setCode(UPLOAD_FAILED.getCode());
+        resultData.setMessage(UPLOAD_FAILED.getMessage());
+        return resultData;
+    }
 }

@@ -65,7 +65,7 @@
 
             <!--
                 redis的jar包以及jedis的jar包
-                TODO 后期版本升级需要更改jedis版本
+                 TODO 后期版本升级需要更改jedis版本
             -->
             <!--<dependency>
                 <groupId>redis.clients</groupId>
