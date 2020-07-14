@@ -78,7 +78,6 @@
                 <artifactId>jedis</artifactId>
                 <version>2.9.0</version>
             </dependency>
-
             <!--
                 fastjson包
             -->
@@ -252,7 +251,6 @@
                 <artifactId>feign-form</artifactId>
                 <version>3.8.0</version>
             </dependency>
-
             <!-- 支持feignClient文件上传 -->
             <dependency>
                 <groupId>io.github.openfeign.form</groupId>

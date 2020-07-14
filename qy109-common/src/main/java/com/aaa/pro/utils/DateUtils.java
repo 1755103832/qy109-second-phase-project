@@ -5,9 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @Company AAA软件教育
  * @Author project
- * @Date Create in 2020/5/27 15:01
+ * @Date Create in 2020/7/14 15:01
  * @Description
  *      日期处理工具类
  **/
@@ -28,7 +27,7 @@ public class DateUtils {
      * @description
      *      按照DATE_TYPE格式来进行转换
      * @param []
-     * @date 2020/5/27
+     * @date 2020/7/14
      * @return java.lang.String
      * @throws
     **/
@@ -41,14 +40,11 @@ public class DateUtils {
     }
 
     /**
-     * @author project
-     * @description
-     *      按照指定格式日期来进行转换
-     * @param []
-     * @date 2020/5/27
-     * @return java.lang.String
-     * @throws
-    **/
+     * 按照指定格式日期来进行转换
+     * @param date
+     * @param formatType
+     * @return
+     */
     public static final String formatDate(Object date, String formatType) {
         if(null == date) {
             return null;
@@ -65,14 +61,10 @@ public class DateUtils {
     }
 
     /**
-     * @author project
-     * @description
-     *      将时间转换为字符串
-     * @param [millisecond]
-     * @date 2020/5/27
-     * @return java.lang.String
-     * @throws
-    **/
+     * 将时间转换为字符串
+     * @param millisecond
+     * @return
+     */
     public static String formatDateAgo(long millisecond) {
         StringBuilder stringBuilder = new StringBuilder();
         if(1000 > millisecond) {
@@ -114,7 +106,7 @@ public class DateUtils {
      * @description
      *      获取系统当前时间
      * @param []
-     * @date 2020/5/27
+     * @date 2020/7/14
      * @return java.lang.String
      * @throws
     **/
@@ -127,7 +119,7 @@ public class DateUtils {
      * @description
      *      获取当年年度
      * @param []
-     * @date 2020/5/27
+     * @date 2020/7/14
      * @return java.lang.Integer
      * @throws
     **/
