@@ -1,7 +1,7 @@
 package com.aaa.pro.staticproperties;
 
 /**
- * @Author zyb
+ * @Author jkm
  * @Date Create in 2020/7/10 10:36
  * @Description
  **/

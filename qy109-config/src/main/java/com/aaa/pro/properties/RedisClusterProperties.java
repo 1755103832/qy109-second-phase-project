@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 /**
- * @Author zyb
+ * @Author jkm
  * @Date Create in 2020/7/10 8:41
  * @Description
  * @ConfigurationProperties:-->默认只会从application.prorperties中去读取属性值

@@ -3,16 +3,16 @@ package com.aaa.pro.service;
 import com.aaa.pro.properties.FtpProperties;
 import com.aaa.pro.utils.FileNameUtils;
 import com.aaa.pro.utils.FtpUtils;
-import org.apache.commons.httpclient.util.DateUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
-
-import static com.aaa.pro.staticproperties.DateTimeFormatProperties.DATE_FORMAT;
-import static com.aaa.pro.staticproperties.RedisProperties.POINT;
+import com.aaa.pro.utils.DateUtils;
+import static com.aaa.pro.staticproperties.DateTimeFormatProperties.*;
+import static com.aaa.pro.staticproperties.RedisProperties.*;
 
 /**
  * @Author zyb
@@ -42,8 +42,7 @@ public class UploadService {
         assert oleFileName != null;
         newFileName += oleFileName.substring(oleFileName.lastIndexOf(POINT));
         // 4.获取文件的上传路径(2020/07/10)
-        // TODO 暂时没有完成，目前使用的是apache开源基金会的日期工具类，不符合咱们团队的技术水平，需要自己手动编写
-        String filePath = DateUtil.formatDate(new Date(), DATE_FORMAT);
+        String filePath = DateUtils.formatDate(new Date(), DATE_FORMAT);
         // 5.调用文件上传工具类
         try {
             return FtpUtils.upload(ftpProperties.getHost(), ftpProperties.getPort(), ftpProperties.getUsername(),

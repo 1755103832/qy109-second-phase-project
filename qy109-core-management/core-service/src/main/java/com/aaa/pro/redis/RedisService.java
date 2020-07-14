@@ -18,7 +18,7 @@ import static com.aaa.pro.staticproperties.RedisProperties.*;
 
 
 /**
- * @Author zyb
+ * @Author jkm
  * @Description redis的业务实现类
  * 如果需要存入redis数据库，首先应该把需要缓存的数据从mysql中查询出来,
  * 然后通过java代码存入到redis中
@@ -112,7 +112,7 @@ public class RedisService<T> {
     }
 
     /**
-     * @Author zyb
+     * @Author jkm
      * @Description 从redis中查询数据(单个数据)
      * @Date 2020/7/10 15:44
      * @Param [key]
@@ -123,7 +123,7 @@ public class RedisService<T> {
     }
 
     /**
-     * @Author zyb
+     * @Author jkm
      * @Description 从redis中查询数据(value值是字符串)
      * @Date 2020/7/10 15:43
      * @Param [key]
