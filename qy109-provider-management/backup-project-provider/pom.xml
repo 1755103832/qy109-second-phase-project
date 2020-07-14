@@ -11,5 +11,5 @@
 
     <artifactId>backup-project-provider</artifactId>
 
-
+    <packaging>jar</packaging>
 </project>

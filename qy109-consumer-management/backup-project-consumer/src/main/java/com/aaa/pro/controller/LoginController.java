@@ -1,5 +1,6 @@
 package com.aaa.pro.controller;
 
+import com.aaa.pro.annotation.LoginLogAnnotation;
 import com.aaa.pro.base.BaseController;
 import com.aaa.pro.base.ResultData;
 import com.aaa.pro.model.User;
@@ -32,6 +33,7 @@ public class LoginController extends BaseController {
      **/
     @PostMapping("/doLogin")
     @ApiOperation(value = "登录功能", notes = "用户执行登录功能")
+    @LoginLogAnnotation(operationType = "登录操作", operationName = "管理员登录")
     public ResultData doLogin(User user) {
         TokenVo tokenVo = iProjectService.doLogin(user);
         if (tokenVo.getIfSuccess()) {

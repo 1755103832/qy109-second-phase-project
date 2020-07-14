@@ -11,5 +11,5 @@
 
     <artifactId>backup-project-consumer</artifactId>
 
-
+    <packaging>jar</packaging>
 </project>
