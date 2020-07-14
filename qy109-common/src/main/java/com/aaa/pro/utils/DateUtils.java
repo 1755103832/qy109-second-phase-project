@@ -5,11 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @Company AAA软件教育
  * @Author project
- * @Date Create in 2020/5/27 15:01
- * @Description
- *      日期处理工具类
+ * @Date Create in 2020/7/14 15:01
+ * @Description 日期处理工具类
  **/
 public class DateUtils {
 
@@ -24,16 +22,15 @@ public class DateUtils {
 
 
     /**
-     * @author project
-     * @description
-     *      按照DATE_TYPE格式来进行转换
      * @param []
-     * @date 2020/5/27
      * @return java.lang.String
      * @throws
-    **/
+     * @author project
+     * @description 按照DATE_TYPE格式来进行转换
+     * @date 2020/7/14
+     **/
     public static final String formatDate(Object date) {
-        if(null == date) {
+        if (null == date) {
             return null;
         } else {
             return formatDate(date, DATE_TYPE);
@@ -41,19 +38,18 @@ public class DateUtils {
     }
 
     /**
-     * @author project
-     * @description
-     *      按照指定格式日期来进行转换
      * @param []
-     * @date 2020/5/27
      * @return java.lang.String
      * @throws
-    **/
+     * @author project
+     * @description 按照指定格式日期来进行转换
+     * @date 2020/7/14
+     **/
     public static final String formatDate(Object date, String formatType) {
-        if(null == date) {
+        if (null == date) {
             return null;
         } else {
-            if(StringUtils.isNotEmpty(formatType)) {
+            if (StringUtils.isNotEmpty(formatType)) {
                 // 说明最终需要根据客户所定义的格式来进行转换
                 SimpleDateFormat format = new SimpleDateFormat(formatType);
                 return format.format(date);
@@ -65,17 +61,16 @@ public class DateUtils {
     }
 
     /**
-     * @author project
-     * @description
-     *      将时间转换为字符串
      * @param [millisecond]
-     * @date 2020/5/27
      * @return java.lang.String
      * @throws
-    **/
+     * @author project
+     * @description 将时间转换为字符串
+     * @date 2020/7/14
+     **/
     public static String formatDateAgo(long millisecond) {
         StringBuilder stringBuilder = new StringBuilder();
-        if(1000 > millisecond) {
+        if (1000 > millisecond) {
             // 说明只是毫秒
             stringBuilder.append(millisecond).append("毫秒");
         } else {
@@ -88,21 +83,21 @@ public class DateUtils {
             Long day = millisecond / dd;
             Long hour = (millisecond - day * dd) / hh;
             Long minute = (millisecond - day * dd - hour * hh) / mi;
-            Long second = (millisecond - day * dd - hour *hh - minute * mi) / ss;
+            Long second = (millisecond - day * dd - hour * hh - minute * mi) / ss;
 
-            if(day > 365) {
+            if (day > 365) {
                 return formatDate(new Date(millisecond), "yyyy年MM月dd日 HH时mm分ss秒");
             }
-            if(day > 0) {
+            if (day > 0) {
                 stringBuilder.append(day).append("天");
             }
-            if(hour > 0) {
+            if (hour > 0) {
                 stringBuilder.append(hour).append("小时");
             }
-            if(minute > 0) {
+            if (minute > 0) {
                 stringBuilder.append(minute).append("分钟");
             }
-            if(second > 0) {
+            if (second > 0) {
                 stringBuilder.append(second).append("秒");
             }
         }
@@ -110,27 +105,25 @@ public class DateUtils {
     }
 
     /**
-     * @author project
-     * @description
-     *      获取系统当前时间
      * @param []
-     * @date 2020/5/27
      * @return java.lang.String
      * @throws
-    **/
+     * @author project
+     * @description 获取系统当前时间
+     * @date 2020/7/14
+     **/
     public static final String getCurrentDate() {
         return formatDate(new Date());
     }
 
     /**
-     * @author project
-     * @description
-     *      获取当年年度
      * @param []
-     * @date 2020/5/27
      * @return java.lang.Integer
      * @throws
-    **/
+     * @author project
+     * @description 获取当年年度
+     * @date 2020/7/14
+     **/
     public static Integer getCurrentYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
