@@ -20,6 +20,6 @@ public class UUIDUtils {
      * @Return java.lang.String
      **/
     public static String getUUID() {
-        return UUID.randomUUID().toString().replace("-", "");
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 }
