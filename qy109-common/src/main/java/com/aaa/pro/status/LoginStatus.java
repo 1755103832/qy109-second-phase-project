@@ -14,8 +14,11 @@ public enum LoginStatus {
     USER_NOT_EXIST("402", "用户不存在"),
     PASSWORD_WRONG("405", "密码错误"),
     LOGOUT_WRONG("406", "用户退出异常"),
-    SYSTEM_EXCEPTION("406", "系统异常");
+    SYSTEM_EXCEPTION("406", "系统异常"),
 
+    // ftp上传状态码
+    UPLOAD_SUCCESS("20005", "文件上传成功"),
+    UPLOAD_FAILED("10005", "文件上传失败");
 
     private String code;
     private String message;
