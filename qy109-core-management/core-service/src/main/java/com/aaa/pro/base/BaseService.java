@@ -25,7 +25,7 @@ import static com.aaa.pro.staticproperties.SortOrder.*;
 public abstract class BaseService<T> {
 
     /**
-     * 本地缓存池
+     * 本地缓存池 全局变量，缓存子类的泛型类型
      */
     private Class<T> cache = null;
 
@@ -258,6 +258,22 @@ public abstract class BaseService<T> {
             PageHelper.startPage(pageNo, pageSize);
         }
         return getMapper().selectByExample(example);
+    }
+
+    /**
+     *
+     * @description:
+     *    获取子类泛型类型
+     * @params:  * @param
+     * @return: java.lang.Class<T>
+     * @author: Wen
+     * @date: 2020/7/15 15:34
+     */
+    public Class<T> getTypeArguement() {
+        if(null == cache) {
+            cache = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        }
+        return cache;
     }
 
     /**

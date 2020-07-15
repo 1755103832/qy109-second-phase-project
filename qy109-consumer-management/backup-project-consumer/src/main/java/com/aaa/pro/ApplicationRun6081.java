@@ -13,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  **/
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.aaa.pro"})
 public class ApplicationRun6081 {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationRun6081.class, args);

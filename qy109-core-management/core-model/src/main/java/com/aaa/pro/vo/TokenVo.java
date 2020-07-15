@@ -31,5 +31,5 @@ public class TokenVo implements Serializable {
     /**
      * 保存了token的key值
      */
-    private String redisKey;
+    private Integer type;;
 }

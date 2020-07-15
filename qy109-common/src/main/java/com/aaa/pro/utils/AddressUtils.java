@@ -14,8 +14,6 @@ import java.util.Map;
  **/
 public class AddressUtils {
 
-    private AddressUtils() {
-    }
 
     /**
      * @Author project
