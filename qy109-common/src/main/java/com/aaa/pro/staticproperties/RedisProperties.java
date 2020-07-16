@@ -51,4 +51,5 @@ public class RedisProperties {
      * true静态常量
      */
     public static final String TRUE = "true";
+
 }

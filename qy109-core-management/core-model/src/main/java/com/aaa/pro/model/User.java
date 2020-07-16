@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @Author zyb
@@ -20,7 +21,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Accessors(chain = true)
 @Table(name = "t_user")
-public class User extends BaseModel {
+public class User extends BaseModel{
 
     /**
      * 用户名

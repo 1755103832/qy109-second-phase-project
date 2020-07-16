@@ -106,6 +106,21 @@ public abstract class BaseService<T> {
     }
 
     /**
+     * @Author: project
+     * @Description:
+     *      重载根据主键进行批量删除方法
+     * @Date: 15:43 2020/7/16
+     * @param: [ids]
+     * @return java.lang.Integer
+     */
+    public Integer batchDeleteByIds1(List<Object> ids) {
+        // delete * from user where 1 = 1 and id in (1,2,3,4,5,6,7,8)
+        // andIn("id")--->id就是数据库中的主键名称
+        Example example = Example.builder(getTypeArgument()).where(Sqls.custom().andIn("id", ids)).build();
+        return mapper.deleteByExample(example);
+    }
+
+    /**
      * @Author project
      * @Description 更新操作
      * @Date 2020/7/9 15:40
