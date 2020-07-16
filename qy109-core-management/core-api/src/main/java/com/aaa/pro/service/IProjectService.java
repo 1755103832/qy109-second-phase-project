@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @Date Create in 2020/7/13 17:31
  * @Description
  **/
-@FeignClient(value = "")
+@FeignClient(value = "backup-project-interface")
 public interface IProjectService {
 
     /**
