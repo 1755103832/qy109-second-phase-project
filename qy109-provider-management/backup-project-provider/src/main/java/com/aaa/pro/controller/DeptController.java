@@ -19,53 +19,7 @@ public class DeptController {
 
     /**
      * @description:
-     *    递归查询根据 parentId（父id）查询该部门及其子部门
-     * @params: [parentId]
-     * @return:
-     * @author: Wen
-     * @date: 2020/7/14 8:59
-     */
-    @GetMapping("/selectAllDeptByParentId")
-    public List<Dept> selectAllDeptByParentId(@RequestParam("parentId") Integer parentId) {
-        // 调用 deptService 中的 selectAllDeptByParentId 方法，得到查询结果
-        List<Dept> allDept = deptService.selectAllDeptByParentId(parentId);
-
-        // 判断 结果是否为空
-        if (allDept != null) {
-            // 说明结果不为空，返回查询的结果
-            return allDept;
-        }else {
-            // 返回null
-            return null;
-        }
-    }
-
-    /**
-     * @description:
-     *  查询-动态sql查询条件：部门名称 创建时间区间
-     * @params: [map]
-     * @return: java.util.List<com.aaa.pro.model.Dept>
-     * @author: Wen
-     * @date: 2020/7/14 8:59
-     */
-    @PostMapping("/selectDeptInfoByField")
-    public List<Dept> selectDeptInfoByField(@RequestBody Map map) {
-        // 调用 deptService 中的 selectDeptInfoByField 方法，得到查询结果
-        List<Dept> deptList = deptService.selectDeptInfoByField(map);
-
-        // 判断 结果是否为空
-        if (deptList != null) {
-            // 说明结果不为空，查询成功，返回查询的结果
-            return deptList;
-        }else {
-            // 查询失败，返回null
-            return null;
-        }
-    }
-
-    /**
-     * @description:
-     *  查询部门信息，根据主键id查询部门的信息
+     *  查询部门信息，根据主键id查询
      * @params: [deptId]
      * @return: com.aaa.pro.model.Dept
      * @author: Wen
@@ -111,7 +65,8 @@ public class DeptController {
 
 
     /**
-     * @description: 通过主键 执行删除操作
+     * @description:
+     *   删除部门信息，根据主键删除
      * @params: [dept]
      * @return: java.lang.Boolean
      * @author: Wen
@@ -134,14 +89,14 @@ public class DeptController {
 
     /**
      * @description:
-     *   批量删除 调用父类的批量删除方法（根据主键），执行删除操作
+     *   批量删除部门信息，调用父类的批量删除方法（根据主键删除）
      * @params: [ids]
      * @return: java.lang.Boolean
      * @author: Wen
      * @date: 2020/7/16 9:01
      */
     @PostMapping("/batchDeleteByPrimaryKey")
-    public Boolean batchDeleteByPrimaryKey(@RequestBody List<Integer> ids) {
+    public Boolean batchDeleteByPrimaryKey(@RequestBody List<Object> ids) {
         // 调用 deptService 中的 batchDeleteByPrimaryKey 方法，得到结果
         Boolean aBoolean = deptService.batchDeleteByPrimaryKey(ids);
 
@@ -158,7 +113,7 @@ public class DeptController {
 
     /**
      * @description:
-     *   修改，通过主键-修改部门信息
+     *   修改部门信息，根据主键修改
      * @params: [dept]
      * @return: java.lang.Boolean
      * @author: Wen
@@ -176,6 +131,52 @@ public class DeptController {
         }else {
             // 修改失败，返回false
             return false;
+        }
+    }
+
+    /**
+     * @description:
+     *    查询子菜单
+     * @params: [parentId]
+     * @return: java.util.List<com.aaa.pro.model.Dept>
+     * @author: Wen
+     * @date: 2020/7/16 16:43
+     */
+    @GetMapping("/selectAllDeptByParentId")
+    public List<Dept> selectAllDeptByParentId(@RequestParam("parentId") Integer parentId) {
+        // 调用 deptService 中的 selectAllDeptByParentId 方法，得到查询结果
+        List<Dept> allDept = deptService.selectAllDeptByParentId(parentId);
+
+        // 判断 结果是否为空
+        if (allDept != null) {
+            // 说明结果不为空，返回查询的结果
+            return allDept;
+        }else {
+            // 返回null
+            return null;
+        }
+    }
+
+    /**
+     * @description:
+     *  查询-动态sql查询-条件：部门名称 创建时间区间
+     * @params: [map]
+     * @return: java.util.List<com.aaa.pro.model.Dept>
+     * @author: Wen
+     * @date: 2020/7/16 16:43
+     */
+    @PostMapping("/selectDeptInfoByField")
+    public List<Dept> selectDeptInfoByField(@RequestBody Map map) {
+        // 调用 deptService 中的 selectDeptInfoByField 方法，得到查询结果
+        List<Dept> deptList = deptService.selectDeptInfoByField(map);
+
+        // 判断 结果是否为空
+        if (deptList != null) {
+            // 说明结果不为空，查询成功，返回查询的结果
+            return deptList;
+        }else {
+            // 查询失败，返回null
+            return null;
         }
     }
 

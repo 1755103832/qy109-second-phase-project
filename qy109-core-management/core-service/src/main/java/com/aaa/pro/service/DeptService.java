@@ -55,7 +55,7 @@ public class DeptService extends BaseService<Dept> {
 
     /**
      * @description:
-     *  查询-动态sql查询条件：部门名称 创建时间区间
+     *  查询部门信息-动态sql查询-条件：部门名称 创建时间区间
      * @params: [map]
      * @return: java.util.List<com.aaa.pro.model.Dept>
      * @author: Wen
@@ -153,14 +153,14 @@ public class DeptService extends BaseService<Dept> {
 
      /**
      * @description:
-     *   通过主键 执行删除操作
+     *   删除部门信息 根据主键删除
      * @params: [deptId]
      * @return: java.lang.Boolean
      * @author: Wen
      * @date: 2020/7/16 8:51
      */
     public Boolean deleteDeptByPrimaryKey(Dept deptId) {
-        // 判断 前端传值是否为空
+        // 判断前端传值是否为空
         if (null != deptId && !"".equals(deptId)) {
             Integer delete = null;
 
@@ -187,13 +187,13 @@ public class DeptService extends BaseService<Dept> {
 
     /**
      * @description:
-     *  批量删除 调用父类的批量删除方法（根据主键），执行删除操作
+     *  批量删除部门信息 调用父类的批量删除方法（根据主键），执行删除操作
      * @params: [ids]
      * @return: java.lang.Boolean
      * @author: Wen
      * @date: 2020/7/14 9:18
      */
-    public Boolean batchDeleteByPrimaryKey(List<Integer> ids) {
+    public Boolean batchDeleteByPrimaryKey(List<Object> ids) {
         // 判断 前端传值是否为空
         if (null != ids && !"".equals(ids)) {
             Integer batchDelete = null;
@@ -221,7 +221,7 @@ public class DeptService extends BaseService<Dept> {
 
     /**
      * @description:
-     *  修改，通过主键-修改部门信息
+     *  修改部门信息，根据主键修改
      * @params: [dept]
      * @return: java.lang.Boolean
      * @author: Wen
@@ -245,7 +245,7 @@ public class DeptService extends BaseService<Dept> {
                         .setParentId(dept.getParentId())
                         .setModifyTime(format);
 
-                // 调用父类的update方法，更新部门信息
+                // 调用父类的update（updateByPrimaryKeySelective）方法，更新部门信息
                 update = super.updateByPrimaryKeySelective(dept1);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -255,11 +255,11 @@ public class DeptService extends BaseService<Dept> {
                 // 说明修改成功，返回true
                 return true;
             }else {
-                // 删除失败，返回false
+                // 修改失败，返回false
                 return false;
             }
         }else {
-            // 前端传参失败，返回false 删除失败
+            // 前端传参失败，返回false 修改失败
             return false;
         }
     }

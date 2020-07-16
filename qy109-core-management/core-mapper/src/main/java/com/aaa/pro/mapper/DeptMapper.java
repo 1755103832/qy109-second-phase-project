@@ -9,6 +9,8 @@ import java.util.Map;
 
 public interface DeptMapper extends Mapper<Dept> {
 
+
+
     /**
     * @description:
      * 查询部门信息，根据主键id查询部门的信息
