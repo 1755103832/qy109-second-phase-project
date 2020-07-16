@@ -4,6 +4,7 @@ import com.aaa.pro.model.Dept;
 import com.aaa.pro.model.LoginLogs;
 import com.aaa.pro.model.User;
 import com.aaa.pro.vo.TokenVo;
+import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -143,5 +144,52 @@ public interface IProjectService {
      */
     @PostMapping("/updateDeptByPrimaryKey")
     Boolean updateDeptByPrimaryKey(@RequestBody Dept dept);
-    
+
+
+    /**
+     * @Author: jkm
+     * @Description:
+     *      添加用户
+     * @Date: 18:48 2020/7/16
+     * @param: [user]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/addUser")
+    Boolean addUser(@RequestBody User user);
+
+    /**
+     * @Author: jkm
+     * @Description: 查询所有用户信息
+     */
+    @PostMapping("/selectAllUser")
+    PageInfo selectAllUser(@RequestParam("pageNo") Integer pageNo,
+                           @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author: jkm
+     * @Description: 根据主键删除用户
+     */
+    @PostMapping("/deleteUser")
+    Integer deleteUser(@RequestBody User user);
+
+    /**
+     * @Author: jkm
+     * @Description: 根据id 批量删除用户
+     */
+    @PostMapping("/deleteMoreUser")
+    Integer deletrMoreUser(@RequestBody List<Object> ids);
+
+    /**
+     * @Author: jkm
+     * @Description: 根据id查询用户
+     */
+    @PostMapping("/selectUserById")
+    User selectUserById(@RequestParam("id") Long id);
+
+    /**
+     * @Author: jkm
+     * @Description: 根据id修改用户信息
+     */
+    @PostMapping("/updateUserById")
+    Integer updateUserById(@RequestBody User user);
 }
