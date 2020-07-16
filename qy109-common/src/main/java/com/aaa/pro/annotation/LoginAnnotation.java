@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LoginAnnotation {
-    /**
+     /**
      * 要执行的操作类型:
      * @return
      */
     String opeationType();
 
     /**
-     * 所要执行的具体操作内容
+     *  所要执行的具体操作内容
      * @return
      */
     String opeationName();

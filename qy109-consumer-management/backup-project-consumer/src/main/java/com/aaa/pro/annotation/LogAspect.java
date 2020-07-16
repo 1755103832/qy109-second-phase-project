@@ -46,16 +46,14 @@ public class LogAspect {
         // TODO noting to do
     }
 
-    /**
-     *
-     * @description:
-     *     定义环形切面(就是具体来实现业务逻辑的方法)
-     *
-     * @params:  proceedingJoinPoint
-     * @return: java.lang.Object
-     * @author: Wen
-     * @date: 2020/7/15 16:31
-     */
+   /**
+    * @description:
+    *    定义环形切面(就是具体来实现业务逻辑的方法)
+    * @params: [proceedingJoinPoint]
+    * @return: java.lang.Object
+    * @author: Wen
+    * @date: 2020/7/15 19:00
+    */
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws ClassNotFoundException {
         Object result = null;
