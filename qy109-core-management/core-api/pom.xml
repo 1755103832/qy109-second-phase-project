@@ -36,11 +36,10 @@
             <groupId>io.github.openfeign.form</groupId>
             <artifactId>feign-form-spring</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.1.10</version>
-            <scope>compile</scope>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>

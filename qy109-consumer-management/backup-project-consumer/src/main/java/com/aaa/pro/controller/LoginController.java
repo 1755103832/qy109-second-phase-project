@@ -5,6 +5,8 @@ import com.aaa.pro.base.BaseController;
 import com.aaa.pro.model.User;
 import com.aaa.pro.service.IProjectService;
 import com.aaa.pro.vo.TokenVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  **/
 @RestController
+@Api(value = "用户登录", tags = "用户登录的接口")
 public class LoginController extends BaseController {
 
     @Autowired
@@ -26,9 +29,9 @@ public class LoginController extends BaseController {
      * @Date 2020/7/13 17:41
      * @Param [user]
      * @Return com.aaa.pro.base.ResultData
-     *
-     * @return*/
+     */
     @PostMapping("/doLogin")
+    @ApiOperation(value = "执行登录操作", notes = "管理员登录")
     @LoginAnnotation(opeationType = "登录操作", opeationName = "管理员登录")
     public TokenVo doLogin(User user) {
         return iProjectService.doLogin(user);

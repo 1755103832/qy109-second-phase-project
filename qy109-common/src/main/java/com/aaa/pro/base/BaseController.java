@@ -179,6 +179,21 @@ public class BaseController {
     }
 
     /**
+     * @Author zyb
+     * @Description 添加数据成功，返回系统消息，返回添加的数据
+     * @Date 2020/7/16 11:58
+     * @Param [data]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData insertSuccess(Object data) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(INSERT_SUCCESS.getCode());
+        resultData.setMessage(INSERT_SUCCESS.getMessage());
+        resultData.setData(data);
+        return resultData;
+    }
+
+    /**
      * @Author project
      * @Description 添加数据失败，使用系统消息
      * @Date 2020/7/8 15:40
@@ -250,7 +265,7 @@ public class BaseController {
 
     /**
      * @Author project
-     * @Description 查询数据成功，使用系统消息
+     * @Description 查询数据成功，自定义返回消息
      * @Date 2020/7/8 15:45
      * @Param []
      * @Return com.aaa.pro.base.ResultData
@@ -265,7 +280,7 @@ public class BaseController {
 
     /**
      * @Author zyb
-     * @Description 查询数据成功，自定义返回消息
+     * @Description 查询数据成功，使用系统消息
      * @Date 2020/7/10 16:04
      * @Param []
      * @Return com.aaa.pro.base.ResultData

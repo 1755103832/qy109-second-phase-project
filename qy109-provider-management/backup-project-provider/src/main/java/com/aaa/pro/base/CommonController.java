@@ -113,7 +113,7 @@ public abstract class CommonController<T> extends BaseController {
      * @Param [ids]
      * @Return com.aaa.pro.base.ResultData
      **/
-    public ResultData batchDelete(@RequestParam("ids[]") Integer[] ids) {
+    public ResultData batchDelete(@RequestParam("ids") Integer[] ids) {
         Integer deleteResult = getBaseService().batchDeleteByIds(Arrays.asList(ids));
         if (deleteResult > 0) {
             return super.deleteSuccess();
