@@ -265,7 +265,7 @@ public class BaseController {
 
     /**
      * @Author project
-     * @Description 查询数据成功，使用系统消息
+     * @Description 查询数据成功，自定义返回消息
      * @Date 2020/7/8 15:45
      * @Param []
      * @Return com.aaa.pro.base.ResultData
@@ -280,7 +280,7 @@ public class BaseController {
 
     /**
      * @Author zyb
-     * @Description 查询数据成功，自定义返回消息
+     * @Description 查询数据成功，使用系统消息
      * @Date 2020/7/10 16:04
      * @Param []
      * @Return com.aaa.pro.base.ResultData

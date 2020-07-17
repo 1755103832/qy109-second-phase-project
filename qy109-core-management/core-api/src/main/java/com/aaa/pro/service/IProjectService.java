@@ -289,4 +289,15 @@ public interface IProjectService {
     PageInfo<MappingProject> fuzzySelectProjectInfoByProjectName(@RequestParam("projectName") String projectName,
                                                                  @RequestParam("pageNum") Integer pageNum,
                                                                  @RequestParam("pageSize") Integer pageSize);
+    /**
+     * @description:
+     *   测绘管理--单位基本信息
+     * @params: [userId]
+     * @return: java.util.List<com.aaa.pro.model.Mapping_unit>
+     * @author: Wen
+     * @date: 2020/7/17 16:29
+     */
+    @PostMapping("/queryMapping_unit")
+    List<Mapping_unit> queryMapping_unit(@RequestParam("userId") Long userId);
+
 }

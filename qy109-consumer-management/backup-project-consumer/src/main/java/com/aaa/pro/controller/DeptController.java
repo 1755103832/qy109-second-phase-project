@@ -5,6 +5,7 @@ import com.aaa.pro.base.ResultData;
 import com.aaa.pro.model.Dept;
 import com.aaa.pro.service.IProjectService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class DeptController extends BaseController {
      * @date: 2020/7/16 17:11
      */
     @GetMapping("/getAllDeptByParentId")
+    @ApiOperation(value = "查询部门信息", notes = "部门查询接口")
     public ResultData<Dept> getAllDeptByParentId(Long parentId) {
         // 调用iProjectService中的 selectAllDeptByParentId 方法，得到查询结果
         List<Dept> deptList = iProjectService.selectAllDeptByParentId(parentId);
