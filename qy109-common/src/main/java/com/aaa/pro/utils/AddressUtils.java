@@ -14,6 +14,10 @@ import java.util.Map;
  **/
 public class AddressUtils {
 
+    private AddressUtils(){
+
+    }
+
 
     /**
      * @Author project
@@ -24,7 +28,7 @@ public class AddressUtils {
      * @Return java.util.Map<java.lang.String, java.lang.Object>
      **/
     public static Map<String, Object> getAddresses(String content, String encodingString) {
-        // 这里调用淘宝API
+        // 这里调用百度API
         String urlStr = "http://api.map.baidu.com/location/ip?ak=6P28Z5GDb4sUhPMgRx7bX8pyG2Vj6iXv&ip=" + content + "&coor=bd09ll";
         // 从http://whois.pconline.com.cn取得IP所在的省市区信息
         String returnStr = getResult(urlStr, content, encodingString);

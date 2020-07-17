@@ -98,7 +98,7 @@ public abstract class BaseService<T> {
      * @Param [ids]
      * @Return java.lang.Integer
      **/
-    public Integer batchDeleteByIds(List<Integer> ids) {
+    public Integer batchDeleteByIds(List<Object> ids) {
         // delete * from user where 1 = 1 and id in (1,2,3,4,5,6,7,8)
         // andIn("id")--->id就是数据库中的主键名称
         Example example = Example.builder(getTypeArgument()).where(Sqls.custom().andIn("id", ids)).build();
