@@ -2,7 +2,6 @@ package com.aaa.pro.service;
 
 import com.aaa.pro.model.*;
 import com.aaa.pro.vo.TokenVo;
-
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -136,7 +135,7 @@ public interface IProjectService {
      * @author: Wen
      * @date: 2020/7/16 16:50
      */
-    @GetMapping("lectAllDeptByParentId")
+    @GetMapping("/selectAllDeptByParentId")
     List<Dept> selectAllDeptByParentId(@RequestParam("parentId") Long parentId);
 
 
@@ -147,7 +146,7 @@ public interface IProjectService {
      * @author: Wen
      * @date: 2020/7/16 16:50
      */
-    @PostMapping("lectDeptInfoByField")
+    @PostMapping("/selectDeptInfoByField")
     List<Dept> selectDeptInfoByField(@RequestBody Map map);
 
     /**
@@ -157,7 +156,7 @@ public interface IProjectService {
      * @author: Wen
      * @date: 2020/7/16 16:50
      */
-    @GetMapping("lectDeptByDeptId")
+    @GetMapping("/selectDeptByDeptId")
     Dept selectDeptByDeptId(@RequestParam("deptId") Integer deptId);
 
     /**
@@ -215,7 +214,7 @@ public interface IProjectService {
      * @Author: jkm
      * @Description: 查询所有用户信息
      */
-    @PostMapping("lectAllUser")
+    @PostMapping("/selectAllUser")
     PageInfo selectAllUser(@RequestParam("pageNo") Integer pageNo,
                            @RequestParam("pageSize") Integer pageSize);
 
@@ -237,7 +236,7 @@ public interface IProjectService {
      * @Author: jkm
      * @Description: 根据id查询用户
      */
-    @PostMapping("lectUserById")
+    @PostMapping("/selectUserById")
     User selectUserById(@RequestParam("id") Long id);
 
     /**
@@ -266,6 +265,18 @@ public interface IProjectService {
      **/
     @GetMapping("/selectProjectInfoById")
     MappingProject selectProjectInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @Author zyb
+     * @Description 通过项目信息id编号查询项目审核记录
+     * @Date 2020/7/17 11:45
+     * @Param [id]
+     * @Return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
+     **/
+    @GetMapping("/selectProjectAuditInfoByMappingProjectTableId")
+    PageInfo selectProjectAuditInfoByMappingProjectTableId(@RequestParam("id") Long id,
+                                                           @RequestParam("pageNum") Integer pageNum,
+                                                           @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Author zyb
@@ -312,55 +323,26 @@ public interface IProjectService {
     @PostMapping("/queryMapping_unit")
     List<Mapping_unit> queryMapping_unit(@RequestParam("userId") Long userId);
 
-
-
     /**
-     * @Author zyb
-     * @Description 通过项目信息id编号查询项目审核记录
-     * @Date 2020/7/17 19:28
-     * @Param [id, pageNum, pageSize]
-     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.Audit>
-     **/
-    @GetMapping("/selectAuditRecordByMappingProjectId")
-    PageInfo<Audit> selectAuditRecordByMappingProjectId(@RequestParam("id") Long id,
-                                                        @RequestParam("pageNum") Integer pageNum,
-                                                        @RequestParam("pageSize") Integer pageSize);
-
-    /**
-     * @Author: jkm
-     * @Description:    查询所有角色信息
-     * @Date: 17:35 2020/7/17
-     * @param: [pageNo, pageSize]
-     * @return com.github.pagehelper.PageInfo
+     * @description:
+     *   测绘管理--单位基本信息--查询单位负责人信息
+     * @params: [userId]
+     * @return: java.util.List<com.aaa.pro.model.Principal>
+     * @author: Wen
+     * @date: 2020/7/17 22:35
      */
-    @GetMapping("/selectAllRole")
-    PageInfo selectAllRole(@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+    @PostMapping("/queryPrincipal")
+    List<Principal> queryOne(@RequestParam("userId") Long userId);
 
     /**
-     *      根据字段属性查询角色信息
-     * @param map
-     * @param pageNo
-     * @param pageSize
-     * @return
+     * @description:
+     *   测绘管理-单位基本信息--修改负责人信息
+     * @params: [principal]
+     * @return: java.lang.Boolean
+     * @author: Wen
+     * @date: 2020/7/17 22:36
      */
-    @PostMapping("/selectRoleByField")
-    PageInfo selectRoleByField(@RequestBody Map map,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
-
-
-    /**
-     *      根据主键查询角色信息
-     * @param roleId
-     * @return
-     */
-    @GetMapping("selectRoleByPrimaryKey")
-    Role selectRoleByPrimaryKey(@RequestParam("roleId") Long roleId);
-
-    /**
-     *      根据userId查询设备信息
-     * @param userId
-     * @return
-     */
-    @PostMapping("/selectAllEquipmentByUserId")
-    List<Equipment> selectAllEquipmentByUserId(@RequestParam("userId") Long userId);
+    @PostMapping("/updateList")
+    Boolean updateList(@RequestBody Principal principal);
 
 }
