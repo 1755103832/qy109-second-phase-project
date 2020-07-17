@@ -2,6 +2,7 @@ package com.aaa.pro.service;
 
 import com.aaa.pro.model.*;
 import com.aaa.pro.vo.TokenVo;
+
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -268,6 +269,18 @@ public interface IProjectService {
 
     /**
      * @Author zyb
+     * @Description 通过项目信息id编号查询项目审核记录
+     * @Date 2020/7/17 11:45
+     * @Param [id]
+     * @Return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
+     **/
+    @GetMapping("/selectProjectAuditInfoByMappingProjectTableId")
+    PageInfo selectProjectAuditInfoByMappingProjectTableId(@RequestParam("id") Long id,
+                                                           @RequestParam("pageNum") Integer pageNum,
+                                                           @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
      * @Description 通过项目名称模糊查询项目信息
      * @Date 2020/7/17 15:08
      * @Param [projectName]
@@ -311,16 +324,40 @@ public interface IProjectService {
     @PostMapping("/queryMapping_unit")
     List<Mapping_unit> queryMapping_unit(@RequestParam("userId") Long userId);
 
+    /**
+     * @Author: jkm
+     * @Description:    查询所有角色信息
+     * @Date: 17:35 2020/7/17
+     * @param: [pageNo, pageSize]
+     * @return com.github.pagehelper.PageInfo
+     */
+    @GetMapping("/selectAllRole")
+    PageInfo selectAllRole(@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
 
     /**
-     * @Author zyb
-     * @Description 通过项目信息id编号查询项目审核记录
-     * @Date 2020/7/17 19:28
-     * @Param [id, pageNum, pageSize]
-     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.Audit>
-     **/
-    @GetMapping("/selectAuditRecordByMappingProjectId")
-    PageInfo<Audit> selectAuditRecordByMappingProjectId(@RequestParam("id") Long id,
-                                                        @RequestParam("pageNum") Integer pageNum,
-                                                        @RequestParam("pageSize") Integer pageSize);
+     *      根据字段属性查询角色信息
+     * @param map
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @PostMapping("/selectRoleByField")
+    PageInfo selectRoleByField(@RequestBody Map map,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize);
+
+
+    /**
+     *      根据主键查询角色信息
+     * @param roleId
+     * @return
+     */
+    @GetMapping("selectRoleByPrimaryKey")
+    Role selectRoleByPrimaryKey(@RequestParam("roleId") Long roleId);
+
+    /**
+     *      根据userId查询设备信息
+     * @param userId
+     * @return
+     */
+    @PostMapping("/selectAllEquipmentByUserId")
+    List<Equipment> selectAllEquipmentByUserId(@RequestParam("userId") Long userId);
 }

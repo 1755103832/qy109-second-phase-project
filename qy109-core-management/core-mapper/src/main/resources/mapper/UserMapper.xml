@@ -21,4 +21,7 @@
         <result column="type" property="type" jdbcType="CHAR"/>
         <result column="token" property="token" jdbcType="VARCHAR"/>
     </resultMap>
+        <select id="selectId" resultType="HashMap">
+            select * from t_user where  username = #{username}
+        </select>
 </mapper>

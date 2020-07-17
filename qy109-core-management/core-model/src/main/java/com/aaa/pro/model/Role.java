@@ -5,15 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
   * @Author: jkm
-  * @Description:
+  * @Description:   角色
   */
 @Data
 @AllArgsConstructor
@@ -26,6 +24,7 @@ public class Role implements Serializable {
      */
     @Id
     @Column(name = "ROLE_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
 
     /**
@@ -51,4 +50,5 @@ public class Role implements Serializable {
      */
     @Column(name = "MODIFY_TIME")
     private Date modifyTime;
+
 }

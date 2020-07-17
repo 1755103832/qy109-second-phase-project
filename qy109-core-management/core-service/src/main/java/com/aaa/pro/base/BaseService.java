@@ -104,6 +104,19 @@ public abstract class BaseService<T> {
         Example example = Example.builder(getTypeArgument()).where(Sqls.custom().andIn("id", ids)).build();
         return mapper.deleteByExample(example);
     }
+    /**
+     * @Author project
+     * @Description 根据roleIds进行批量删除
+     * @Date 2020/7/9 15:39
+     * @Param [roleIds]
+     * @Return java.lang.Integer
+     **/
+    public Integer batchDeleteByRoleIds(List<Object> roleIds) {
+        // delete * from user where 1 = 1 and id in (1,2,3,4,5,6,7,8)
+        // andIn("id")--->id就是数据库中的主键名称
+        Example example = Example.builder(getTypeArgument()).where(Sqls.custom().andIn("roleId", roleIds)).build();
+        return mapper.deleteByExample(example);
+    }
 
     /**
      * @Author zyb

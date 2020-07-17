@@ -1,5 +1,6 @@
 package com.aaa.pro.controller;
 
+
 import com.aaa.pro.base.BaseService;
 import com.aaa.pro.base.CommonController;
 import com.aaa.pro.model.User;
@@ -23,14 +24,10 @@ import java.util.List;
  *      用户的数据返回
  */
 @RestController
-public class UserController extends CommonController<User> {
+public class UserController extends CommonController{
     @Autowired
     private UserService userService;
 
-    @Override
-    public BaseService<User> getBaseService() {
-        return userService;
-    }
 
     /**
      * @Author: jkm
@@ -119,5 +116,10 @@ public class UserController extends CommonController<User> {
     @PostMapping("/updateUserById")
     public Integer updateUserById(@RequestBody User user){
       return userService.updateUserById(user);
+    }
+
+    @Override
+    public BaseService getBaseService() {
+        return userService;
     }
 }

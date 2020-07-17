@@ -58,4 +58,9 @@ public class Dept implements Serializable {
      */
     private List<Dept> children;
 
+    /**
+     * 该部门的子部门信息
+     */
+    private List<Dept> children1;
+
 }

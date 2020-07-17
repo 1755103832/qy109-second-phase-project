@@ -31,6 +31,7 @@ public class UploadController extends BaseController {
             return super.uploadSuccess();
         }
         return super.uploadFalse();
+
     }
 
 }

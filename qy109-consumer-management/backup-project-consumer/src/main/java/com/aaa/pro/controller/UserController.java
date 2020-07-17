@@ -41,11 +41,11 @@ public class UserController extends BaseController {
         // 判断是否添加成功
         // 如果成功了就会返回系统成功code 系统消息
         if (iProjectService.addUser(user)){
-            return loginSuccess();
+            return insertSuccess(user);
         }
         //如果失败了就会返回系统失败code 系统消息
         else {
-            return loginFailed();
+            return insertFailed();
         }
     }
 
