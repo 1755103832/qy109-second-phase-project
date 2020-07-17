@@ -1,13 +1,16 @@
 package com.aaa.pro.service;
 
+import com.aaa.pro.model.Dict;
 import com.aaa.pro.model.LoginLogs;
 import com.aaa.pro.model.User;
 import com.aaa.pro.vo.TokenVo;
+import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @Author zyb
@@ -26,14 +29,14 @@ public interface IProjectService {
      **/
     @PostMapping("/doLogin")
     TokenVo doLogin(@RequestBody User user);
-  /**
-   * @description:
-   *   新增日志
-   * @params:   loginLogs
-   * @return: java.lang.Integer
-   * @author: Wen
-   * @date: 2020/7/15 16:13
-   */
+
+    /**
+     * @description: 新增日志
+     * @params: loginLogs
+     * @return: java.lang.Integer
+     * @author: Wen
+     * @date: 2020/7/15 16:13
+     */
     @PostMapping("/addLoginLog")
     Integer addLoginLog(@RequestBody LoginLogs loginLogs);
 
@@ -58,5 +61,75 @@ public interface IProjectService {
             produces = MediaType.APPLICATION_JSON_VALUE)
     Boolean uploadFile(@RequestBody MultipartFile file);
 
+    /**
+     * @Author zyb
+     * @Description selectAllDictInfo
+     * @Date 2020/7/16 11:07
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/selectAllDictInfo")
+    List<Dict> selectAllDictInfo();
 
+    /**
+     * @Author zyb
+     * @Description 新增字典表信息
+     * @Date 2020/7/16 11:53
+     * @Param [dict]
+     * @Return java.lang.Integer
+     **/
+    @PostMapping("/addDictInfo")
+    Integer addDictInfo(@RequestBody Dict dict);
+
+    /**
+     * @Author zyb
+     * @Description 通过字典表id批量删除数据
+     * @Date 2020/7/16 15:13
+     * @Param [ids]
+     * @Return java.lang.Integer
+     **/
+    @PostMapping("/batchDelByDictIds")
+    Integer batchDelByDictIds(@RequestParam("ids") Integer[] ids);
+
+    /**
+     * @Author zyb
+     * @Description 通过dictId修改字典表信息
+     * @Date 2020/7/16 15:36
+     * @Param [dict]
+     * @Return java.lang.Integer
+     **/
+    @PostMapping("/updateByDictId")
+    Integer updateByDictId(@RequestBody Dict dict);
+
+    /**
+     * @Author zyb
+     * @Description 通过主键dictId查询字典表数据
+     * @Date 2020/7/16 16:03
+     * @Param [dictId]
+     * @Return com.aaa.pro.model.Dict
+     **/
+    @GetMapping("/selectOneByDictId")
+    Dict selectOneByDictId(@RequestParam("dictId") Long dictId);
+
+    /**
+     * @Author zyb
+     * @Description 分页查询字典表数据
+     * @Date 2020/7/16 17:19
+     * @Param [dict, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/selectDictListByPage")
+    PageInfo<Dict> selectDictListByPage(
+            @RequestParam("pageNum") Integer pageNum,
+            @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description fuzzy query test
+     * @Date 2020/7/16 20:54
+     * @Param [tableName]
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/fuzzy2selectDictByTableName")
+    List<Dict> fuzzy2selectDictByTableName(String tableName);
 }

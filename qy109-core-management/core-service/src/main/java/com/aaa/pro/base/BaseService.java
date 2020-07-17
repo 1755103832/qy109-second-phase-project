@@ -106,6 +106,20 @@ public abstract class BaseService<T> {
     }
 
     /**
+     * @Author zyb
+     * @Description 通过dictId批量删除字典表数据
+     * @Date 2020/7/16 14:51
+     * @Param [dictIds]
+     * @Return java.lang.Integer
+     **/
+    public Integer batchDeleteByDictIds(List<Integer> dictIds) {
+        // delete * from user where 1 = 1 and id in (1,2,3,4,5,6,7,8)
+        // andIn("id")--->id就是数据库中的主键名称
+        Example example = Example.builder(getTypeArgument()).where(Sqls.custom().andIn("dictId", dictIds)).build();
+        return mapper.deleteByExample(example);
+    }
+
+    /**
      * @Author project
      * @Description 更新操作
      * @Date 2020/7/9 15:40
@@ -204,6 +218,19 @@ public abstract class BaseService<T> {
     }
 
     /**
+     * @Author zyb
+     * @Description 查询所有数据后进行分页
+     * @Date 2020/7/16 17:44
+     * @Param [pageNo, pageSize]
+     * @Return com.github.pagehelper.PageInfo<T>
+     **/
+    public PageInfo<T> selectListByPage(Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        List<T> select = mapper.selectAll();
+        return new PageInfo<>(select);
+    }
+
+    /**
      * @Author project
      * @Description Map转换实体类型
      * @Date 2020/7/9 16:15
@@ -261,16 +288,14 @@ public abstract class BaseService<T> {
     }
 
     /**
-     *
-     * @description:
-     *    获取子类泛型类型
-     * @params:  * @param
+     * @description: 获取子类泛型类型
+     * @params: * @param
      * @return: java.lang.Class<T>
      * @author: Wen
      * @date: 2020/7/15 15:34
      */
     public Class<T> getTypeArguement() {
-        if(null == cache) {
+        if (null == cache) {
             cache = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         }
         return cache;
