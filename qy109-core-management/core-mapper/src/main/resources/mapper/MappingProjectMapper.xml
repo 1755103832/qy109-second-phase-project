@@ -69,7 +69,25 @@
         <where>
             1 = 1
             <if test="projectName != null and projectName != '' ">
-                and project_name like concat("%",#{projectName, jdbcType=VARCHAR},"%")
+                and project_name like concat('%',concat(#{projectName, jdbcType=VARCHAR},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="huiJiaoResultsInfoByPage" resultMap="BaseResultMap">
+        select b.id,b.project_type,b.project_name,b.project_leader,b.start_date,b.end_date,b.complete_time,b.acceptance_department,b.project_amount
+        from t_audit a left join t_mapping_project b on a.ref_id = b.id
+        where a.type = 4
+    </select>
+
+    <select id="fuzzyQueryHuiJiaoByPage" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        b.id,b.project_type,b.project_name,b.project_leader,b.start_date,b.end_date,b.complete_time,b.acceptance_department,b.project_amount
+        from t_audit a left join t_mapping_project b on a.ref_id = b.id
+        <where>
+            a.type = 4
+            <if test="projectName != null and projectName != '' ">
+                and b.project_name like concat('%',concat(#{projectName, jdbcType=VARCHAR},'%'))
             </if>
         </where>
     </select>

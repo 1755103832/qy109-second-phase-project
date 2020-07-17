@@ -93,4 +93,31 @@ public class MappingProjectController extends CommonController<MappingProject> {
 
     }
 
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->分页查询所需字段数据
+     * @Date 2020/7/17 16:12
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/huiJiaoResultsInfoByPage")
+    public PageInfo<MappingProject> huiJiaoResultsInfoByPage(@RequestParam("pageNum") Integer pageNum,
+                                                             @RequestParam("pageSize") Integer pageSize) {
+        return mappingProjectService.huiJiaoResultsInfoByPage(pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->根据项目名称分页模糊查询汇交成果信息
+     * @Date 2020/7/17 17:13
+     * @Param [projectName, pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/fuzzyQueryHuiJiaoByPage")
+    public PageInfo<MappingProject> fuzzyQueryHuiJiaoByPage(@RequestParam("projectName") String projectName,
+                                                            @RequestParam("pageNum") Integer pageNum,
+                                                            @RequestParam("pageSize") Integer pageSize) {
+        return mappingProjectService.fuzzyQueryHuiJiaoByPage(projectName, pageNum, pageSize);
+    }
+
 }
