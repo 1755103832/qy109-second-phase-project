@@ -1,9 +1,6 @@
 package com.aaa.pro.service;
 
-import com.aaa.pro.model.Dept;
-import com.aaa.pro.model.Dict;
-import com.aaa.pro.model.LoginLogs;
-import com.aaa.pro.model.User;
+import com.aaa.pro.model.*;
 import com.aaa.pro.vo.TokenVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -248,4 +245,48 @@ public interface IProjectService {
      */
     @PostMapping("/updateUserById")
     Integer updateUserById(@RequestBody User user);
+
+    /**
+     * @Author zyb
+     * @Description 分页查询所需字段数据(项目信息)
+     * @Date 2020/7/17 10:11
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/selectProjectInfoByPage")
+    PageInfo<MappingProject> selectProjectInfoByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 通过id查询项目信息一行数据
+     * @Date 2020/7/17 10:54
+     * @Param [id]
+     * @Return com.aaa.pro.model.MappingProject
+     **/
+    @GetMapping("/selectProjectInfoById")
+    MappingProject selectProjectInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @Author zyb
+     * @Description 通过项目信息id编号查询项目审核记录
+     * @Date 2020/7/17 11:45
+     * @Param [id]
+     * @Return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
+     **/
+    @GetMapping("/selectProjectAuditInfoByMappingProjectTableId")
+    PageInfo selectProjectAuditInfoByMappingProjectTableId(@RequestParam("id") Long id,
+                                                           @RequestParam("pageNum") Integer pageNum,
+                                                           @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 通过项目名称模糊查询项目信息
+     * @Date 2020/7/17 15:08
+     * @Param [projectName]
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/fuzzySelectProjectInfoByProjectName")
+    PageInfo<MappingProject> fuzzySelectProjectInfoByProjectName(@RequestParam("projectName") String projectName,
+                                                                 @RequestParam("pageNum") Integer pageNum,
+                                                                 @RequestParam("pageSize") Integer pageSize);
 }

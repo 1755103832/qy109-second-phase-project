@@ -15,6 +15,6 @@
     <select id="fuzzy2selectDictByTableName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select DICT_ID,KEYY,VALUEE,FIELD_NAME,TABLE_NAME
         from t_dict
-        where TABLE_NAME like concat('%',concat(#{tableName,jdbcType=VARCHAR},'%'))
+        where TABLE_NAME like concat("%",#{tableName, jdbcType=VARCHAR},"%")
     </select>
 </mapper>
