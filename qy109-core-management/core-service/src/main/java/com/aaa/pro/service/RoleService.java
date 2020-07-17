@@ -186,10 +186,7 @@ public class RoleService extends BaseService<Role> {
             try {
                 //调用父类重载的批量删除方法
                 Integer integer = super.batchDeleteByRoleIds(roleIds);
-                if (integer>0){
-                    return true;
-                }
-                return false;
+                return integer > 0;
             } catch (Exception e) {
                 e.printStackTrace();
             }

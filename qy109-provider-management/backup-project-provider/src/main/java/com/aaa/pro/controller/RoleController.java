@@ -35,10 +35,7 @@ public class RoleController extends CommonController {
     @GetMapping("/selectAllRole")
     public PageInfo selectAllRole(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
         PageInfo pageInfo = roleService.selectAllRole(pageNo, pageSize);
-        if (null != pageInfo) {
-            return pageInfo;
-        }
-        return null;
+        return pageInfo;
     }
 
     /**

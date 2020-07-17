@@ -18,5 +18,5 @@ public interface UserMapper extends Mapper<User> {
      * @param username
      * @return
      */
-    public HashMap<String, Object> selectId(@RequestParam("username") String username);
+    HashMap<String, Object> selectId(@RequestParam("username") String username);
 }
