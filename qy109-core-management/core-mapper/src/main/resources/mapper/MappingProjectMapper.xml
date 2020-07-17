@@ -56,12 +56,6 @@
         from t_mapping_project
     </select>
 
-    <select id="selectProjectAuditInfoByMappingProjectTableId" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select @result_id:=@result_id + 1 as result_id, c.*
-        from (select b.id,b.name,b.status,b.memo,b.submit_time,b.audit_time from t_mapping_project a left join t_audit b on a.id = b.ref_id
-        where b.type = 2 and a.id = #{a.id, jdbcType=BIGINT}) c,(select @result_id:= 0) d
-    </select>
-
     <select id="fuzzySelectProjectInfoByProjectName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select id,project_type,project_name,project_leader,start_date,end_date,complete_time,acceptance_department,
         project_amount,schedule

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  **/
 @RestController
-@Api(tags = "项目审核模块接口")
+@Api(tags = "项目信息接口")
 public class MappingProjectController extends BaseController {
 
     @Autowired
@@ -53,23 +53,6 @@ public class MappingProjectController extends BaseController {
         MappingProject mappingProject = projectService.selectProjectInfoById(id);
         return null != mappingProject && StringUtils.isNotEmpty(String.valueOf(mappingProject)) ?
                 super.querySuccess(mappingProject) : super.queryFailed();
-    }
-
-    /**
-     * @Author zyb
-     * @Description 通过项目信息id编号查询项目审核记录
-     * @Date 2020/7/17 11:45
-     * @Param [id]
-     * @Return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     **/
-    @GetMapping("/selectProjectAuditInfoByMappingProjectTableId")
-    @ApiOperation(value = "通过项目信息id编号查询项目审核记录")
-    public ResultData selectProjectAuditInfoByMappingProjectTableId(@RequestParam("id") Long id,
-                                                                    @RequestParam("pageNum") Integer pageNum,
-                                                                    @RequestParam("pageSize") Integer pageSize) {
-        PageInfo pageInfo = projectService.selectProjectAuditInfoByMappingProjectTableId(id, pageNum, pageSize);
-        return null != pageInfo && StringUtils.isNotEmpty(String.valueOf(pageInfo)) ?
-                super.querySuccess(pageInfo) : super.queryFailed();
     }
 
     /**
