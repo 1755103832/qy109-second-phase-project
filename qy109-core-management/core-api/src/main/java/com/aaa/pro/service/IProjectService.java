@@ -268,18 +268,6 @@ public interface IProjectService {
 
     /**
      * @Author zyb
-     * @Description 通过项目信息id编号查询项目审核记录
-     * @Date 2020/7/17 11:45
-     * @Param [id]
-     * @Return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     **/
-    @GetMapping("/selectProjectAuditInfoByMappingProjectTableId")
-    PageInfo selectProjectAuditInfoByMappingProjectTableId(@RequestParam("id") Long id,
-                                                           @RequestParam("pageNum") Integer pageNum,
-                                                           @RequestParam("pageSize") Integer pageSize);
-
-    /**
-     * @Author zyb
      * @Description 通过项目名称模糊查询项目信息
      * @Date 2020/7/17 15:08
      * @Param [projectName]
@@ -323,4 +311,16 @@ public interface IProjectService {
     @PostMapping("/queryMapping_unit")
     List<Mapping_unit> queryMapping_unit(@RequestParam("userId") Long userId);
 
+
+    /**
+     * @Author zyb
+     * @Description 通过项目信息id编号查询项目审核记录
+     * @Date 2020/7/17 19:28
+     * @Param [id, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.Audit>
+     **/
+    @GetMapping("/selectAuditRecordByMappingProjectId")
+    PageInfo<Audit> selectAuditRecordByMappingProjectId(@RequestParam("id") Long id,
+                                                        @RequestParam("pageNum") Integer pageNum,
+                                                        @RequestParam("pageSize") Integer pageSize);
 }

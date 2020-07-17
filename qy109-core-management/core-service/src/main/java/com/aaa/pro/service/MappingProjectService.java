@@ -55,18 +55,6 @@ public class MappingProjectService extends BaseService<MappingProject> {
 
     /**
      * @Author zyb
-     * @Description 通过项目信息id编号查询项目审核记录
-     * @Date 2020/7/17 11:45
-     * @Param [id]
-     * @Return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     **/
-    public List<Map<String, Object>> selectProjectAuditInfoByMappingProjectTableId(Long id) {
-        List<Map<String, Object>> mapList = mappingProjectMapper.selectProjectAuditInfoByMappingProjectTableId(id);
-        return null != mapList && StringUtils.isNotEmpty(String.valueOf(mapList)) ? mapList : null;
-    }
-
-    /**
-     * @Author zyb
      * @Description 通过项目名称模糊查询项目信息
      * @Date 2020/7/17 15:08
      * @Param [projectName]

@@ -25,15 +25,6 @@ public interface MappingProjectMapper extends Mapper<MappingProject> {
 
     /**
      * @Author zyb
-     * @Description 通过项目信息id编号查询项目审核记录
-     * @Date 2020/7/17 11:45
-     * @Param [id]
-     * @Return java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     **/
-    List<Map<String, Object>> selectProjectAuditInfoByMappingProjectTableId(Long id);
-
-    /**
-     * @Author zyb
      * @Description 通过项目名称模糊查询项目信息
      * @Date 2020/7/17 15:08
      * @Param [projectName]
