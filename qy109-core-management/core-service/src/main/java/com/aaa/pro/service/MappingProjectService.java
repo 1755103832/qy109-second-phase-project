@@ -78,4 +78,35 @@ public class MappingProjectService extends BaseService<MappingProject> {
                 mappingProjects : null;
     }
 
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->分页查询所需字段数据
+     * @Date 2020/7/17 16:12
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    public PageInfo<MappingProject> huiJiaoResultsInfoByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MappingProject> mappingProjects = mappingProjectMapper.huiJiaoResultsInfoByPage();
+        return StringUtils.isNotEmpty(String.valueOf(mappingProjects)) && mappingProjects.size() > 0 ?
+                new PageInfo<>(mappingProjects) : null;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->根据项目名称分页模糊查询汇交成果信息
+     * @Date 2020/7/17 17:13
+     * @Param [projectName, pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    public PageInfo<MappingProject> fuzzyQueryHuiJiaoByPage(String projectName, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        if (StringUtils.isNotEmpty(projectName)) {
+            List<MappingProject> list = mappingProjectMapper.fuzzyQueryHuiJiaoByPage(projectName);
+            return new PageInfo<>(list);
+        } else {
+            return null;
+        }
+    }
+
 }

@@ -121,7 +121,7 @@ public class DictController extends BaseController {
      **/
     @GetMapping("/fuzzy2selectDictByTableName")
     @ApiOperation(value = "通过表名模糊查询字典表数据")
-    public ResultData fuzzy2selectDictByTableName(String tableName) {
+    public ResultData fuzzy2selectDictByTableName(@RequestParam("tableName") String tableName) {
         List<Dict> dictList = projectService.fuzzy2selectDictByTableName(tableName);
         return null != dictList ? super.querySuccess(dictList) : super.queryFailed();
     }

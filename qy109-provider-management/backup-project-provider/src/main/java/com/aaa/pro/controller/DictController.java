@@ -100,7 +100,7 @@ public class DictController {
      * @Return java.util.List<com.aaa.pro.model.Dict>
      **/
     @GetMapping("/fuzzy2selectDictByTableName")
-    public List<Dict> fuzzy2selectDictByTableName(String tableName) {
+    public List<Dict> fuzzy2selectDictByTableName(@RequestParam("tableName") String tableName) {
         return dictService.fuzzy2selectDictByTableName(tableName);
     }
 

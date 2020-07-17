@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  **/
 @RestController
-@Api(tags = "项目信息表接口")
+@Api(tags = "项目审核模块接口")
 public class MappingProjectController extends BaseController {
 
     @Autowired
@@ -87,6 +87,38 @@ public class MappingProjectController extends BaseController {
         PageInfo<MappingProject> info = projectService.fuzzySelectProjectInfoByProjectName(projectName, pageNum, pageSize);
         return StringUtils.isNotEmpty(String.valueOf(info)) ?
                 super.querySuccess(info) : super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->分页查询所需字段数据
+     * @Date 2020/7/17 16:12
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/huiJiaoResultsInfoByPage")
+    @ApiOperation(value = "项目审核(汇交成果信息)-->分页查询所需字段数据")
+    public ResultData huiJiaoResultsInfoByPage(@RequestParam("pageNum") Integer pageNum,
+                                               @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<MappingProject> info = projectService.huiJiaoResultsInfoByPage(pageNum, pageSize);
+        return StringUtils.isNotEmpty(String.valueOf(info)) ?
+                super.querySuccess(info) : super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->根据项目名称分页模糊查询汇交成果信息
+     * @Date 2020/7/17 17:13
+     * @Param [projectName, pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/fuzzyQueryHuiJiaoByPage")
+    @ApiOperation(value = "项目审核(汇交成果信息)-->根据项目名称分页模糊查询汇交成果信息")
+    public ResultData fuzzyQueryHuiJiaoByPage(@RequestParam("projectName") String projectName,
+                                              @RequestParam("pageNum") Integer pageNum,
+                                              @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<MappingProject> info = projectService.fuzzyQueryHuiJiaoByPage(projectName, pageNum, pageSize);
+        return StringUtils.isNotEmpty(String.valueOf(info)) ? super.querySuccess(info) : super.queryFailed();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.aaa.pro.mapper;
 
 import com.aaa.pro.model.Dict;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -19,6 +20,6 @@ public interface DictMapper extends Mapper<Dict> {
      * @Param [tableName]
      * @Return java.util.List<com.aaa.pro.model.Dict>
      **/
-    List<Dict> fuzzy2selectDictByTableName(String tableName);
+    List<Dict> fuzzy2selectDictByTableName(@Param("tableName") String tableName);
 
 }

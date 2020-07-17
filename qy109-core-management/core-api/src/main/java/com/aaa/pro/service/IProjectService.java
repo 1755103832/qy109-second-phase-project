@@ -126,7 +126,7 @@ public interface IProjectService {
      * @Return java.util.List<com.aaa.pro.model.Dict>
      **/
     @GetMapping("/fuzzy2selectDictByTableName")
-    List<Dict> fuzzy2selectDictByTableName(String tableName);
+    List<Dict> fuzzy2selectDictByTableName(@RequestParam("tableName") String tableName);
 
     /**
      * @description: 递归查询根据 parentId（父id）查询该部门及其子部门
@@ -289,9 +289,32 @@ public interface IProjectService {
     PageInfo<MappingProject> fuzzySelectProjectInfoByProjectName(@RequestParam("projectName") String projectName,
                                                                  @RequestParam("pageNum") Integer pageNum,
                                                                  @RequestParam("pageSize") Integer pageSize);
+
     /**
-     * @description:
-     *   测绘管理--单位基本信息
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->分页查询所需字段数据
+     * @Date 2020/7/17 16:12
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/huiJiaoResultsInfoByPage")
+    PageInfo<MappingProject> huiJiaoResultsInfoByPage(@RequestParam("pageNum") Integer pageNum,
+                                                      @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息)-->根据项目名称分页模糊查询汇交成果信息
+     * @Date 2020/7/17 17:13
+     * @Param [projectName, pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/fuzzyQueryHuiJiaoByPage")
+    PageInfo<MappingProject> fuzzyQueryHuiJiaoByPage(@RequestParam("projectName") String projectName,
+                                                     @RequestParam("pageNum") Integer pageNum,
+                                                     @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @description: 测绘管理--单位基本信息
      * @params: [userId]
      * @return: java.util.List<com.aaa.pro.model.Mapping_unit>
      * @author: Wen
