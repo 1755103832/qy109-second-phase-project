@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.aaa.pro.staticproperties.DateTimeFormatProperties.*;
+import static com.aaa.pro.staticproperties.DateTimeFormatProperties.TIME_FORMAT;
 
 
 /**
@@ -157,7 +157,7 @@ public class UserService extends BaseService<User> {
         if (!"".equals(ids) && null != ids) {
             try {
                 //调用父类的批量删除方法
-                Integer integer = super.batchDeleteByIds1(ids);
+                Integer integer = super.batchDeleteByIds(ids);
                 if (integer > 0) {
                     return integer;
                 }

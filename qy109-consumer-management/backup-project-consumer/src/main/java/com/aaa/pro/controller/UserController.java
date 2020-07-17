@@ -58,7 +58,7 @@ public class UserController extends BaseController {
      * @return com.aaa.pro.base.ResultData
      */
     @PostMapping("/selectAllUser")
-    public ResultData selectAllUser(Integer pageNo,Integer pageSize){
+    public ResultData selectAllUser(Integer pageNo, Integer pageSize){
         PageInfo pageInfo = iProjectService.selectAllUser(pageNo, pageSize);
         // 判断是否查询成功，成功返回成功code，系统消息
         if (!"".equals(pageInfo) && null != pageInfo){
@@ -128,7 +128,7 @@ public class UserController extends BaseController {
      * @return com.aaa.pro.base.ResultData
      */
     @PostMapping("/updateUserById")
-    public ResultData updateUserById( User user){
+    public ResultData updateUserById(User user){
         Integer integer = iProjectService.updateUserById(user);
         if (integer > 0){
             return super.updateSuccess();

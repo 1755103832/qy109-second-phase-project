@@ -6,7 +6,10 @@ import com.aaa.pro.model.User;
 import com.aaa.pro.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -38,7 +41,7 @@ public class UserController extends CommonController<User> {
      * @return com.github.pagehelper.PageInfo
      */
     @PostMapping("/selectAllUser")
-    public PageInfo selectAllUser(@RequestParam("pageNo")Integer pageNo,@RequestParam("pageSize") Integer pageSize){
+    public PageInfo selectAllUser(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
         return userService.selectAllUser(pageNo,pageSize);
     }
 
