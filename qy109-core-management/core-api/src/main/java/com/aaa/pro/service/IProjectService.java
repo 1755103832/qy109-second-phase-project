@@ -521,4 +521,26 @@ public interface IProjectService {
     PageInfo<Dict> queryDictByFieldNamePage(@RequestParam("fieldName") String fieldName,
                                             @RequestParam("pageNum") Integer pageNum,
                                             @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 查询白名单人员信息
+     * @Date 2020/7/18 18:55
+     * @Param [pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     **/
+    @GetMapping("/selectByUnitStatus")
+    PageInfo<MappingUnit> selectByUnitStatus(@RequestParam("pageNum") Integer pageNum,
+                                             @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 查询黑名单人员信息
+     * @Date 2020/7/18 19:05
+     * @Param [pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     **/
+    @GetMapping("/selectByUnitStatus2")
+    PageInfo<MappingUnit> selectByUnitStatus2(@RequestParam("pageNum") Integer pageNum,
+                                              @RequestParam("pageSize") Integer pageSize);
 }
