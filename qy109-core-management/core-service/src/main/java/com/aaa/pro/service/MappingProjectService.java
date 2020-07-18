@@ -97,4 +97,43 @@ public class MappingProjectService extends BaseService<MappingProject> {
         }
     }
 
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(项目信息+附件)
+     * @Date 2020/7/18 11:29
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    public List<Map<String, Object>> queryProjectInfoById(Long id) {
+        if (null != id && StringUtils.isNotEmpty(id.toString())) {
+            List<Map<String, Object>> map = mappingProjectMapper.queryProjectInfoById(id);
+            if (map.size() > 0) {
+                return map;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(汇交结果+附件)
+     * @Date 2020/7/18 11:46
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    public List<Map<String, Object>> queryHuiJiaoResultsById(Long id) {
+        if (null != id && StringUtils.isNotEmpty(id.toString())) {
+            List<Map<String, Object>> map = mappingProjectMapper.queryHuiJiaoResultsById(id);
+            if (map.size() > 0) {
+                return map;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 }

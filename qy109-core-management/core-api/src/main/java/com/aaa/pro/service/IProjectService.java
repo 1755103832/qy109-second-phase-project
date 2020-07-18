@@ -420,4 +420,24 @@ public interface IProjectService {
     PageInfo<Audit> selectAuditByMappingProjectId(@RequestParam("id") Long id,
                                                   @RequestParam("pageNum") Integer pageNum,
                                                   @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(项目信息+附件)
+     * @Date 2020/7/18 11:33
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    @GetMapping("/queryProjectInfoById")
+    List<Map<String, Object>> queryProjectInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(汇交结果+附件)
+     * @Date 2020/7/18 11:46
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    @GetMapping("/queryHuiJiaoResultsById")
+    List<Map<String, Object>> queryHuiJiaoResultsById(@RequestParam("id") Long id);
 }

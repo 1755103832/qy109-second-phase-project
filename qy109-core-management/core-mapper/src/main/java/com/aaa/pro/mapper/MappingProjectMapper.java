@@ -4,6 +4,7 @@ import com.aaa.pro.model.MappingProject;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,4 +50,22 @@ public interface MappingProjectMapper extends Mapper<MappingProject> {
      * @Return java.util.List<com.aaa.pro.model.MappingProject>
      **/
     List<MappingProject> fuzzyQueryHuiJiaoByPage(@Param("projectName") String projectName);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(项目信息+附件)
+     * @Date 2020/7/18 11:29
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    List<Map<String, Object>> queryProjectInfoById(Long id);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(汇交结果+附件)
+     * @Date 2020/7/18 11:46
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    List<Map<String, Object>> queryHuiJiaoResultsById(Long id);
 }

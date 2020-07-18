@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Author zyb
  * @Date Create in 2020/7/17 10:23
@@ -104,4 +107,31 @@ public class MappingProjectController extends BaseController {
         return StringUtils.isNotEmpty(String.valueOf(info)) ? super.querySuccess(info) : super.queryFailed();
     }
 
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(项目信息+附件)
+     * @Date 2020/7/18 11:33
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    @GetMapping("/queryProjectInfoById")
+    @ApiOperation(value = "项目审核-->汇交成果信息-->操作-->查看按钮(项目信息+附件)")
+    public ResultData queryProjectInfoById(@RequestParam("id") Long id) {
+        List<Map<String, Object>> map = projectService.queryProjectInfoById(id);
+        return map.size() > 0 ? super.querySuccess(map) : super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核-->汇交成果信息-->操作-->查看按钮(汇交结果+附件)
+     * @Date 2020/7/18 11:50
+     * @Param [id]
+     * @Return java.util.Map<java.lang.String, java.lang.Object>
+     **/
+    @GetMapping("/queryHuiJiaoResultsById")
+    @ApiOperation(value = "项目审核-->汇交成果信息-->操作-->查看按钮(汇交结果+附件)")
+    public ResultData queryHuiJiaoResultsById(@RequestParam("id") Long id) {
+        List<Map<String, Object>> map = projectService.queryHuiJiaoResultsById(id);
+        return map.size() > 0 ? super.querySuccess(map) : super.queryFailed();
+    }
 }

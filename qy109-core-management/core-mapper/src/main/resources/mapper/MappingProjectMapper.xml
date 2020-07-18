@@ -85,4 +85,18 @@
             </if>
         </where>
     </select>
+
+    <select id="queryProjectInfoById" resultType="java.util.HashMap">
+        select a.id,a.project_type,a.project_name,b.height_datum,a.project_amount,a.project_leader,a.contract_time,a.start_date,a.end_date,a.complete_time,
+        a.acceptance_department,a.acceptance_report,a.task_source,a.project_area,a.scale,a.sheet_number,a.awards_department,a.prize_level,a.project_quality_approval,
+        a.winning_time,a.acceptance_time,a.basic_content,a.credit_status,a.submit_status,a.memo,c.name
+        from t_mapping_project a left join t_result_commit b on a.id = b.ref_id left join t_resource c on a.id = c.ref_biz_id
+        where a.id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <select id="queryHuiJiaoResultsById" resultType="java.util.HashMap">
+        select a.plotting_scale,a.new_figure,a.old_figure,a.figure,a.medium_type,a.result_date,a.data_format,a.name as t_result_commit_name,a.height_datum,a.memo,b.name as t_resource_name
+        from t_result_commit a left join t_resource b on a.id = b.ref_biz_id left join t_mapping_project c on a.ref_id = c.id
+        where c.id = #{id, jdbcType=BIGINT}
+    </select>
 </mapper>
