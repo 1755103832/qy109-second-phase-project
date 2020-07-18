@@ -22,4 +22,14 @@
         from t_mapping_project a left join t_audit b on a.id = b.ref_id
         where b.type = 2 and a.id = #{id, jdbcType=BIGINT}) c,(select @result_id:= 0) d
     </select>
+
+    <select id="selectAuditByRefId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select * from t_audit where ref_id = #{refId, jdbcType=BIGINT}
+    </select>
+
+    <select id="selectAuditByMappingProjectId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select b.id,b.name,b.status,b.memo,b.submit_time,b.audit_time
+        from t_mapping_project a left join t_audit b on a.id = b.ref_id
+        where b.type = 4 and a.id = #{id, jdbcType=BIGINT}
+    </select>
 </mapper>

@@ -20,23 +20,22 @@ import java.util.List;
  * @description：
  */
 @RestController
-@Api(value = "设备信息",tags = "设备信息接口")
+@Api(value = "设备信息", tags = "设备信息接口")
 public class EquipmentController extends BaseController {
     @Autowired
     private IProjectService iProjectService;
 
     /**
+     * @return com.aaa.pro.base.ResultData
      * @Author: jkm
-     * @Description:
-     *          根据userId 查询设备信息
+     * @Description: 根据userId 查询设备信息
      * @Date: 20:03 2020/7/17
      * @param: [userId]
-     * @return com.aaa.pro.base.ResultData
      */
     @GetMapping("/selectAllEquipmentByUserId")
-    public ResultData selectAllEquipmentByUserId(@RequestParam("userId") Long userId){
+    public ResultData selectAllEquipmentByUserId(@RequestParam("userId") Long userId) {
         List<Equipment> equipment = iProjectService.selectAllEquipmentByUserId(userId);
-        if (!"".equals(equipment) && null != equipment){
+        if (!"".equals(equipment) && null != equipment) {
             return super.querySuccess(equipment);
         }
         return super.queryFailed();

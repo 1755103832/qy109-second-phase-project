@@ -408,4 +408,16 @@ public interface IProjectService {
     PageInfo<Audit> selectAuditByRefId(@RequestParam("refId") Long refId,
                                        @RequestParam("pageNum") Integer pageNum,
                                        @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息 - - > 查看审核记录 ( 按钮))
+     * @Date 2020/7/18 9:31
+     * @Param [id, pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.Audit>
+     **/
+    @GetMapping("/selectAuditByMappingProjectId")
+    PageInfo<Audit> selectAuditByMappingProjectId(@RequestParam("id") Long id,
+                                                  @RequestParam("pageNum") Integer pageNum,
+                                                  @RequestParam("pageSize") Integer pageSize);
 }

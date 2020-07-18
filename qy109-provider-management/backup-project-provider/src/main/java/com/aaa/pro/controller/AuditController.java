@@ -45,4 +45,32 @@ public class AuditController extends CommonController<Audit> {
         return auditService.selectAuditRecordByMappingProjectId(id, pageNum, pageSize);
     }
 
+
+    /**
+     * @Author zyb
+     * @Description 根据关联业务编号查询审核记录
+     * @Date 2020/7/18 9:13
+     * @Param [refId, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.Audit>
+     **/
+    @GetMapping("/selectAuditByRefId")
+    public PageInfo<Audit> selectAuditByRefId(@RequestParam("refId") Long refId,
+                                              @RequestParam("pageNum") Integer pageNum,
+                                              @RequestParam("pageSize") Integer pageSize) {
+        return auditService.selectAuditByRefId(refId, pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核(汇交成果信息 - - > 查看审核记录 ( 按钮))
+     * @Date 2020/7/18 9:31
+     * @Param [id, pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.Audit>
+     **/
+    @GetMapping("/selectAuditByMappingProjectId")
+    public PageInfo<Audit> selectAuditByMappingProjectId(@RequestParam("id") Long id,
+                                                         @RequestParam("pageNum") Integer pageNum,
+                                                         @RequestParam("pageSize") Integer pageSize) {
+        return auditService.selectAuditByMappingProjectId(id, pageNum, pageSize);
+    }
 }
