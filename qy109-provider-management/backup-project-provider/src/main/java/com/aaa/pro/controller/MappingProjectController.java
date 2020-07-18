@@ -126,4 +126,44 @@ public class MappingProjectController extends CommonController<MappingProject> {
     public List<Map<String, Object>> queryHuiJiaoResultsById(@RequestParam("id") Long id) {
         return mappingProjectService.queryHuiJiaoResultsById(id);
     }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面)
+     * @Date 2020/7/18 15:29
+     * @Param [pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/queryStatus2")
+    public PageInfo<MappingProject> queryStatus2(@RequestParam("pageNum") Integer pageNum,
+                                                 @RequestParam("pageSize") Integer pageSize) {
+        return mappingProjectService.queryStatus2(pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面 - - > 根据项目名称模糊查询)
+     * @Date 2020/7/18 15:41
+     * @Param [projectName, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/fuzzyQueryStatus2")
+    public PageInfo<MappingProject> fuzzyQueryStatus2(@RequestParam("projectName") String projectName,
+                                                      @RequestParam("pageNum") Integer pageNum,
+                                                      @RequestParam("pageSize") Integer pageSize) {
+        return mappingProjectService.fuzzyQueryStatus2(projectName, pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(成果汇交审核界面 - - > 分页查询)
+     * @Date 2020/7/18 15:59
+     * @Param []
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/resultsHuiJiaoAuditByPage")
+    public PageInfo<MappingProject> resultsHuiJiaoAuditByPage(@RequestParam("pageNum") Integer pageNum,
+                                                              @RequestParam("pageSize") Integer pageSize) {
+        return mappingProjectService.resultsHuiJiaoAuditByPage(pageNum, pageSize);
+    }
 }

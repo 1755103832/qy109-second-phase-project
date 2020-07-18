@@ -7,6 +7,7 @@ import com.aaa.pro.model.MappingProject;
 import com.aaa.pro.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -135,5 +136,47 @@ public class MappingProjectService extends BaseService<MappingProject> {
         } else {
             return null;
         }
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面)
+     * @Date 2020/7/18 15:29
+     * @Param [pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    public PageInfo<MappingProject> queryStatus2(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MappingProject> projects = mappingProjectMapper.queryStatus2();
+        return StringUtils.isNotEmpty(projects.toString()) && projects.size() > 0 ?
+                new PageInfo<>(projects) : null;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面 - - > 根据项目名称模糊查询)
+     * @Date 2020/7/18 15:41
+     * @Param [projectName, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    public PageInfo<MappingProject> fuzzyQueryStatus2(String projectName, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MappingProject> projects = mappingProjectMapper.fuzzyQueryStatus2(projectName);
+        return StringUtils.isNotEmpty(projects.toString()) && projects.size() > 0 ?
+                new PageInfo<>(projects) : null;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(成果汇交审核界面 - - > 分页查询)
+     * @Date 2020/7/18 15:59
+     * @Param []
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    public PageInfo<MappingProject> resultsHuiJiaoAuditByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MappingProject> projects = mappingProjectMapper.resultsHuiJiaoAuditByPage();
+        return StringUtils.isNotEmpty(projects.toString()) && projects.size() > 0 ?
+                new PageInfo<>(projects) : null;
     }
 }

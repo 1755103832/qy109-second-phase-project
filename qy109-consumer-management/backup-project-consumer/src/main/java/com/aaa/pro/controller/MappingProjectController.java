@@ -134,4 +134,50 @@ public class MappingProjectController extends BaseController {
         List<Map<String, Object>> map = projectService.queryHuiJiaoResultsById(id);
         return map.size() > 0 ? super.querySuccess(map) : super.queryFailed();
     }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面)
+     * @Date 2020/7/18 15:32
+     * @Param [pageNum, pageSize]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @GetMapping("/queryStatus2")
+    @ApiOperation(value = "项目审核模块(项目审核界面)")
+    public ResultData queryStatus2(@RequestParam("pageNum") Integer pageNum,
+                                   @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<MappingProject> info = projectService.queryStatus2(pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面 - - > 根据项目名称模糊查询)
+     * @Date 2020/7/18 15:43
+     * @Param [projectName, pageNum, pageSize]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @GetMapping("/fuzzyQueryStatus2")
+    @ApiOperation(value = "项目审核模块(项目审核界面 - - > 根据项目名称模糊查询)")
+    public ResultData fuzzyQueryStatus2(@RequestParam("projectName") String projectName,
+                                        @RequestParam("pageNum") Integer pageNum,
+                                        @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<MappingProject> info = projectService.fuzzyQueryStatus2(projectName, pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(成果汇交审核界面 - - > 分页查询)
+     * @Date 2020/7/18 16:02
+     * @Param [pageNum, pageSize]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @GetMapping("/resultsHuiJiaoAuditByPage")
+    @ApiOperation(value = "项目审核模块(成果汇交审核界面 - - > 分页查询)")
+    public ResultData resultsHuiJiaoAuditByPage(@RequestParam("pageNum") Integer pageNum,
+                                                @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<MappingProject> info = projectService.resultsHuiJiaoAuditByPage(pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
 }

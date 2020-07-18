@@ -126,4 +126,67 @@ public class DictController extends BaseController {
         return null != dictList ? super.querySuccess(dictList) : super.queryFailed();
     }
 
+    /**
+     * @Author zyb
+     * @Description 分页查询字典表
+     * @Date 2020/7/18 16:13
+     * @Param [pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByPage")
+    @ApiOperation(value = "分页查询字典表")
+    public ResultData queryDictByPage(@RequestParam("pageNum") Integer pageNum,
+                                      @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<Dict> info = projectService.queryDictByPage(pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
+
+
+    /**
+     * @Author zyb
+     * @Description 通过key分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByKeyPage")
+    @ApiOperation(value = "通过key分页查询字典表")
+    public ResultData queryDictByKeyPage(@RequestParam("keyy") Long keyy,
+                                         @RequestParam("pageNum") Integer pageNum,
+                                         @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<Dict> info = projectService.queryDictByKeyPage(keyy, pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过value分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByValuePage")
+    @ApiOperation(value = "通过value分页查询字典表")
+    public ResultData queryDictByValuePage(@RequestParam("valuee") String valuee,
+                                           @RequestParam("pageNum") Integer pageNum,
+                                           @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<Dict> info = projectService.queryDictByValuePage(valuee, pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过字段名分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByFieldNamePage")
+    @ApiOperation(value = "通过字段名分页查询字典表")
+    public ResultData queryDictByFieldNamePage(@RequestParam("fieldName") String fieldName,
+                                               @RequestParam("pageNum") Integer pageNum,
+                                               @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<Dict> info = projectService.queryDictByFieldNamePage(fieldName, pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
 }

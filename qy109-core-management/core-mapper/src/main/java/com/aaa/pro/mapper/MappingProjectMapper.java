@@ -68,4 +68,31 @@ public interface MappingProjectMapper extends Mapper<MappingProject> {
      * @Return java.util.Map<java.lang.String, java.lang.Object>
      **/
     List<Map<String, Object>> queryHuiJiaoResultsById(Long id);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面)
+     * @Date 2020/7/18 15:27
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    List<MappingProject> queryStatus2();
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面 - - > 根据项目名称模糊查询)
+     * @Date 2020/7/18 15:38
+     * @Param [projectName]
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    List<MappingProject> fuzzyQueryStatus2(@Param("projectName") String projectName);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(成果汇交审核界面 - - > 分页查询)
+     * @Date 2020/7/18 15:58
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.MappingProject>
+     **/
+    List<MappingProject> resultsHuiJiaoAuditByPage();
 }

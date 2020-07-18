@@ -17,4 +17,20 @@
         from t_dict
         where TABLE_NAME like concat('%',concat(#{tableName},'%'))
     </select>
+
+    <select id="queryDictByPage" resultMap="BaseResultMap">
+        select KEYY,VALUEE,TABLE_NAME,FIELD_NAME from t_dict
+    </select>
+
+    <select id="queryDictByKeyPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select KEYY,VALUEE,TABLE_NAME,FIELD_NAME from t_dict where KEYY = #{keyy}
+    </select>
+
+    <select id="queryDictByValuePage" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select KEYY,VALUEE,TABLE_NAME,FIELD_NAME from t_dict where VALUEE = #{valuee}
+    </select>
+
+    <select id="queryDictByFieldNamePage" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select KEYY,VALUEE,TABLE_NAME,FIELD_NAME from t_dict where FIELD_NAME = #{fieldName}
+    </select>
 </mapper>

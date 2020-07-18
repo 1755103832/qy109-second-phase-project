@@ -440,4 +440,85 @@ public interface IProjectService {
      **/
     @GetMapping("/queryHuiJiaoResultsById")
     List<Map<String, Object>> queryHuiJiaoResultsById(@RequestParam("id") Long id);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面)
+     * @Date 2020/7/18 15:29
+     * @Param [pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/queryStatus2")
+    PageInfo<MappingProject> queryStatus2(@RequestParam("pageNum") Integer pageNum,
+                                          @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(项目审核界面 - - > 根据项目名称模糊查询)
+     * @Date 2020/7/18 15:41
+     * @Param [projectName, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/fuzzyQueryStatus2")
+    PageInfo<MappingProject> fuzzyQueryStatus2(@RequestParam("projectName") String projectName,
+                                               @RequestParam("pageNum") Integer pageNum,
+                                               @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 项目审核模块(成果汇交审核界面 - - > 分页查询)
+     * @Date 2020/7/18 15:59
+     * @Param []
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @GetMapping("/resultsHuiJiaoAuditByPage")
+    PageInfo<MappingProject> resultsHuiJiaoAuditByPage(@RequestParam("pageNum") Integer pageNum,
+                                                       @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 分页查询字典表
+     * @Date 2020/7/18 16:13
+     * @Param [pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByPage")
+    PageInfo<Dict> queryDictByPage(@RequestParam("pageNum") Integer pageNum,
+                                   @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 通过key分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByKeyPage")
+    PageInfo<Dict> queryDictByKeyPage(@RequestParam("keyy") Long keyy,
+                                      @RequestParam("pageNum") Integer pageNum,
+                                      @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 通过value分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByValuePage")
+    PageInfo<Dict> queryDictByValuePage(@RequestParam("valuee") String valuee,
+                                        @RequestParam("pageNum") Integer pageNum,
+                                        @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 通过字段名分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByFieldNamePage")
+    PageInfo<Dict> queryDictByFieldNamePage(@RequestParam("fieldName") String fieldName,
+                                            @RequestParam("pageNum") Integer pageNum,
+                                            @RequestParam("pageSize") Integer pageSize);
 }

@@ -4,6 +4,7 @@ import com.aaa.pro.base.BaseService;
 import com.aaa.pro.mapper.DictMapper;
 import com.aaa.pro.model.Dict;
 import com.aaa.pro.utils.StringUtils;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -130,4 +131,56 @@ public class DictService extends BaseService<Dict> {
         }
     }
 
+    /**
+     * @Author zyb
+     * @Description 分页查询字典表
+     * @Date 2020/7/18 16:13
+     * @Param [pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    public PageInfo<Dict> queryDictByPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Dict> dictList = dictMapper.queryDictByPage();
+        return dictList.size() > 0 ? new PageInfo<>(dictList) : null;
+    }
+
+
+    /**
+     * @Author zyb
+     * @Description 通过key分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    public PageInfo<Dict> queryDictByKeyPage(Long keyy, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Dict> dictList = dictMapper.queryDictByKeyPage(keyy);
+        return dictList.size() > 0 ? new PageInfo<>(dictList) : null;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过value分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    public PageInfo<Dict> queryDictByValuePage(String valuee, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Dict> dictList = dictMapper.queryDictByValuePage(valuee);
+        return dictList.size() > 0 ? new PageInfo<>(dictList) : null;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过字段名分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    public PageInfo<Dict> queryDictByFieldNamePage(String fieldName, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Dict> dictList = dictMapper.queryDictByFieldNamePage(fieldName);
+        return dictList.size() > 0 ? new PageInfo<>(dictList) : null;
+    }
 }

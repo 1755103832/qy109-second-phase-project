@@ -2,7 +2,9 @@ package com.aaa.pro.controller;
 
 import com.aaa.pro.model.Dict;
 import com.aaa.pro.service.DictService;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,7 +90,8 @@ public class DictController {
      * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.Dict>
      **/
     @GetMapping("/selectDictListByPage")
-    public PageInfo<Dict> selectDictListByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+    public PageInfo<Dict> selectDictListByPage(@RequestParam("pageNum") Integer pageNum,
+                                               @RequestParam("pageSize") Integer pageSize) {
         return dictService.selectDictListByPage(pageNum, pageSize);
     }
 
@@ -104,4 +107,58 @@ public class DictController {
         return dictService.fuzzy2selectDictByTableName(tableName);
     }
 
+    /**
+     * @Author zyb
+     * @Description 分页查询字典表
+     * @Date 2020/7/18 16:13
+     * @Param [pageNum, pageSize]
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByPage")
+    public PageInfo<Dict> queryDictByPage(@RequestParam("pageNum") Integer pageNum,
+                                          @RequestParam("pageSize") Integer pageSize) {
+        return dictService.queryDictByPage(pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过key分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByKeyPage")
+    public PageInfo<Dict> queryDictByKeyPage(@RequestParam("keyy") Long keyy,
+                                             @RequestParam("pageNum") Integer pageNum,
+                                             @RequestParam("pageSize") Integer pageSize) {
+        return dictService.queryDictByKeyPage(keyy, pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过value分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByValuePage")
+    public PageInfo<Dict> queryDictByValuePage(@RequestParam("valuee") String valuee,
+                                               @RequestParam("pageNum") Integer pageNum,
+                                               @RequestParam("pageSize") Integer pageSize) {
+        return dictService.queryDictByValuePage(valuee, pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过字段名分页查询字典表
+     * @Date 2020/7/18 16:32
+     * @Param []
+     * @Return java.util.List<com.aaa.pro.model.Dict>
+     **/
+    @GetMapping("/queryDictByFieldNamePage")
+    public PageInfo<Dict> queryDictByFieldNamePage(@RequestParam("fieldName") String fieldName,
+                                                   @RequestParam("pageNum") Integer pageNum,
+                                                   @RequestParam("pageSize") Integer pageSize) {
+        return dictService.queryDictByFieldNamePage(fieldName, pageNum, pageSize);
+    }
 }

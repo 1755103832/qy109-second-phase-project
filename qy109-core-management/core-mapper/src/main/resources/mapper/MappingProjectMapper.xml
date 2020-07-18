@@ -99,4 +99,23 @@
         from t_result_commit a left join t_resource b on a.id = b.ref_biz_id left join t_mapping_project c on a.ref_id = c.id
         where c.id = #{id, jdbcType=BIGINT}
     </select>
+
+    <select id="queryStatus2" resultMap="BaseResultMap">
+        select id,project_type,project_name,project_leader,start_date,end_date,acceptance_department,project_amount
+        from t_mapping_project
+        where audit_status = 2 and results_status = 2
+    </select>
+
+    <select id="fuzzyQueryStatus2" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id,project_type,project_name,project_leader,start_date,end_date,acceptance_department,project_amount
+        from t_mapping_project
+        where audit_status = 2 and results_status = 2 and
+        project_name like concat('%',concat(#{projectName, jdbcType=VARCHAR},'%'))
+    </select>
+
+    <select id="resultsHuiJiaoAuditByPage" resultMap="BaseResultMap">
+        select id,project_type,project_name,project_leader,start_date,end_date,acceptance_department,project_amount
+        from t_mapping_project
+        where results_status = 2
+    </select>
 </mapper>
