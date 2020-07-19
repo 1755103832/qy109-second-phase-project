@@ -543,4 +543,19 @@ public interface IProjectService {
     @GetMapping("/selectByUnitStatus2")
     PageInfo<MappingUnit> selectByUnitStatus2(@RequestParam("pageNum") Integer pageNum,
                                               @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 根据抽查比例查询单位信息
+     * @Date 2020/7/19 9:07
+     * @Param [random, ownedDistrict, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     **/
+    @GetMapping("/selectByRatioAndType")
+    PageInfo<MappingUnit> selectByRatioAndType(@RequestParam(value = "random", required = false)
+                                                       Double random,
+                                               @RequestParam(value = "ownedDistrict", required = false)
+                                                       String ownedDistrict,
+                                               @RequestParam("pageNum") Integer pageNum,
+                                               @RequestParam("pageSize") Integer pageSize);
 }

@@ -9,9 +9,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author zyb
@@ -55,4 +53,22 @@ public class MappingUnitController extends BaseController {
         return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
     }
 
+    /**
+     * @Author zyb
+     * @Description 根据抽查比例和单位类型查询单位信息
+     * @Date 2020/7/19 9:18
+     * @Param [random, ownedDistrict, pageNum, pageSize]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @GetMapping("/selectByRatioAndType")
+    @ApiOperation(value = "根据抽查比例和单位类型查询单位信息")
+    public ResultData selectByRatioAndType(@RequestParam(value = "random", required = false)
+                                                   Double random,
+                                           @RequestParam(value = "ownedDistrict", required = false)
+                                                   String ownedDistrict,
+                                           @RequestParam("pageNum") Integer pageNum,
+                                           @RequestParam("pageSize") Integer pageSize) {
+        PageInfo<MappingUnit> info = projectService.selectByRatioAndType(random, ownedDistrict, pageNum, pageSize);
+        return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
+    }
 }

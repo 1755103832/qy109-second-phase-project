@@ -29,4 +29,13 @@ public interface MappingUnitMapper extends Mapper<MappingUnit> {
      * @Return java.util.List<com.aaa.pro.model.MappingUnit>
      **/
     List<MappingUnit> selectByUnitStatus2();
+
+    /**
+     * @Author zyb
+     * @Description 根据抽查比例查询单位信息
+     * @Date 2020/7/19 9:02
+     * @Param [ownedDistrict]
+     * @Return java.util.List<com.aaa.pro.model.MappingUnit>
+     **/
+    List<MappingUnit> selectByRatioAndType(String ownedDistrict);
 }

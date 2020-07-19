@@ -71,4 +71,11 @@
         from t_mapping_unit
         where unit_status = 2
     </select>
+
+    <select id="selectByRatioAndType" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id,unit_name,oa,qualification_level,certificate_code,belong_industry,linkman,phone,score
+        from t_mapping_unit
+        where qualification_level in ('丙级','丁级')
+        and owned_district = #{ownedDistrict, jdbcType=VARCHAR}
+    </select>
 </mapper>

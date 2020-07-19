@@ -6,9 +6,7 @@ import com.aaa.pro.model.MappingUnit;
 import com.aaa.pro.service.MappingUnitService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author zyb
@@ -55,5 +53,22 @@ public class MappingUnitController extends CommonController<MappingUnit> {
     public PageInfo<MappingUnit> selectByUnitStatus2(@RequestParam("pageNum") Integer pageNum,
                                                      @RequestParam("pageSize") Integer pageSize) {
         return mappingUnitService.selectByUnitStatus2(pageNum, pageSize);
+    }
+
+    /**
+     * @Author zyb
+     * @Description 根据抽查比例查询单位信息
+     * @Date 2020/7/19 9:07
+     * @Param [random, ownedDistrict, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     **/
+    @GetMapping("/selectByRatioAndType")
+    public PageInfo<MappingUnit> selectByRatioAndType(@RequestParam(value = "random", required = false)
+                                                              Double random,
+                                                      @RequestParam(value = "ownedDistrict", required = false)
+                                                              String ownedDistrict,
+                                                      @RequestParam("pageNum") Integer pageNum,
+                                                      @RequestParam("pageSize") Integer pageSize) {
+        return mappingUnitService.selectByRatioAndType(random, ownedDistrict, pageNum, pageSize);
     }
 }

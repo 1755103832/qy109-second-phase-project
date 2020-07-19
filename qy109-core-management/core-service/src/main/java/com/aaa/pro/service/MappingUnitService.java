@@ -9,6 +9,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,4 +49,39 @@ public class MappingUnitService extends BaseService<MappingUnit> {
         List<MappingUnit> units = mappingUnitMapper.selectByUnitStatus2();
         return StringUtils.isNotEmpty(units.toString()) ? new PageInfo<>(units) : null;
     }
+
+    /**
+     * @Author zyb
+     * @Description 根据抽查比例查询单位信息
+     * @Date 2020/7/19 9:07
+     * @Param [random, ownedDistrict, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     **/
+    public PageInfo<MappingUnit> selectByRatioAndType(Double random,
+                                                      String ownedDistrict,
+                                                      Integer pageNum,
+                                                      Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        if (StringUtils.isNotEmpty(ownedDistrict)) {
+            List<MappingUnit> units = mappingUnitMapper.selectByRatioAndType(ownedDistrict);
+            if (units.size() > 0) {
+                // 调用静态方法shuffle，让查询到的数据重新洗牌
+                Collections.shuffle(units);
+                // 调用ceil静态方法，把list数据的顺序按小数向上去整，重新排序
+                double ceil = Math.ceil(units.size() * random);
+                List<MappingUnit> lists = new ArrayList<>();
+                // 把重新打乱的顺序进行for循环遍历，依次添加到list里面
+                for (int i = 0; i < ceil; i++) {
+                    lists.add(units.get(i));
+                }
+                // 最后把lists放入分页，返回数据
+                return new PageInfo<>(lists);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
 }

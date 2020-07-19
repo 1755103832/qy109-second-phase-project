@@ -33,9 +33,7 @@ public class LogAspect {
     private IProjectService iProjectService;
 
     /**
-     *
-     * @description
-     *   定义切点信息
+     * @description 定义切点信息
      * @params:
      * @return: void
      * @author: Wen
@@ -46,14 +44,13 @@ public class LogAspect {
         // TODO noting to do
     }
 
-   /**
-    * @description:
-    *    定义环形切面(就是具体来实现业务逻辑的方法)
-    * @params: [proceedingJoinPoint]
-    * @return: java.lang.Object
-    * @author: Wen
-    * @date: 2020/7/15 19:00
-    */
+    /**
+     * @description: 定义环形切面(就是具体来实现业务逻辑的方法)
+     * @params: [proceedingJoinPoint]
+     * @return: java.lang.Object
+     * @author: Wen
+     * @date: 2020/7/15 19:00
+     */
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws ClassNotFoundException {
         Object result = null;
@@ -66,14 +63,15 @@ public class LogAspect {
         // 获取Request对象
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest();
         // 1.获取ip地址(最简单的)
-        String ipAddr = IpUtils.getIpAddr(request);// 需要一个HttpServletRequest对象
+        // 需要一个HttpServletRequest对象
+        String ipAddr = IpUtils.getIpAddr(request);
         // 2.获取地理位置(最简单的)
         Map<String, Object> addressMap = AddressUtils.getAddresses(ipAddr, "UTF-8");
 
 
-        LoginLogs loginLogs= new LoginLogs();
+        LoginLogs loginLogs = new LoginLogs();
         loginLogs.setIp(ipAddr);
-        loginLogs.setLocation(addressMap.get("province")+"|"+addressMap.get("city"));
+        loginLogs.setLocation(addressMap.get("province") + "|" + addressMap.get("city"));
         loginLogs.setLoginTime(DateUtil.formatDate(new Date(), TIME_FORMAT));
 
         // 3.获取Username--->想要获取到username，必须要获取到目标方法的参数值
@@ -100,14 +98,14 @@ public class LogAspect {
         String operationType = "";
         String operationName = "";
 
-        for(Method method : methods) {
+        for (Method method : methods) {
             String methodName = method.getName();
-            if(tarMehtodName.equals(methodName)) {
+            if (tarMehtodName.equals(methodName)) {
                 // 这个时候虽然已经确定了目标方法没有问题，但是有可能会出现方法的重载
                 // 还需要进一步判断
                 // 4.4.获取目标方法的参数
                 Class[] parameterTypes = method.getParameterTypes();
-                if(parameterTypes.length == args.length) {
+                if (parameterTypes.length == args.length) {
                     // 获取目标方法 完美，优秀 英俊！
                     operationType = method.getAnnotation(LoginAnnotation.class).opeationType();
                     operationName = method.getAnnotation(LoginAnnotation.class).opeationName();

@@ -251,11 +251,41 @@
                 <artifactId>feign-form</artifactId>
                 <version>3.8.0</version>
             </dependency>
+
             <!-- 支持feignClient文件上传 -->
             <dependency>
                 <groupId>io.github.openfeign.form</groupId>
                 <artifactId>feign-form-spring</artifactId>
                 <version>3.8.0</version>
+            </dependency>
+
+            <!--糊涂工具包，很强大-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.3.5</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+            <!--jsoup是一款Java的HTML解析器,主要用来对HTML解析-->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.13.1</version>
+            </dependency>
+
+            <!--ip2region - 准确率99.9%的离线IP地址定位库-->
+            <dependency>
+                <groupId>org.lionsoul</groupId>
+                <artifactId>ip2region</artifactId>
+                <version>1.7.2</version>
+            </dependency>
+
+            <!--apache.poi，导出excel使用-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.17</version>
             </dependency>
 
         </dependencies>
