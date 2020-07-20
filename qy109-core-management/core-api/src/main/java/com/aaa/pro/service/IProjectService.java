@@ -580,4 +580,47 @@ public interface IProjectService {
                                                        String ownedDistrict,
                                                @RequestParam("pageNum") Integer pageNum,
                                                @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 根据抽查比例分页查询抽查人员信息
+     * @Date 2020/7/20 17:04
+     * @Param [random, pageNum, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.CheckPerson>
+     **/
+    @GetMapping("/selectByRatioPage")
+    PageInfo<CheckPerson> selectByRatioPage(@RequestParam(value = "random", required = false)
+                                                    Double random,
+                                            @RequestParam("pageNum") Integer pageNum,
+                                            @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 新增抽查人员信息
+     * @Date 2020/7/20 18:12
+     * @Param [checkPerson]
+     * @Return Boolean
+     **/
+    @PostMapping("/addCheckPersonInfo")
+    Integer addCheckPersonInfo(@RequestBody CheckPerson checkPerson);
+
+    /**
+     * @Author zyb
+     * @Description 修改抽查人员信息
+     * @Date 2020/7/20 20:21
+     * @Param [checkPerson]
+     * @Return java.lang.Integer
+     **/
+    @PostMapping("/updateCheckPersonInfo")
+    Integer updateCheckPersonInfo(@RequestBody CheckPerson checkPerson);
+
+    /**
+     * @Author zyb
+     * @Description 通过主键id删除抽查人员信息
+     * @Date 2020/7/20 20:40
+     * @Param [id]
+     * @Return java.lang.Integer
+     **/
+    @PostMapping("/delCheckPersonInfoById")
+    Integer delCheckPersonInfoById(@RequestParam("id") Long id);
 }

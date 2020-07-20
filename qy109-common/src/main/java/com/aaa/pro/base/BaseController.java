@@ -222,6 +222,21 @@ public class BaseController {
     }
 
     /**
+     * @Author zyb
+     * @Description 删除数据成功，返回系统消息，返回删除数据参数id
+     * @Date 2020/7/20 20:50
+     * @Param [data]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData deleteSuccess(Object data) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(DELETE_SUCCESS.getCode());
+        resultData.setMessage(DELETE_SUCCESS.getMessage());
+        resultData.setData(data);
+        return resultData;
+    }
+
+    /**
      * @Author project
      * @Description 删除数据失败，使用系统消息
      * @Date 2020/7/8 15:42
@@ -246,6 +261,21 @@ public class BaseController {
         ResultData resultData = new ResultData();
         resultData.setCode(UPDATE_SUCCESS.getCode());
         resultData.setMessage(UPDATE_SUCCESS.getMessage());
+        return resultData;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 修改数据成果，返回系统消息，返回修改数据信息
+     * @Date 2020/7/20 20:29
+     * @Param [data]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData updateSuccess(Object data) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(UPDATE_SUCCESS.getCode());
+        resultData.setMessage(UPDATE_SUCCESS.getMessage());
+        resultData.setData(data);
         return resultData;
     }
 
