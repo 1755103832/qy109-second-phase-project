@@ -35,9 +35,8 @@ public class DeptController extends BaseController {
      * @author: Wen
      * @date: 2020/7/16 17:11
      */
-    @GetMapping("/getAllDeptByParentId")
-    @ApiOperation(value = "查询部门信息", notes = "部门查询接口")
-    public ResultData<Dept> getAllDeptByParentId(Long parentId) {
+    @GetMapping("/selectAllDeptByParentId")
+    public ResultData<Dept> selectAllDeptByParentId(Long parentId) {
         // 调用iProjectService中的 selectAllDeptByParentId 方法，得到查询结果
         List<Dept> deptList = iProjectService.selectAllDeptByParentId(parentId);
 
@@ -89,7 +88,7 @@ public class DeptController extends BaseController {
 
         // 判断 结果是否为空
         if (dept != null) {
-            // 说明查询成功，使用系统消息
+            // 说明查询成功，返回自定义信息
             return querySuccess(dept);
         }else {
             // 查询失败，使用系统消息

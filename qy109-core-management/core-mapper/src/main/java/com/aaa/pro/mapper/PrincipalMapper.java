@@ -19,4 +19,6 @@ public interface PrincipalMapper extends Mapper<Principal> {
     //修改负责人信息
     int updateList(Principal principal);
 
+
+
 }

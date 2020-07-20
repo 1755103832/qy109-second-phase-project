@@ -46,6 +46,7 @@ public class PrincipalController extends BaseController {
         return queryFailed();
     }
 
+
     /**
      * @description:
      *   修改负责人信息
@@ -62,5 +63,6 @@ public class PrincipalController extends BaseController {
         }
         return updateFailed();
     }
+
 
 }

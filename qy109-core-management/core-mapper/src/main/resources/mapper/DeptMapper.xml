@@ -17,7 +17,7 @@
     FROM t_dept
     WHERE DEPT_ID=#{deptId, jdbcType=INTEGER}
   </select>
-  <select id="selectDeptByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectAllDeptByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     SELECT DEPT_ID, PARENT_ID, DEPT_NAME, ORDER_NUM, CREATE_TIME, MODIFY_TIME
     FROM t_dept
     WHERE PARENT_ID=#{parentId, jdbcType=INTEGER}
@@ -47,4 +47,7 @@
     VALUES (#{parentId,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR},
         #{orderNum,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR})
   </insert>
+
+
+
 </mapper>

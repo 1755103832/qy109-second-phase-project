@@ -10,7 +10,6 @@ import java.util.Map;
 public interface DeptMapper extends Mapper<Dept> {
 
 
-
     /**
     * @description:
      * 查询部门信息，根据主键id查询部门的信息
@@ -24,13 +23,13 @@ public interface DeptMapper extends Mapper<Dept> {
 
      /**
      * @description:
-     *  查询所有的部门
+     * 根据父类主键查询子类信息
      * @params: [parentId]
      * @return: java.util.List<com.aaa.pro.model.Dept>
      * @author: Wen
      * @date: 2020/7/14 8:46
      */
-    List<Dept> selectDeptByParentId(Integer parentId);
+    List<Dept> selectAllDeptByParentId(Integer parentId);
 
 
    /**

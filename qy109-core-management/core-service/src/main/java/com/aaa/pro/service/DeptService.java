@@ -31,7 +31,7 @@ public class DeptService extends BaseService<Dept> {
      */
     public List<Dept> selectAllDeptByParentId(Integer parentId) {
         // 调用 deptMapper 中的 selectDeptByParentId 方法，查询父部门信息
-        List<Dept> allDept = deptMapper.selectDeptByParentId(parentId);
+        List<Dept> allDept = deptMapper.selectAllDeptByParentId(parentId);
 
         // 判断 根据父id查询的结果是否为空
         if(allDept.size()>0 && null != allDept){
@@ -39,7 +39,7 @@ public class DeptService extends BaseService<Dept> {
             for(Dept dept : allDept){
                 // 获取父部门的id，作为子部门的父id进行查询
                 Integer id1 = dept.getDeptId();
-                List<Dept> children = deptMapper.selectDeptByParentId(id1);
+                List<Dept> children = deptMapper.selectAllDeptByParentId(id1);
 
                 // 将得到的结果放到children中，子部门信息
                 dept.setChildren(children);

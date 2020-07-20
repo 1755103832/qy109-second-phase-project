@@ -136,7 +136,7 @@ public class DeptController {
 
     /**
      * @description:
-     *    查询子菜单
+     *    查询子菜单(部门)
      * @params: [parentId]
      * @return: java.util.List<com.aaa.pro.model.Dept>
      * @author: Wen
