@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
@@ -178,5 +179,32 @@ public class MappingProjectService extends BaseService<MappingProject> {
         List<MappingProject> projects = mappingProjectMapper.resultsHuiJiaoAuditByPage();
         return StringUtils.isNotEmpty(projects.toString()) && projects.size() > 0 ?
                 new PageInfo<>(projects) : null;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 通过项目名称模糊查询+查询所有并分页
+     * @Date 2020/7/21 16:09
+     * @Param [mappingProject, pageNo, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    public PageInfo<MappingProject> selectFuzzy(MappingProject mappingProject, Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+
+        if (null != mappingProject.getProjectName()) {
+            // 模糊查询
+            Example example = new Example(MappingProject.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andLike("projectName", " %" + mappingProject.getProjectName() + "%");
+            List<MappingProject> userList = mappingProjectMapper.selectByExample(example);
+            PageInfo<MappingProject> pageInfo = new PageInfo<MappingProject>(userList);
+            return pageInfo.getSize() > 0 ? pageInfo : null;
+
+        } else {
+            List<MappingProject> mappingProjects = super.selectList(mappingProject);
+            PageInfo<MappingProject> pageInfo = new PageInfo<MappingProject>(mappingProjects);
+            return pageInfo.getSize() > 0 ? pageInfo : null;
+        }
+
     }
 }

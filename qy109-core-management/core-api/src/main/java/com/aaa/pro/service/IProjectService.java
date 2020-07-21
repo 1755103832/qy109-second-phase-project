@@ -344,8 +344,7 @@ public interface IProjectService {
     Boolean updateList(@RequestBody Principal principal);
 
     /**
-     * @description:
-     *    单位审核--查询技术人员信息
+     * @description: 单位审核--查询技术人员信息
      * @params: [userId]
      * @return: java.util.List<com.aaa.pro.model.Technicist>
      * @author: Wen
@@ -355,8 +354,7 @@ public interface IProjectService {
     List<Technicist> queryTechnicist(@RequestParam("userId") Long userId);
 
     /**
-     * @description:
-     *    单位审核--修改技术人员信息
+     * @description: 单位审核--修改技术人员信息
      * @params: [technicist]
      * @return: java.lang.Boolean
      * @author: Wen
@@ -623,4 +621,16 @@ public interface IProjectService {
      **/
     @PostMapping("/delCheckPersonInfoById")
     Integer delCheckPersonInfoById(@RequestParam("id") Long id);
+
+    /**
+     * @Author zyb
+     * @Description 通过项目名称模糊查询+查询所有并分页
+     * @Date 2020/7/21 16:09
+     * @Param [mappingProject, pageNo, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @PostMapping("/selectFuzzy")
+    PageInfo<MappingProject> selectFuzzy(@RequestBody(required = false) MappingProject mappingProject,
+                                         @RequestParam("pageNum") Integer pageNum,
+                                         @RequestParam("pageSize") Integer pageSize);
 }
