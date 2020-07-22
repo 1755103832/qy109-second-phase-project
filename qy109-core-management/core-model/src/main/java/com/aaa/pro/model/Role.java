@@ -1,24 +1,23 @@
 package com.aaa.pro.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
-  * @Author: jkm
-  * @Description:   角色
-  */
+ * @Author zyb
+ * @Date Create in 2020/7/21 17:06
+ * @Description
+ **/
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "t_role")
 public class Role implements Serializable {
+
     /**
      * 角色ID
      */
@@ -43,12 +42,11 @@ public class Role implements Serializable {
      * 创建时间
      */
     @Column(name = "CREATE_TIME")
-    private Date createTime;
+    private String createTime;
 
     /**
      * 修改时间
      */
     @Column(name = "MODIFY_TIME")
-    private Date modifyTime;
-
+    private String modifyTime;
 }
