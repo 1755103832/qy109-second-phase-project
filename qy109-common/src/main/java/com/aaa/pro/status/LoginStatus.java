@@ -15,6 +15,7 @@ public enum LoginStatus {
     PASSWORD_WRONG("405", "密码错误"),
     LOGOUT_WRONG("406", "用户退出异常"),
     SYSTEM_EXCEPTION("406", "系统异常"),
+    LOGIN_TIMEOUT_EXIT("10006","超时自动退出，请重新登录"),
 
     // ftp上传状态码
     UPLOAD_SUCCESS("20005", "文件上传成功"),

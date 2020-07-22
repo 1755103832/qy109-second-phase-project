@@ -3,7 +3,6 @@ package com.aaa.pro.service;
 import com.aaa.pro.base.BaseService;
 import com.aaa.pro.mapper.DeptMapper;
 import com.aaa.pro.model.Dept;
-
 import com.aaa.pro.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

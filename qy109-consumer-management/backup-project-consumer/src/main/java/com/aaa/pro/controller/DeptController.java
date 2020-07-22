@@ -5,9 +5,7 @@ import com.aaa.pro.base.ResultData;
 import com.aaa.pro.model.Dept;
 import com.aaa.pro.service.IProjectService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +26,7 @@ public class DeptController extends BaseController {
     private IProjectService iProjectService;
 
     /**
-     * @description:
-     *   递归查询根据 parentId（父id）查询该部门及其子部门
+     * @description: 递归查询根据 parentId（父id）查询该部门及其子部门
      * @params: [parentId]
      * @return: com.aaa.pro.base.ResultData<com.aaa.pro.model.Dept>
      * @author: Wen
@@ -44,15 +41,14 @@ public class DeptController extends BaseController {
         if (deptList != null) {
             // 说明查询成功，使用系统消息
             return querySuccess(deptList);
-        }else {
+        } else {
             // 查询失败，使用系统消息
             return queryFailed();
         }
     }
 
     /**
-     * @description:
-     *  查询部门信息-动态sql-查询条件：部门名称 创建时间区间
+     * @description: 查询部门信息-动态sql-查询条件：部门名称 创建时间区间
      * @params: [map]
      * @return: com.aaa.pro.base.ResultData<com.aaa.pro.model.Dept>
      * @author: Wen
@@ -67,15 +63,14 @@ public class DeptController extends BaseController {
         if (deptList != null) {
             // 说明查询成功，使用系统消息
             return querySuccess(deptList);
-        }else {
+        } else {
             // 查询失败，使用系统消息
             return queryFailed();
         }
     }
 
     /**
-     * @description:
-     *   查询部门信息，根据主键id查询部门的信息
+     * @description: 查询部门信息，根据主键id查询部门的信息
      * @params: [deptId]
      * @return: com.aaa.pro.base.ResultData<com.aaa.pro.model.Dept>
      * @author: Wen
@@ -90,15 +85,14 @@ public class DeptController extends BaseController {
         if (dept != null) {
             // 说明查询成功，返回自定义信息
             return querySuccess(dept);
-        }else {
+        } else {
             // 查询失败，使用系统消息
             return queryFailed();
         }
     }
 
     /**
-     * @description:
-     *   新增部门信息
+     * @description: 新增部门信息
      * @params: [dept]
      * @return: com.aaa.pro.base.ResultData<com.aaa.pro.model.Dept>
      * @author: Wen
@@ -113,17 +107,17 @@ public class DeptController extends BaseController {
         if (aBoolean == true) {
             // 说明新增成功，使用系统消息
             return insertSuccess();
-        }else {
+        } else {
             // 新增失败，使用系统消息
             return insertFailed();
         }
     }
 
     /**
+     * @return
      * @Author wxz
      * @Description 通过主键 执行删除操作
      * @Param
-     * @return
      **/
     @PostMapping("/deleteDeptByPrimaryKey")
     public ResultData<Dept> deleteDeptByPrimaryKey(Dept dept) {
@@ -134,16 +128,17 @@ public class DeptController extends BaseController {
         if (aBoolean == true) {
             // 说明删除成功，使用系统消息
             return deleteSuccess();
-        }else {
+        } else {
             // 删除失败，使用系统消息
             return deleteFailed();
         }
     }
+
     /**
+     * @return
      * @Author wxz
      * @Description 批量删除 调用父类的批量删除方法（根据主键），执行删除操作
      * @Param
-     * @return
      **/
     @PostMapping("/batchDeleteByPrimaryKey")
     public ResultData<Dept> batchDeleteByPrimaryKey(List<Object> ids) {
@@ -154,16 +149,17 @@ public class DeptController extends BaseController {
         if (aBoolean == true) {
             // 说明删除成功，使用系统消息
             return deleteSuccess();
-        }else {
+        } else {
             // 删除失败，使用系统消息
             return deleteFailed();
         }
     }
+
     /**
+     * @return
      * @Author wxz
      * @Description 修改，通过主键-修改部门信息
      * @Param
-     * @return
      **/
     @PostMapping("/updateDeptByPrimaryKey")
     public ResultData<Dept> updateDeptByPrimaryKey(Dept dept) {
@@ -174,14 +170,11 @@ public class DeptController extends BaseController {
         if (aBoolean == true) {
             // 说明修改成功，使用系统消息
             return updateSuccess();
-        }else {
+        } else {
             // 删除失败，使用系统消息
-            return  updateFailed();
+            return updateFailed();
         }
     }
-
-
-
 
 
 }

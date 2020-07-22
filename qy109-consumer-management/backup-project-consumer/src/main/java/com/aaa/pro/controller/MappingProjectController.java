@@ -9,7 +9,9 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -178,21 +180,4 @@ public class MappingProjectController extends BaseController {
         PageInfo<MappingProject> info = projectService.resultsHuiJiaoAuditByPage(pageNum, pageSize);
         return StringUtils.isNotEmpty(info.toString()) ? super.querySuccess(info) : super.queryFailed();
     }
-
-    /**
-     * @Author zyb
-     * @Description 通过项目名称模糊查询+查询所有并分页
-     * @Date 2020/7/21 16:09
-     * @Param [mappingProject, pageNo, pageSize]
-     * @Return com.aaa.pro.base.ResultData
-     **/
-    @PostMapping("/selectFuzzy")
-    @ApiOperation(value = "通过项目名称模糊查询+查询所有并分页")
-    public ResultData selectFuzzy(@RequestBody(required = false) MappingProject mappingProject,
-                                  @RequestParam("pageNum") Integer pageNum,
-                                  @RequestParam("pageSize") Integer pageSize) {
-        PageInfo<MappingProject> info = projectService.selectFuzzy(mappingProject, pageNum, pageSize);
-        return info.getSize() > 0 ? super.querySuccess(info) : super.queryFailed();
-    }
-
 }

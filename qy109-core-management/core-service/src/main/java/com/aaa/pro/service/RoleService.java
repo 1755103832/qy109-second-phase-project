@@ -1,21 +1,22 @@
 package com.aaa.pro.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.aaa.pro.base.BaseService;
+import com.aaa.pro.base.ResultData;
 import com.aaa.pro.mapper.RoleMapper;
+import com.aaa.pro.mapper.RoleMenuMapper;
 import com.aaa.pro.model.Role;
-import com.aaa.pro.utils.DateUtils;
-import com.github.pagehelper.PageHelper;
+import com.aaa.pro.model.RoleMenu;
+import com.aaa.pro.vo.RoleVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static com.aaa.pro.staticproperties.DateTimeFormatProperties.TIME_FORMAT;
+import static com.aaa.pro.status.CrudStatus.QUERY_FIND_NOT_DATA;
+import static com.aaa.pro.status.CrudStatus.QUERY_SUCCESS_DATA;
 
 /**
  * @ProjectName: qy109-second-phase-project
@@ -27,155 +28,191 @@ import static com.aaa.pro.staticproperties.DateTimeFormatProperties.TIME_FORMAT;
 @Service
 public class RoleService extends BaseService<Role> {
     @Autowired
-    private RoleMapper roleMapper;
+    RoleMapper roleMapper;
+
+    @Autowired
+    RoleMenuMapper roleMenuMapper;
 
     /**
-     * @return com.github.pagehelper.PageInfo
+     * @Description: 查询所有的角色
      * @Author: jkm
-     * @Description: 查询所有角色信息
-     * @Date: 11:16 2020/7/17
-     * @param: [pageNo, pageSize]
+     * @Date: 2020/6/3 19:02
+     * @Param: []
+     * @return: com.aaa.qy108.base.ResultData
      */
-    public PageInfo selectAllRole(Integer pageNo, Integer pageSize) {
-        // 当前页数和一页数量
-        PageHelper.startPage(pageNo, pageSize);
-        //查询权限信息
+    public ResultData selectAllRole() {
+        ResultData resultData = new ResultData();
+        List<Role> roles = roleMapper.selectAll();
+        if (null == roles || roles.size() <= 0) {
+            //说明没有查到 查到为空
+            resultData.setCode(QUERY_FIND_NOT_DATA.getCode());
+            resultData.setMessage(QUERY_FIND_NOT_DATA.getMessage());
+        } else {
+            resultData.setCode(QUERY_SUCCESS_DATA.getCode());
+            resultData.setMessage(QUERY_SUCCESS_DATA.getMessage());
+            resultData.setData(roles);
+        }
+        return resultData;
+    }
+
+    /**
+     * @Description: 简单的分页查询
+     * @Author: jkm
+     * @Date: 2020/6/3 19:02
+     * @Param: [roleVo]
+     * @return: com.aaa.qy108.base.ResultData
+     */
+    public ResultData selectAllRoleByPage(RoleVo roleVo) {
+        ResultData resultData = new ResultData();
         try {
-            List<Role> roles = roleMapper.selectAll();
-            // 判断查询结果是否为空
-            if (!"".equals(roles) && null != roles) {
-                PageInfo<Role> rolePageInfo = new PageInfo<>(roles);
-                // 返回结果
-                return rolePageInfo;
+            PageInfo<Role> rolePageInfo = super.selectListByPage(roleVo.getRole(), roleVo.getPageNo(), roleVo.getPageSize());
+            if (null == rolePageInfo || "".equals(rolePageInfo)) {
+                //说明没有查到
+                resultData.setCode(QUERY_FIND_NOT_DATA.getCode());
+                resultData.setMessage(QUERY_FIND_NOT_DATA.getMessage());
+            } else {
+                resultData.setCode(QUERY_SUCCESS_DATA.getCode());
+                resultData.setMessage(QUERY_SUCCESS_DATA.getMessage());
+                resultData.setData(rolePageInfo);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return resultData;
     }
 
-    /**
-     * @return com.github.pagehelper.PageInfo
-     * @Author: jkm
-     * @Description: 条件查询 角色信息
-     * @Date: 11:19 2020/7/17
-     * @param: [map, pageNo, pageSize]
-     */
-    public PageInfo selectRoleByField(Map map, Integer pageNo, Integer pageSize) {
-        // 当前页数和一页数量
-        PageHelper.startPage(pageNo, pageSize);
-        //查询权限信息
-        try {
-            List<Role> roles = roleMapper.selectRoleByField(map);
-            // 判断查询结果是否为空
-            if (!"".equals(roles) && null != roles) {
-                PageInfo<Role> rolePageInfo = new PageInfo<>(roles);
-                // 返回结果
-                return rolePageInfo;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
-     * @return com.aaa.pro.model.Role
+     * @Description: 删除角色
      * @Author: jkm
-     * @Description: 根据id查询角色信息
-     * @Date: 11:40 2020/7/17
-     * @param: [roleId]
+     * @Date: 2020/6/3 19:02
+     * @Param: [roleId]
+     * @return: java.lang.Boolean
      */
-    public Role selectRoleByParimaryKey(Long roleId) {
-        // 判断前端是否传值成功
-        if (null != roleId) {
-            // 根据id查询
-            try {
-                Role role = roleMapper.selectByPrimaryKey(roleId);
-                // 判断是否查询成功
-                if (!"".equals(role) && null != role) {
-                    // 返回查询信息
-                    return role;
+    public Boolean deleteRole(Long roleId) {
+        int i = roleMapper.deleteByPrimaryKey(roleId);
+        if (i > 0) {
+            //说明删除成功
+            // 接下来要去把role_menu表中对应的数据删掉
+            //先去查他有没有权限 有权限就全部删掉  没有就结束
+            List<RoleMenu> list = roleMenuMapper.selectByRoleId(roleId);
+            if (list.size() > 0) {
+                //说明权限不是是空的  需要删除
+                int i1 = roleMenuMapper.deleteRoleMenu(roleId);
+                if (i1 > 0) {
+                    //说明删除成功
+                    return true;
+                } else {
+                    //删除失败
+                    return false;
                 }
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                //说明权限是空的  不要删除
+                return true;
             }
+        } else {
+            //删除失败  直接false
+            return false;
         }
-        return null;
+
     }
 
-    /**
-     * @return java.lang.Long
-     * @Author: jkm
-     * @Description: 新增角色和对应权限
-     * @Date: 14:38 2020/7/17
-     * @param: [role]
-     */
-    public Long insertRole(Role role) {
-        // 判断前端是否传值成功
-        // 获取当前时间
-        // 设置日期格式
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TIME_FORMAT);
-        if (!"".equals(role) && null != role) {
-            role.setRoleName(role.getRoleName())
-                    .setRemark(role.getRemark())
-                    .setCreateTime(DateUtils.getCurrentDate());
-            // 执行新增操作
-            Integer integer = roleMapper.insertRoleResultId(role);
-            @NotNull Long roleId = role.getRoleId();
-            if (null != integer) {
-                return roleId;
-            }
-        }
-        return null;
-    }
 
     /**
-     * @return java.lang.Integer
+     * @Description: 新增角色以及批量新增权限
      * @Author: jkm
-     * @Description: 根据id修改角色
-     * @Date: 16:05 2020/7/17
-     * @param: [role]
+     * @Date: 2020/6/3 19:02
+     * @Param: [roleVo]
+     * @return: java.lang.Boolean
      */
-    public Integer updateRoleByPrimaryKey(Role role) {
-        // 判断前端是否传值成功
-        if (!"".equals(role) && null != role) {
+    public Boolean insertRole(RoleVo roleVo) {
+        String s = DateUtil.now();
+        roleVo.getRole().setCreateTime(s);
 
-            try {
-                //将当前时间传入修改时间
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TIME_FORMAT);
-                role.setModifyTime(DateUtils.getCurrentDate());
-                //调用修改方法
-                int i = roleMapper.updateRoleByPrimaryKey(role);
-                //判断是否修改成功
+        int insert = roleMapper.insert(roleVo.getRole());
+        if (insert > 0) {
+            //说明新增成功了
+            //那就开始加roleMenu
+            //如果传过来的menuId是null 说明不添加了
+            //如果传来的不是空  说明需要添加roleMenu
+            if (null == roleVo.getMenuId() || "".equals(roleVo.getMenuId())) {
+                //说明不添加权限  只是加一个角色 返回true结束
+                return true;
+            } else {
+                //说明需要添加新的菜单权限
+                List<RoleMenu> list = new ArrayList();
+                for (Long menuId : roleVo.getMenuId()) {
+                    RoleMenu rm = new RoleMenu();
+                    rm.setMenuId(menuId);
+                    rm.setRoleId(roleVo.getRole().getRoleId());
+                    list.add(rm);
+                }
+                Integer i = roleMenuMapper.batchInsertRoleMenu(list);
                 if (i > 0) {
-                    //返回受影响的行数
-                    return i;
+                    //说明批量新增也成功了  那就返回
+                    return true;
+                } else {
+                    return false;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
-        return null;
+        //新增失败直接false
+        return false;
     }
 
+
     /**
-     * @return java.lang.Boolean
+     * @Description: 修改角色及其权限
      * @Author: jkm
-     * @Description: 根据 roleTds 批量删除角色
-     * @Date: 16:17 2020/7/17
-     * @param: [roleIds]
+     * @Date: 2020/6/3 19:02
+     * @Param: [roleVo]
+     * @return: java.lang.Boolean
      */
-    public Boolean deleteRoleByRoleIds(List<Object> roleIds) {
-        //判断前段是否传值成功
-        if (!"".equals(roleIds) && null != roleIds) {
-            try {
-                //调用父类重载的批量删除方法
-                Integer integer = super.batchDeleteByRoleIds(roleIds);
-                return integer > 0;
-            } catch (Exception e) {
-                e.printStackTrace();
+    public Boolean updateRole(RoleVo roleVo) {
+        String s = DateUtil.now();
+        roleVo.getRole().setModifyTime(s);
+        //1、去修改role表
+        int i = roleMapper.updateByPrimaryKeySelective(roleVo.getRole());
+        if (i > 0) {
+            //1、说明role表修改成功
+            //2、要继续去修改Role的Menu
+            //3、如果是没有动权限表  不执行以下流程     （在这咋判断有没有新权限）
+            //4、修改就是 先删完老的， 再加新的  不管是换新的权限还是权限全部取消 都先删除 (在这判断传过来的menuId是不是null)
+            //5、如果他之前没有权限就不能去删除  直接新增
+            //6、如果他有权限，要撤销他的权限  就直接删除即可
+            List<RoleMenu> list = roleMenuMapper.selectByRoleId(roleVo.getRole().getRoleId());
+            boolean equals = list.equals(roleVo.getMenuId());
+            if (true == equals) {
+                //说明没有改动权限表  直接返回true
+                return true;
+            } else {
+                //说明要改动权限表  那就先查他之前是否有权限
+                List<RoleMenu> menus = roleMenuMapper.selectByRoleId(roleVo.getRole().getRoleId());
+                if (menus.size() > 0) {
+                    //说明以前是有权限的  无论是要给他撤销全部的权限  还是要更改他的权限  都先全部删除
+                    int i2 = roleMenuMapper.deleteRoleMenu(roleVo.getRole().getRoleId());
+                    if (i2 > 0) {
+                        //说明权限已经全部删除了   接下来判断是否要给他换上新的权限
+                        //如果传进来的权限是空的
+                        if (null == roleVo.getMenuId() || "".equals(roleVo.getMenuId())) {
+                            //说明没有新的权限 那就结束
+                            return true;
+                        } else {
+                            List<RoleMenu> arr = new ArrayList();
+                            for (Long jkmd : roleVo.getMenuId()) {
+                                RoleMenu rm = new RoleMenu();
+                                rm.setMenuId(jkmd);
+                                rm.setRoleId(roleVo.getRole().getRoleId());
+                                arr.add(rm);
+                            }
+                            int i3 = roleMenuMapper.batchInsertRoleMenu(arr);
+                            if (i3 > 0) {
+                                //说明修改彻底结束
+                                return true;
+                            }
+                        }
+                    }
+                }
             }
         }
         return false;

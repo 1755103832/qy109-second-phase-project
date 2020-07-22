@@ -1,42 +1,38 @@
 package com.aaa.pro.mapper;
 
 import com.aaa.pro.model.RoleMenu;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
 /**
- * @Author zyb
- * @Date Create in 2020/7/21 17:11
- * @Description 角色菜单表
- **/
+ * @Author: jkm
+ * @Description: 角色菜单表
+ */
 public interface RoleMenuMapper extends Mapper<RoleMenu> {
-
     /**
-     * @Author zyb
-     * @Description 在RoleMenu表中根据roleId删除
-     * @Date 2020/7/21 17:23
-     * @Param [roleId]
-     * @Return int
-     **/
+     * 在RoleMenu表中根据roleId删除
+     *
+     * @param roleId
+     * @return
+     */
     int deleteRoleMenu(Long roleId);
 
     /**
-     * @Author zyb
-     * @Description 批量新增
-     * @Date 2020/7/21 17:23
-     * @Param [roleMenus]
-     * @Return int
-     **/
+     * 批量新增
+     *
+     * @param roleMenus
+     * @return
+     */
     int batchInsertRoleMenu(List<RoleMenu> roleMenus);
 
     /**
-     * @Author zyb
-     * @Description 查询表里面有没有roleId
-     * @Date 2020/7/21 17:24
-     * @Param [roleId]
-     * @Return java.util.List<com.aaa.pro.model.RoleMenu>
-     **/
-    List<RoleMenu> selectByRoleId(Long roleId);
-
+     * @Description: 查询表里面有没有roleId
+     * @Author: jkm
+     * @Date: 2020/6/3 19:03
+     * @Param: [roleId]
+     * @return: java.util.List<com.aaa.pro.model.RoleMenu>
+     */
+    List<RoleMenu> selectByRoleId(@Param("roleId") Long roleId);
 }

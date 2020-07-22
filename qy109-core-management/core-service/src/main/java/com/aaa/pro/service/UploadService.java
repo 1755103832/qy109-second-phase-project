@@ -1,18 +1,18 @@
 package com.aaa.pro.service;
 
 import com.aaa.pro.properties.FtpProperties;
+import com.aaa.pro.utils.DateUtils;
 import com.aaa.pro.utils.FileNameUtils;
 import com.aaa.pro.utils.FtpUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
-import com.aaa.pro.utils.DateUtils;
-import static com.aaa.pro.staticproperties.DateTimeFormatProperties.*;
-import static com.aaa.pro.staticproperties.RedisProperties.*;
+
+import static com.aaa.pro.staticproperties.DateTimeFormatProperties.DATE_FORMAT;
+import static com.aaa.pro.staticproperties.RedisProperties.POINT;
 
 /**
  * @Author zyb

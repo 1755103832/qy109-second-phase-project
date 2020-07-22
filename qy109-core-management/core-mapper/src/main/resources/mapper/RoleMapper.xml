@@ -8,8 +8,8 @@
         <id column="ROLE_ID" property="roleId" jdbcType="BIGINT"/>
         <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
         <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
-        <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR"/>
-        <result column="MODIFY_TIME" property="modifyTime" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP"/>
     </resultMap>
     <select id="selectRoleByField" resultMap="BaseResultMap" parameterType="java.util.Map">
         <if test="roleName != null and roleName != ''">

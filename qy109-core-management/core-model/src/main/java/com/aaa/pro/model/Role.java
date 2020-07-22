@@ -1,5 +1,6 @@
 package com.aaa.pro.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -8,16 +9,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @Author zyb
- * @Date Create in 2020/7/21 17:06
- * @Description
- **/
+ * @Author: jkm
+ * @Description: 角色
+ */
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "t_role")
 public class Role implements Serializable {
-
     /**
      * 角色ID
      */
@@ -49,4 +49,5 @@ public class Role implements Serializable {
      */
     @Column(name = "MODIFY_TIME")
     private String modifyTime;
+
 }

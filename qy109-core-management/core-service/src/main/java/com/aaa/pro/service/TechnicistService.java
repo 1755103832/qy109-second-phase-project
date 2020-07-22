@@ -1,18 +1,14 @@
 package com.aaa.pro.service;
 
 import com.aaa.pro.base.BaseService;
-import com.aaa.pro.mapper.ResourceMapper;
 import com.aaa.pro.mapper.TechnicistMapper;
 import com.aaa.pro.model.Technicist;
-import com.aaa.pro.properties.FtpProperties;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 
 
 @Service

@@ -2,17 +2,14 @@ package com.aaa.pro.controller;
 
 import com.aaa.pro.base.BaseController;
 import com.aaa.pro.base.ResultData;
-import com.aaa.pro.model.Role;
 import com.aaa.pro.service.IProjectService;
-import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
+import com.aaa.pro.vo.RoleVo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * @ProjectName: qy109-second-phase-project
@@ -22,60 +19,62 @@ import java.util.Map;
  * @description： 角色管理增删改查
  */
 @RestController
-@Api(value = "角色管理", tags = "角色管理接口")
+//@Api(value = "角色管理", tags = "角色管理接口")
 public class RoleController extends BaseController {
     @Autowired
     private IProjectService iProjectService;
 
     /**
-     * @return com.aaa.pro.base.ResultData
-     * @Author: jkm
-     * @Description: 查询所有角色信息
-     * @Date: 17:40 2020/7/17
-     * @param: [pageNo, pageSize]
+     * @Description: 简单的分页查询
+     * @Author: sgz
+     * @Date: 2020/6/3 18:51
+     * @Param: [roleVo]
+     * @return:
      */
-    @GetMapping("selectAllRole")
-    public ResultData selectAllRole(Integer pageNo, Integer pageSize) {
-        PageInfo pageInfo = iProjectService.selectAllRole(pageNo, pageSize);
-        //判断是否查询成功
-        if (!"".equals(pageInfo) && null != pageInfo) {
-            return super.querySuccess(pageInfo);
-        }
-        return super.queryFailed();
+    @PostMapping("/pageRoles")
+    @ApiOperation(value = "角色信息", notes = "查询所有角色带分页的功能")
+    public ResultData selectAllRoleByPage(@RequestBody RoleVo roleVo) {
+        return iProjectService.selectAllRoleByPage(roleVo);
+    }
+
+    /**
+     * @Description: 删除角色
+     * @Author: sgz
+     * @Date: 2020/6/3 18:51
+     * @Param: [roleId]
+     * @return:
+     */
+    @PostMapping("/deleteRole")
+    @ApiOperation(value = "删除角色", notes = "删除角色的功能")
+    public ResultData deleteRole(@RequestParam("roleId") Long roleId) {
+        return iProjectService.deleteRole(roleId);
+    }
+
+    /**
+     * @Description: 新增角色以及批量新增权限
+     * @Author: sgz
+     * @Date: 2020/6/3 18:52
+     * @Param: [roleVo]
+     * @return:
+     */
+    @PostMapping("/insertRole")
+    @ApiOperation(value = "新增角色", notes = "新增角色的功能")
+    public ResultData insertRole(@RequestBody RoleVo roleVo) {
+        return iProjectService.insertRole(roleVo);
     }
 
 
     /**
-     * @return com.aaa.pro.base.ResultData
-     * @Author: jkm
-     * @Description: 根据条件查询角色
-     * @Date: 17:40 2020/7/17
-     * @param: [map, pageNo, pageSize]
+     * @Description: 修改角色及其权限
+     * @Author: sgz
+     * @Date: 2020/6/3 18:52
+     * @Param: [roleVo]
+     * @return:
      */
-    @PostMapping("selectRoleByField")
-    public ResultData selectRoleByField(@RequestBody Map map, Integer pageNo, Integer pageSize) {
-        PageInfo pageInfo = iProjectService.selectRoleByField(map, pageNo, pageSize);
-        //判断是否查询成功
-        if (!"".equals(pageInfo) && null != pageInfo) {
-            return super.querySuccess(pageInfo);
-        }
-        return super.queryFailed();
-    }
-
-    /**
-     * @return com.aaa.pro.base.ResultData
-     * @Author: jkm
-     * @Description: 根据主键查询信息
-     * @Date: 17:32 2020/7/17
-     * @param: [roleId]
-     */
-    @GetMapping("selectRoleByPrimaryKey")
-    public ResultData selectRoleByPrimaryKey(Long roleId) {
-        Role role = iProjectService.selectRoleByPrimaryKey(roleId);
-        if (!"".equals(role) && null != role) {
-            return super.querySuccess(role);
-        }
-        return super.queryFailed();
+    @PostMapping("/updateRole")
+    @ApiOperation(value = "修改角色", notes = "修改角色的功能")
+    public ResultData updateRole(@RequestBody RoleVo roleVo) {
+        return iProjectService.updateRole(roleVo);
     }
 
 }

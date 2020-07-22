@@ -89,7 +89,6 @@ public class Equipment implements Serializable {
 
     /**
      * 创建时间
-
      */
     @Column(name = "create_time")
     private Date createTime;

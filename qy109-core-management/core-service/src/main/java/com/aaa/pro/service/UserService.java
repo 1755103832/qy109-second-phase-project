@@ -1,23 +1,29 @@
 package com.aaa.pro.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.aaa.pro.base.BaseService;
 import com.aaa.pro.mapper.UserMapper;
 import com.aaa.pro.model.User;
-import com.aaa.pro.utils.UUIDUtils;
+import com.aaa.pro.redis.RedisService;
+import com.aaa.pro.utils.BaseUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.util.Sqls;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static com.aaa.pro.staticproperties.DateTimeFormatProperties.TIME_FORMAT;
+import static com.aaa.pro.staticproperties.CodeFormatProperties.*;
+import static com.aaa.pro.status.CrudStatus.*;
+import static com.aaa.pro.status.LoginStatus.LOGIN_TIMEOUT_EXIT;
 
 
 /**
- * @Company: com.aaa.jkm
+ * @Company: com.aaa
  * @ProjectName: qy109-second-phase-project
  * @PackageName: com.aaa.pro.service
  * @Author： jkm
@@ -30,173 +36,143 @@ public class UserService extends BaseService<User> {
     private UserMapper userMapper;
 
     /**
-     * @return com.github.pagehelper.PageInfo<com.aaa.pro.model.User>
+     * @Description: 新增用户
      * @Author: jkm
-     * @Description: 查询所有用户
-     * @Date: 10:51 2020/7/16
-     * @param: [pageNo, pageSize]
+     * @Date: 2020/5/20 15:42
+     * @Param: [user]
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
      */
-    public PageInfo<User> selectAllUser(Integer pageNo, Integer pageSize) {
-        PageHelper.startPage(pageNo, pageSize);
-        List<User> users = userMapper.selectAll();
-        if (users.size() > 0) {
-            PageInfo<User> pageInfo = new PageInfo<>(users);
-            return pageInfo;
+    public Map<String, Object> addUser(User user) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        //可以查到redis里的token，然后可以进行新增用户
+        user.setCreateTime(DateUtil.now());
+        int addResult = userMapper.insert(user);
+        if (addResult > 0) {
+            resultMap.put(CODE, INSERT_SUCCESS.getCode());
+            resultMap.put(MSG, INSERT_SUCCESS.getMessage());
         } else {
-            return null;
+            resultMap.put(CODE, INSERT_FAILED.getCode());
+            resultMap.put(MSG, INSERT_FAILED.getMessage());
         }
+        return resultMap;
+    }
+
+
+    /**
+     * @Description: 批量删除用户
+     * @Author: jkm
+     * @Date: 2020/5/20 20:50
+     * @Param: [ids]
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
+     */
+    public Map<String, Object> delUser(List<Long> ids) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        //获取到参数类型，然后添加一个where条件，是in类型，id属于ids中的
+        Example example = Example.builder(User.class).where(Sqls.custom().andIn("id", ids)).build();
+        int i = userMapper.deleteByExample(example);
+        if (i > 0) {
+            resultMap.put(CODE, DELETE_SUCCESS.getCode());
+            resultMap.put(MSG, DELETE_SUCCESS.getMessage());
+        } else {
+            resultMap.put(CODE, DELETE_FAILED.getCode());
+            resultMap.put(MSG, DELETE_FAILED.getMessage());
+        }
+        return resultMap;
+    }
+
+
+    /**
+     * @Description: 修改员工信息
+     * @Author: jkm
+     * @Date: 2020/5/21 16:00
+     * @Param: [user]
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
+     */
+    public Map<String, Object> updateUser(User user) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        user.setModifyTime(DateUtil.now());
+        int i = userMapper.updateByPrimaryKeySelective(user);
+        if (i > 0) {
+            resultMap.put(CODE, UPDATE_SUCCESS.getCode());
+            resultMap.put(MSG, UPDATE_SUCCESS.getMessage());
+        } else {
+            resultMap.put(CODE, UPDATE_FAILED.getCode());
+            resultMap.put(MSG, UPDATE_FAILED.getMessage());
+        }
+        return resultMap;
+    }
+
+
+    /**
+     * @Description: 查询全部用户信息
+     * @Author: jkm
+     * @Date: 2020/5/21 19:29
+     * @Param: []
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
+     */
+    public Map<String, Object> selectAll() {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        List<User> users = userMapper.selectAll();
+        if (null != users && !users.isEmpty()) {
+            resultMap.put(CODE, QUERY_SUCCESS.getCode());
+            resultMap.put(MSG, QUERY_SUCCESS.getMessage());
+            resultMap.put(DATA, users);
+            return resultMap;
+        } else {
+            resultMap.put(CODE, QUERY_FAILED.getCode());
+            resultMap.put(MSG, QUERY_FAILED.getMessage());
+        }
+        return resultMap;
     }
 
     /**
-     * @return com.aaa.pro.model.User
-     * @Author: jkm
-     * @Description: 根据id查询用户
-     * @Date: 15:47 2020/7/16
-     * @param: [id]
+     * @return com.github.pagehelper.PageInfo<java.util.HashMap>
+     * @throws
+     * @Author jkm
+     * @Description 多表分页查询所有用户
+     * @Param [map]
+     * @Data 2020/5/22
      */
-    public User selectUserById(Long id) {
-        // 判断前端是否传值成功
-        if (!"".equals(id) && null != id) {
-            try {
-                User user = userMapper.selectByPrimaryKey(id);
-                // 判断是否查询出数据
-                if (!"".equals(user) && null != id) {
-                    return user;
-                }
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public PageInfo<HashMap> selectUserPageInfo(HashMap map) {
+        PageHelper.startPage(BaseUtils.trans2Int(map.get("pageNo")), BaseUtils.trans2Int(map.get("pageSize")));
+        List<HashMap> list = userMapper.selectUserAll(map);
+        PageInfo<HashMap> pageInfo = new PageInfo<HashMap>(list);
+        if (null != pageInfo && !"".equals(pageInfo)) {
+            return pageInfo;
         }
         return null;
     }
 
     /**
-     * @return java.lang.Boolean
-     * @Author: jkm
-     * @Description: 添加用户，这个参数user是从前端传过来的
-     * @Date: 11:06 2020/7/16
-     * @param: [user]
+     * @return com.github.pagehelper.PageInfo<T>
+     * @throws
+     * @Author jkm
+     * @Description 分页查询全部用户
+     * @Param [t, pageNo, pageSize]
+     * @Data 2020/5/20
      */
-    public Boolean addUser(User user) {
-
-        try {
-            // 获取当前时间
-            Date date = new Date();
-            // 设置日期格式
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TIME_FORMAT);
-            String format = simpleDateFormat.format(date);
-            // 获取一个token值
-            String token = UUIDUtils.getUUID();
-            // 获取前端传入的参数，放入user中
-            // 将userName传入
-            user.setUsername(user.getUsername())
-                    .setToken(token)
-                    // 传入password
-                    .setPassword(user.getPassword())
-                    // 传入Email
-                    .setEmail(user.getEmail())
-                    // 传入手机号
-                    .setMobile(user.getMobile())
-                    // 传入角色
-                    .setType(user.getType())
-                    // 传入部门
-                    .setDeptId(user.getDeptId())
-                    // 传入状态
-                    .setStatus(user.getStatus())
-                    // 传入性别
-                    .setSsex(user.getSsex())
-                    // 传入创建时间
-                    .setCreateTime(format)
-                    // 传入password
-                    .setId(user.getId());
-            int insert = userMapper.insert(user);
-            if (insert > 0) {
-                return true;
+    public Map<String, Object> selectUserAll(HashMap map, RedisService redisService) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        String tokenVal = redisService.getString(map.get("tokenId").toString());
+        //检测token
+        if (null == tokenVal) {
+            resultMap.put(CODE, LOGIN_TIMEOUT_EXIT.getCode());
+            resultMap.put(MSG, LOGIN_TIMEOUT_EXIT.getMessage());
+            return resultMap;
+        }
+        if (map.size() > 0) {
+            //调用BaseService分页条件查询
+            PageInfo<HashMap> pageInfo = selectUserPageInfo(map);
+            if (null != pageInfo && pageInfo.getSize() > 0) {
+                resultMap.put(CODE, QUERY_SUCCESS.getCode());
+                resultMap.put(MSG, pageInfo);
+                return resultMap;
             } else {
-                return false;
+                resultMap.put(CODE, QUERY_FAILED.getCode());
+                resultMap.put(MSG, QUERY_FAILED.getMessage());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return false;
+        return resultMap;
     }
 
-    /**
-     * @return java.lang.Integer
-     * @Author: jkm
-     * @Description: 通过主键删除用户
-     * @Date: 11:46 2020/7/16
-     * @param: [user]
-     */
-    public Integer deleteUser(User user) {
-        // 判断前端是否传值成功
-        if (!"".equals(user) && user != null) {
-            try {
-                // 执行删除操作
-                int delete = userMapper.delete(user);
-                if (delete > 0) {
-                    return delete;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @return java.lang.Integer
-     * @Author: jkm
-     * @Description: 根据id批量删除用户
-     * @Date: 15:34 2020/7/16
-     * @param: [ids]
-     */
-    public Integer deleteMoreUser(List<Object> ids) {
-        // 判断前端是否传值成功
-        if (!"".equals(ids) && null != ids) {
-            try {
-                //调用父类的批量删除方法
-                Integer integer = super.batchDeleteByIds(ids);
-                if (integer > 0) {
-                    return integer;
-                }
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @return java.lang.Integer
-     * @Author: jkm
-     * @Description: 根据id修改用户信息
-     * @Date: 15:56 2020/7/16
-     * @param: [user]
-     */
-    public Integer updateUserById(User user) {
-        // 判断前端是否传值成功
-        if (!"".equals(user) && null != user) {
-            // 获取当前时间作为修改时间
-            Date date = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(TIME_FORMAT);
-            String format = simpleDateFormat.format(date);
-            // 把时间存到实体中
-            user.setModifyTime(format);
-            try {
-                // 通过父类方法修改用户信息
-                Integer update = super.updateByPrimaryKeySelective(user);
-                // 判断受影响的行数
-                if (update > 0) {
-                    return update;
-                }
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 }

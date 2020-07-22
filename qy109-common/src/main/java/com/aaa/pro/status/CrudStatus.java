@@ -15,7 +15,14 @@ public enum CrudStatus {
     UPDATE_SUCCESS("205", "更新成功"),
     UPDATE_FAILED("409", "更新失败"),
     QUERY_SUCCESS("206", "查询成功"),
-    QUERY_FAILED("410", "查询失败");
+    QUERY_FAILED("410", "查询失败"),
+    QUERY_FIND_NOT_DATA("30010","查询不到数据"),
+    QUERY_SUCCESS_DATA("20010","查询成功并且返回数据"),
+    QUERY_DATA_NOT_EXIST("14002","数据不存在！"),
+    QUERY_DATA_BY_ID_SUCCESS("24002","根据ID查询数据成功！"),
+    QUERY_DATA_BY_ID_FAILED("14003","根据ID查询数据失败！"),
+    USER_DATA_FAILED("14005","用户信息数据导出失败！"),
+    USER_DATA_ERROR("14007","用户信息数据导出错误！");
 
     private String code;
     private String message;

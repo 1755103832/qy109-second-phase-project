@@ -2,13 +2,13 @@ package com.aaa.pro.controller;
 
 import com.aaa.pro.base.BaseService;
 import com.aaa.pro.base.CommonController;
-import com.aaa.pro.model.Role;
+import com.aaa.pro.base.ResultData;
 import com.aaa.pro.service.RoleService;
-import com.github.pagehelper.PageInfo;
+import com.aaa.pro.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import static com.aaa.pro.status.CrudStatus.QUERY_SUCCESS_DATA;
 
 /**
  * @Company: com.aaa.jkm
@@ -24,52 +24,90 @@ public class RoleController extends CommonController {
     @Autowired
     private RoleService roleService;
 
-
     /**
-     * @return com.github.pagehelper.PageInfo
-     * @Author: jkm
-     * @Description: 查询所有角色信息
-     * @Date: 18:12 2020/7/17
-     * @param: [pageNo, pageSize]
+     * @Description: 查询所有的角色
+     * @Author: sgz
+     * @Date: 2020/6/3 19:01
+     * @Param: []
+     * @return: com.aaa.pro.base.ResultData
      */
-    @GetMapping("/selectAllRole")
-    public PageInfo selectAllRole(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
-        PageInfo pageInfo = roleService.selectAllRole(pageNo, pageSize);
-        return pageInfo;
-    }
-
-    /**
-     * @return com.github.pagehelper.PageInfo
-     * @Author: jkm
-     * @Description: 根据条件查询
-     * @Date: 18:11 2020/7/17
-     * @param: [map, pageNo, pageSize]
-     */
-    @PostMapping("/selectRoleByField")
-    public PageInfo selectRoleByField(@RequestBody Map map, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
-        PageInfo pageInfo = roleService.selectRoleByField(map, pageNo, pageSize);
-        if (!"".equals(pageInfo) && null != pageInfo) {
-            return pageInfo;
+    @GetMapping("/allRoles")
+    public ResultData selectAllRole() {
+        ResultData resultData = roleService.selectAllRole();
+        if (QUERY_SUCCESS_DATA.getCode() == resultData.getCode()) {
+            return querySuccess(resultData.getData());
+        } else {
+            return queryFailed();
         }
-        return null;
     }
 
     /**
-     * @return com.aaa.pro.model.Role
-     * @Author: jkm
-     * @Description: 根据主键查询角色信息
-     * @Date: 18:11 2020/7/17
-     * @param: [roleId]
+     * @Description: 简单的分页查询
+     * @Author: sgz
+     * @Date: 2020/6/3 19:01
+     * @Param: [roleVo]
+     * @return: com.aaa.pro.base.ResultData
      */
-    @GetMapping("selectRoleByPrimaryKey")
-    public Role selectRoleByPrimaryKey(@RequestParam("roleId") Long roleId) {
-        Role role = roleService.selectRoleByParimaryKey(roleId);
-        if (!"".equals(role) && null != role) {
-            return role;
+    @PostMapping("/pageRoles")
+    public ResultData selectAllRoleByPage(@RequestBody RoleVo roleVo) {
+        ResultData resultData = roleService.selectAllRoleByPage(roleVo);
+        if (QUERY_SUCCESS_DATA.getCode() == resultData.getCode()) {
+            return querySuccess(resultData.getData());
+        } else {
+            return queryFailed();
         }
-        return null;
     }
 
+    /**
+     * @Description: 删除角色
+     * @Author: sgz
+     * @Date: 2020/6/3 19:01
+     * @Param: [roleId]
+     * @return: com.aaa.pro.base.ResultData
+     */
+    @PostMapping("/deleteRole")
+    public ResultData deleteRole(@RequestParam("roleId") Long roleId) {
+        Boolean aBoolean = roleService.deleteRole(roleId);
+        if (aBoolean == true) {
+            return deleteSuccess();
+        } else {
+            return deleteFailed();
+        }
+    }
+
+    /**
+     * @Description: 新增角色以及批量新增权限
+     * @Author: sgz
+     * @Date: 2020/6/3 19:01
+     * @Param: [roleVo]
+     * @return: com.aaa.pro.base.ResultData
+     */
+    @PostMapping("/insertRole")
+    public ResultData insertRole(@RequestBody RoleVo roleVo) {
+        Boolean aBoolean = roleService.insertRole(roleVo);
+        if (true == aBoolean) {
+            return super.insertSuccess();
+        } else {
+            return super.insertFailed();
+        }
+    }
+
+    /**
+     * @Description: 修改角色及其权限
+     * @Author: sgz
+     * @Date: 2020/6/3 19:01
+     * @Param: [roleVo]
+     * @return: com.aaa.pro.base.ResultData
+     */
+    @PostMapping("/updateRole")
+    public ResultData updateRole(@RequestBody RoleVo roleVo) {
+        Boolean aBoolean = roleService.updateRole(roleVo);
+        if (aBoolean == true) {
+            return updateSuccess();
+        } else {
+            return updateFailed();
+        }
+    }
 
     @Override
     public BaseService getBaseService() {

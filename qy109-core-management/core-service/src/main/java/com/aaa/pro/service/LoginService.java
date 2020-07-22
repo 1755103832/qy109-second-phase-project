@@ -2,7 +2,6 @@ package com.aaa.pro.service;
 
 import com.aaa.pro.base.BaseService;
 import com.aaa.pro.model.User;
-
 import com.aaa.pro.vo.TokenVo;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,6 @@ package com.aaa.pro.controller;
 
 import com.aaa.pro.model.Dept;
 import com.aaa.pro.service.DeptService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
