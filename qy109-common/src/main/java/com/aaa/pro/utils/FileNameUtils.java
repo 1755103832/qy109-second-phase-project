@@ -19,7 +19,7 @@ public class FileNameUtils {
      * @Param []
      * @Return java.lang.String
      **/
-    public static String getFileName() {
+    public static String getNewFileName() {
         // 1.获取当前系统时间的毫秒数
         long currentTimeMillis = System.currentTimeMillis();
         // 2.创建随机数对象

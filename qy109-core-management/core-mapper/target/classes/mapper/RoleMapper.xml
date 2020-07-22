@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.pro.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.aaa.pro.model.Role">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="ROLE_ID" property="roleId" jdbcType="BIGINT"/>
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="selectRoleByField" resultMap="BaseResultMap" parameterType="java.util.Map">
+        <if test="roleName != null and roleName != ''">
+            and ROLE_NAME = #{roleName}
+        </if>
+        <if test="beginDate != null and beginDate != ''">
+            and CREATE_TIME >= #{beginDate} and #{endDate} >= CREATE_TIME
+        </if>
+    </select>
+
+    <insert id="insertRoleResultId" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.aaa.pro.model.Role">
+    INSERT INTO t_role
+    (ROLE_NAME,REMARK,CREATE_TIME) VALUES
+    (#{roleName},#{remark},#{createTime})
+  </insert>
+    <update id="updateRoleByPrimaryKey" parameterType="com.aaa.pro.model.Role">
+         update t_role
+     set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+     REMARK = #{remark,jdbcType=VARCHAR},
+     MODIFY_TIME =#{modifyTime,jdbcType=VARCHAR}
+     where ROLE_ID=#{roleId,jdbcType=BIGINT}
+  </update>
+</mapper>

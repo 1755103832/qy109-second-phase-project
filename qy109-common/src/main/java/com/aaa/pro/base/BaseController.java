@@ -436,6 +436,21 @@ public class BaseController {
     }
 
     /**
+     * @Author zyb
+     * @Description 文件上传，返回系统消息，返回上传数据信息
+     * @Date 2020/7/22 21:01
+     * @Param [data]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    protected ResultData uploadSuccess(Object data) {
+        ResultData resultData = new ResultData();
+        resultData.setCode(UPLOAD_SUCCESS.getCode());
+        resultData.setMessage(UPLOAD_SUCCESS.getMessage());
+        resultData.setData(data);
+        return resultData;
+    }
+
+    /**
      * @return com.aaa.pro.base.ResultData
      * @Author: project
      * @Description: 文件上传失败，返回系统消息

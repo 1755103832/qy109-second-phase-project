@@ -42,7 +42,7 @@ public class UserController extends BaseController {
      */
     @PostMapping("/addUser")
 //    @ApiOperation(value = "添加用户",notes = "用户管理的新增用户")
-    public ResultData addUser(@RequestBody User user) {
+    public Boolean addUser(@RequestBody User user) {
         return iProjectService.addUser(user);
     }
 

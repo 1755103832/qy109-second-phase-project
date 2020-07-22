@@ -2,6 +2,7 @@ package com.aaa.pro.service;
 
 import com.aaa.pro.base.ResultData;
 import com.aaa.pro.model.*;
+import com.aaa.pro.utils.ExcelUtils;
 import com.aaa.pro.vo.RoleVo;
 import com.aaa.pro.vo.TokenVo;
 import com.github.pagehelper.PageInfo;
@@ -11,9 +12,16 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.aaa.pro.staticproperties.CodeFormatProperties.CODE;
+import static com.aaa.pro.staticproperties.CodeFormatProperties.DATA;
+import static com.aaa.pro.status.CrudStatus.*;
 
 /**
  * @Author zyb
@@ -58,7 +66,7 @@ public interface IProjectService {
     @PostMapping(value = "/upload",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    Boolean uploadFile(@RequestBody MultipartFile file);
+    ResultData uploadFile(MultipartFile file);
 
     /**
      * @Author zyb
@@ -205,56 +213,50 @@ public interface IProjectService {
 
 
     /**
-     * @Description: 添加用户接口
+     * @return java.lang.Boolean
      * @Author: jkm
-     * @Date: 2020/5/20 14:42
-     * @Param: [user]
-     * @return: com.aaa.pro.base.ResultData
+     * @Description: 添加用户
+     * @Date: 18:48 2020/7/16
+     * @param: [user]
      */
-    @PostMapping("/user/addUser")
-    ResultData addUser(@RequestBody User user);
-
+    @PostMapping("/addUser")
+    Boolean addUser(@RequestBody User user);
 
     /**
-     * @Description: 批量删除用户
      * @Author: jkm
-     * @Date: 2020/5/20 20:33
-     * @Param: [ids]
-     * @return: com.aaa.pro.base.ResultData
+     * @Description: 查询所有用户信息
      */
-    @DeleteMapping("/user/delUser")
-    ResultData delUser(@RequestBody List<Long> ids);
+    @PostMapping("/selectAllUser")
+    PageInfo selectAllUser(@RequestParam("pageNo") Integer pageNo,
+                           @RequestParam("pageSize") Integer pageSize);
 
     /**
-     * @Description: 用户管理中修改用户信息
      * @Author: jkm
-     * @Date: 2020/5/21 15:48
-     * @Param: [user]
-     * @return: com.aaa.pro.base.ResultData
+     * @Description: 根据主键删除用户
      */
-    @PostMapping("/user/updateUser")
-    ResultData updateUser(@RequestBody User user);
+    @PostMapping("/deleteUser")
+    Integer deleteUser(@RequestBody User user);
 
     /**
-     * @Description: 用户信息导出excle
      * @Author: jkm
-     * @Date: 2020/5/21 16:25
-     * @Param: []
+     * @Description: 根据id 批量删除用户
      */
-    @GetMapping("/user/exportExcle")
-    Response exportExcle();
-
+    @PostMapping("/deleteMoreUser")
+    Integer deletrMoreUser(@RequestBody List<Object> ids);
 
     /**
-     * @return com.aaa.pro.base.ResultData
-     * @throws
-     * @Author Cy
-     * @Description 条件分页查询所有用户
-     * @Param [map]
-     * @Data 2020/5/21
+     * @Author: jkm
+     * @Description: 根据id查询用户
      */
-    @PostMapping("/user/selectUser")
-    ResultData selectUserAll(@RequestBody HashMap map);
+    @PostMapping("/selectUserById")
+    User selectUserById(@RequestParam("id") Long id);
+
+    /**
+     * @Author: jkm
+     * @Description: 根据id修改用户信息
+     */
+    @PostMapping("/updateUserById")
+    Integer updateUserById(@RequestBody User user);
 
     /**
      * @Author zyb
@@ -392,61 +394,40 @@ public interface IProjectService {
      * @Date: 19:30 2020/7/17
      * @param: [userId]
      */
-    @GetMapping("/selectAllEquipmentByUserId")
+    @PostMapping("/selectAllEquipmentByUserId")
     List<Equipment> selectAllEquipmentByUserId(@RequestParam("userId") Long userId);
 
     /**
-     * @Description: 查询所有的角色
+     * @return com.github.pagehelper.PageInfo
      * @Author: jkm
-     * @Date: 2020/6/3 18:58
-     * @Param: []
-     * @return: com.aaa.pro.base.ResultData
+     * @Description: 查询所有角色信息
+     * @Date: 18:12 2020/7/17
+     * @param: [pageNo, pageSize]
      */
-    @GetMapping("/role/allRoles")
-    ResultData selectAllRole();
+    @GetMapping("/selectAllRole")
+    PageInfo selectAllRole(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
 
     /**
-     * @Description: 简单的分页查询
+     * @return com.github.pagehelper.PageInfo
      * @Author: jkm
-     * @Date: 2020/6/3 18:54
-     * @Param: [roleVo]
-     * @return: com.aaa.pro.base.ResultData
+     * @Description: 根据条件查询
+     * @Date: 18:11 2020/7/17
+     * @param: [map, pageNo, pageSize]
      */
-    @PostMapping("/role/pageRoles")
-    ResultData selectAllRoleByPage(@RequestBody RoleVo roleVo);
-
+    @PostMapping("/selectRoleByField")
+    PageInfo selectRoleByField(@RequestBody Map map,
+                               @RequestParam("pageNo") Integer pageNo,
+                               @RequestParam("pageSize") Integer pageSize);
 
     /**
-     * @Description: 删除角色
+     * @return com.aaa.pro.model.Role
      * @Author: jkm
-     * @Date: 2020/6/3 18:54
-     * @Param: [roleId]
-     * @return: com.aaa.pro.base.ResultData
+     * @Description: 根据主键查询角色信息
+     * @Date: 18:11 2020/7/17
+     * @param: [roleId]
      */
-    @PostMapping("/role/deleteRole")
-    ResultData deleteRole(@RequestParam("roleId") Long roleId);
-
-
-    /**
-     * @Description: 新增角色以及批量新增权限
-     * @Author: jkm
-     * @Date: 2020/6/3 18:54
-     * @Param: [roleVo]
-     * @return: com.aaa.pro.base.ResultData
-     */
-    @PostMapping("/role/insertRole")
-    ResultData insertRole(@RequestBody RoleVo roleVo);
-
-
-    /**
-     * @Description: 修改角色及其权限
-     * @Author: jkm
-     * @Date: 2020/6/3 18:54
-     * @Param: [roleVo]
-     * @return: com.aaa.pro.base.ResultData
-     */
-    @PostMapping("/role/updateRole")
-    ResultData updateRole(@RequestBody RoleVo roleVo);
+    @GetMapping("selectRoleByPrimaryKey")
+    Role selectRoleByPrimaryKey(@RequestParam("roleId") Long roleId);
 
     /**
      * @Author zyb
@@ -654,9 +635,61 @@ public interface IProjectService {
     Integer delCheckPersonInfoById(@RequestParam("id") Long id);
 
     /**
+     * @Author zyb
+     * @Description 通过项目名称模糊查询+查询所有并分页
+     * @Date 2020/7/21 16:09
+     * @Param [mappingProject, pageNo, pageSize]
+     * @Return com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingProject>
+     **/
+    @PostMapping("/selectFuzzy")
+    PageInfo<MappingProject> selectFuzzy(@RequestBody(required = false) MappingProject mappingProject,
+                                         @RequestParam("pageNum") Integer pageNum,
+                                         @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @Author zyb
+     * @Description 获取菜单信息
+     * @Date 2020/7/21 17:32
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @GetMapping("/selectAllMenus")
+    ResultData selectAllMenus();
+
+    /**
+     * @Author zyb
+     * @Description 新增菜单或者按钮
+     * @Date 2020/7/22 12:04
+     * @Param [menu]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping("/insertMenuOrButton")
+    ResultData insertMenuOrButton(@RequestBody Menu menu);
+
+    /**
+     * @Author zyb
+     * @Description 根据主键修改菜单或者按钮的信息
+     * @Date 2020/7/21 19:52
+     * @Param [menu]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping("/updateMenuOrButton")
+    ResultData updateMenuOrButton(@RequestBody Menu menu);
+
+    /**
+     * @Author zyb
+     * @Description 通过主键id删除菜单或者按钮
+     * @Date 2020/7/21 19:55
+     * @Param [menuId]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping("/deleteMenuOrButton")
+    ResultData deleteMenuOrButton(@RequestParam("menuId") Long menuId);
+
+    /**
      * @Description 公告栏信息
      * @Author jkm
-     * @Date 2020/7/20 20:33
+     * @Date 2020/7/20 20:35
      */
     @PostMapping("/newsPostPageInfo")
     PageInfo<News> newsPostPageInfo(News news, Integer pageNo, Integer pageSize);
@@ -672,7 +705,7 @@ public interface IProjectService {
     /**
      * @Description 根据id 批量删除公告
      * @Author jkm
-     * @Date 2020/7/21 17:31
+     * @Date 2020/7/21 17:32
      */
     @PostMapping("/newsDeleteByIds")
     Integer newsDeleteByIds(@RequestParam("ids[]") List<Integer> ids);
@@ -684,8 +717,7 @@ public interface IProjectService {
      * @Date 2020/7/21 17:33
      */
     @PostMapping("/newsUpdate")
-     Integer newsUpdate(@RequestBody News news);
-
+    Integer newsUpdate(@RequestBody News news);
 
     /**
      * @Description 添加公告
@@ -693,52 +725,99 @@ public interface IProjectService {
      * @Date 2020/7/21 19:12
      */
     @PostMapping("/newsAdd")
-     Integer newsAdd(@RequestBody News news);
+    Integer newsAdd(@RequestBody News news);
 
     /**
      * @Description 根据标题分页模糊 公告栏查询
      * @Author jkm
-     * @Date 2020/7/21 14:47
+     * @Date 2020/7/21 14:49
      */
     @PostMapping("/newsFuzzyQuery")
-    ResultData newsFuzzyQuery(@RequestParam("title") String title, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
-    /**
-     * @Author zyb
-     * @Description 获取菜单信息
-     * @Date 2020/7/21 17:32
-     * @Param []
-     * @Return com.aaa.pro.base.ResultData
-     **/
-    @GetMapping("/selectAllMenus")
-     ResultData selectAllMenus();
+    ResultData newsFuzzyQuery(@RequestParam("title") String title,
+                              @RequestParam("pageNo") Integer pageNo,
+                              @RequestParam("pageSize") Integer pageSize);
+
 
     /**
-     * @Author zyb
-     * @Description 新增菜单或者按钮
-     * @Date 2020/7/22 12:04
-     * @Param [menu]
-     * @Return com.aaa.pro.base.ResultData
-     **/
-    @PostMapping("/insertMenuOrButton")
-     ResultData insertMenuOrButton(@RequestBody Menu menu);
+     * @Description: 简单的分页查询
+     * @Author: sgz
+     * @Date: 2020/6/3 18:51
+     * @Param: [roleVo]
+     * @return:
+     */
+    @PostMapping("/pageRoles")
+    ResultData selectAllRoleByPage(@RequestBody RoleVo roleVo);
 
     /**
-     * @Author zyb
-     * @Description 根据主键修改菜单或者按钮的信息
-     * @Date 2020/7/21 19:52
-     * @Param [menu]
-     * @Return com.aaa.pro.base.ResultData
-     **/
-    @PostMapping("/updateMenuOrButton")
-     ResultData updateMenuOrButton(@RequestBody Menu menu);
+     * @Description: 删除角色
+     * @Author: sgz
+     * @Date: 2020/6/3 18:51
+     * @Param: [roleId]
+     * @return:
+     */
+    @PostMapping("/deleteRole")
+    ResultData deleteRole(@RequestParam("roleId") Long roleId);
 
     /**
-     * @Author zyb
-     * @Description 通过主键id删除菜单或者按钮
-     * @Date 2020/7/21 19:55
-     * @Param [menuId]
-     * @Return com.aaa.pro.base.ResultData
-     **/
-    @PostMapping("/deleteMenuOrButton")
-     ResultData deleteMenuOrButton(@RequestParam("menuId") Long menuId);
+     * @Description: 新增角色以及批量新增权限
+     * @Author: sgz
+     * @Date: 2020/6/3 18:52
+     * @Param: [roleVo]
+     * @return:
+     */
+    @PostMapping("/insertRole")
+    ResultData insertRole(@RequestBody RoleVo roleVo);
+
+
+    /**
+     * @Description: 修改角色及其权限
+     * @Author: sgz
+     * @Date: 2020/6/3 18:52
+     * @Param: [roleVo]
+     * @return:
+     */
+    @PostMapping("/updateRole")
+    ResultData updateRole(@RequestBody RoleVo roleVo);
+
+    /**
+     * @Description: 批量删除用户
+     * @Author: jkm
+     * @Date: 2020/5/20 20:51
+     * @Param: [ids, tokenId]
+     * @return:
+     */
+    @DeleteMapping("/delUser")
+    ResultData delUser(@RequestBody List<Long> ids);
+
+
+    /**
+     * @Description: 修改员工信息
+     * @Author: jkm
+     * @Date: 2020/5/21 15:56
+     * @Param: [user]
+     * @return:
+     */
+    @PostMapping("/updateUser")
+    ResultData updateUser(@RequestBody User user);
+
+
+    /**
+     * @Description: 导出用户信息
+     * @Author: jkm
+     * @Date: 2020/5/21 16:26
+     * @Param: []
+     * @return:
+     */
+    @GetMapping("/exportExcle")
+    Response exportExcle();
+
+    /**
+     * @Description: 带条件查询用户信息
+     * @Author: jkm
+     * @Date: 2020/5/21 22:31
+     * @Param: [map]
+     * @return:
+     */
+    @PostMapping("/selectUser")
+    ResultData selectUserAll(@RequestBody HashMap map);
 }
