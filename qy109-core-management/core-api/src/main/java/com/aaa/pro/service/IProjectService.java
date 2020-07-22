@@ -684,7 +684,7 @@ public interface IProjectService {
      * @Date 2020/7/21 17:33
      */
     @PostMapping("/newsUpdate")
-    public Integer newsUpdate(@RequestBody News news);
+     Integer newsUpdate(@RequestBody News news);
 
 
     /**
@@ -693,7 +693,7 @@ public interface IProjectService {
      * @Date 2020/7/21 19:12
      */
     @PostMapping("/newsAdd")
-    public Integer newsAdd(@RequestBody News news);
+     Integer newsAdd(@RequestBody News news);
 
     /**
      * @Description 根据标题分页模糊 公告栏查询
@@ -702,5 +702,43 @@ public interface IProjectService {
      */
     @PostMapping("/newsFuzzyQuery")
     ResultData newsFuzzyQuery(@RequestParam("title") String title, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+    /**
+     * @Author zyb
+     * @Description 获取菜单信息
+     * @Date 2020/7/21 17:32
+     * @Param []
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @GetMapping("/selectAllMenus")
+     ResultData selectAllMenus();
 
+    /**
+     * @Author zyb
+     * @Description 新增菜单或者按钮
+     * @Date 2020/7/22 12:04
+     * @Param [menu]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping("/insertMenuOrButton")
+     ResultData insertMenuOrButton(@RequestBody Menu menu);
+
+    /**
+     * @Author zyb
+     * @Description 根据主键修改菜单或者按钮的信息
+     * @Date 2020/7/21 19:52
+     * @Param [menu]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping("/updateMenuOrButton")
+     ResultData updateMenuOrButton(@RequestBody Menu menu);
+
+    /**
+     * @Author zyb
+     * @Description 通过主键id删除菜单或者按钮
+     * @Date 2020/7/21 19:55
+     * @Param [menuId]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping("/deleteMenuOrButton")
+     ResultData deleteMenuOrButton(@RequestParam("menuId") Long menuId);
 }
