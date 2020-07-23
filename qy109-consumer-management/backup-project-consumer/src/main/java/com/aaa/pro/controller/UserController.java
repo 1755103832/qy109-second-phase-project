@@ -42,7 +42,7 @@ public class UserController extends BaseController {
      */
     @PostMapping("/addUser")
 //    @ApiOperation(value = "添加用户",notes = "用户管理的新增用户")
-    public Boolean addUser(@RequestBody User user) {
+    public Boolean addUser(User user) {
         return iProjectService.addUser(user);
     }
 
@@ -56,7 +56,7 @@ public class UserController extends BaseController {
      */
     @DeleteMapping("/delUser")
     @ApiOperation(value = "删除用户", notes = "用户管理的删除用户")
-    public ResultData delUser(@RequestBody List<Long> ids) {
+    public ResultData delUser(List<Long> ids) {
         return iProjectService.delUser(ids);
     }
 
@@ -70,7 +70,7 @@ public class UserController extends BaseController {
      */
     @PostMapping("/updateUser")
     @ApiOperation(value = "修改用户信息", notes = "用户管理的修改用户信息")
-    public ResultData updateUser(@RequestBody User user) {
+    public ResultData updateUser(User user) {
         return iProjectService.updateUser(user);
     }
 
@@ -122,7 +122,7 @@ public class UserController extends BaseController {
      * @return:
      */
     @PostMapping("selectUser")
-    ResultData selectUserAll(@RequestBody HashMap map) {
+    ResultData selectUserAll(HashMap map) {
         return iProjectService.selectUserAll(map);
     }
 

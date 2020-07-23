@@ -6,7 +6,7 @@ import java.util.Enumeration;
 /**
  * @Author zyb
  * @Date Create in 2020/7/19 11:15
- * @Description
+ * @Description 获取以Get方式请求的参数
  **/
 public class GetParamsUtils {
 
@@ -36,7 +36,7 @@ public class GetParamsUtils {
                 params.append("&");
             }
         }
-        if (params.length() > 1) {
+        if (params.length() > 0) {
             params.delete(params.length() - 1, params.length());
         }
         return params.toString();

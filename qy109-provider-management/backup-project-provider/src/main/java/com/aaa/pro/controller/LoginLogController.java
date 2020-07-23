@@ -22,16 +22,14 @@ public class LoginLogController extends CommonController<LoginLogs> {
 
 
     /**
-     *
-     * @description:
-     *     保存日志
-     * @params:   loginLogs
+     * @description: 保存日志
+     * @params: loginLogs
      * @return: java.lang.Integer
      * @author: Wen
      * @date: 2020/7/15 16:03
      */
     @PostMapping("/addLoginLog")
-    public Integer addLoginLog(@RequestBody LoginLogs loginLogs ) {
+    public Integer addLoginLog(@RequestBody LoginLogs loginLogs) {
         return getBaseService().insert(loginLogs);
     }
 

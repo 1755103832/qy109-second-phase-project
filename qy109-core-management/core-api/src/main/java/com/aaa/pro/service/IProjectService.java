@@ -692,7 +692,9 @@ public interface IProjectService {
      * @Date 2020/7/20 20:35
      */
     @PostMapping("/newsPostPageInfo")
-    PageInfo<News> newsPostPageInfo(News news, Integer pageNo, Integer pageSize);
+    PageInfo<News> newsPostPageInfo(@RequestBody News news,
+                                    @RequestParam("pageNo") Integer pageNo,
+                                    @RequestParam("pageSize") Integer pageSize);
 
     /**
      * @Description 根据id 删除公告
@@ -708,7 +710,7 @@ public interface IProjectService {
      * @Date 2020/7/21 17:32
      */
     @PostMapping("/newsDeleteByIds")
-    Integer newsDeleteByIds(@RequestParam("ids[]") List<Integer> ids);
+    Integer newsDeleteByIds(@RequestParam("ids") List<Integer> ids);
 
 
     /**
@@ -820,4 +822,44 @@ public interface IProjectService {
      */
     @PostMapping("/selectUser")
     ResultData selectUserAll(@RequestBody HashMap map);
+
+    /**
+     * @Author zyb
+     * @Description 单文件上传并添加自动添加日志信息(自定义文件名)
+     * @Date 2020/7/23 16:59
+     * @Param [file, customFileName]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping(value = "/uploadWithCustomFileName",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    ResultData uploadWithCustomFileName(MultipartFile file,
+                                        @RequestParam("customFileName") String customFileName);
+
+    /**
+     * @Author zyb
+     * @Description 文件上传，自定义文件路径和新的文件名
+     * @Date 2020/7/23 17:54
+     * @Param [file, filePath, customFileName]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping(value = "/uploadWithCustomPathAndName",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    ResultData uploadWithCustomPathAndName(MultipartFile file,
+                                           @RequestParam("filePath") String filePath,
+                                           @RequestParam("customFileName") String customFileName);
+
+    /**
+     * @Author zyb
+     * @Description 文件上传, 自定义文件上传路径
+     * @Date 2020/7/23 18:11
+     * @Param [file, customFilePath]
+     * @Return com.aaa.pro.base.ResultData
+     **/
+    @PostMapping(value = "/uploadWithCustomFilePath",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    ResultData uploadWithCustomFilePath(MultipartFile file,
+                                        @RequestParam("customFilePath") String customFilePath);
 }

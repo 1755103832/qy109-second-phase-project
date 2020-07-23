@@ -77,4 +77,139 @@ public class UploadService {
         }
         return false;
     }
+
+    /**
+     * @Author zyb
+     * @Description 文件上传，自定义新的文件名
+     * @Date 2020/7/23 16:55
+     * @Param [file, customFileName]
+     * @Return java.lang.Boolean
+     **/
+    public Boolean upload(MultipartFile file, String customFileName) {
+        // 1.获取文件的远程名称(为了获取后缀名)
+        String oleFileName = file.getOriginalFilename();
+        // 2.生成新的文件名
+        String newFileName = FileNameUtils.getNewFileName();
+        // 3.截取后缀名，拼接到新的文件名上
+        assert oleFileName != null;
+        newFileName = customFileName + oleFileName.substring(oleFileName.lastIndexOf(POINT));
+        // 4.获取文件的上传路径(2020/07/10)
+        String filePath = DateUtils.formatDate(new Date(), DATE_FORMAT);
+        // 5.调用文件上传工具类
+        try {
+            Boolean aBoolean = FtpUtils.upload(
+                    ftpProperties.getHost(),
+                    ftpProperties.getPort(),
+                    ftpProperties.getUsername(),
+                    ftpProperties.getPassword(),
+                    ftpProperties.getBasePath(),
+                    filePath,
+                    newFileName,
+                    file.getInputStream());
+            if (aBoolean) {
+                // 说明上传文件成功，需要把上传信息保存到数据库中
+                UploadLog uploadLog = new UploadLog();
+                String headPic = ftpProperties.getHttpPath() + "/" + filePath + "/" + newFileName;
+                uploadLog.setHeadPicPath(headPic);
+                uploadLog.setOriginalFileName(oleFileName);
+                uploadLog.setNewFileName(newFileName);
+                uploadLog.setUploadDatetime(DateTime.now().toString());
+                uploadLogMapper.insert(uploadLog);
+            }
+            return aBoolean;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 文件上传，自定义文件路径和新的文件名
+     * @Date 2020/7/23 17:46
+     * @Param [file, customFilePath, customFileName]
+     * @Return java.lang.Boolean
+     **/
+    public Boolean upload(MultipartFile file, String customFilePath, String customFileName) {
+        // 1.获取文件的远程名称(为了获取后缀名)
+        String oleFileName = file.getOriginalFilename();
+        // 2.生成新的文件名
+        String newFileName = FileNameUtils.getNewFileName();
+        // 3.截取后缀名，拼接到新的文件名上
+        assert oleFileName != null;
+        newFileName = customFileName + oleFileName.substring(oleFileName.lastIndexOf(POINT));
+        // 4.获取文件的上传路径(2020/07/10)
+        // String filePath = DateUtils.formatDate(new Date(), DATE_FORMAT);
+        // 5.调用文件上传工具类
+        try {
+            Boolean aBoolean = FtpUtils.upload(
+                    ftpProperties.getHost(),
+                    ftpProperties.getPort(),
+                    ftpProperties.getUsername(),
+                    ftpProperties.getPassword(),
+                    ftpProperties.getBasePath(),
+                    customFilePath,
+                    newFileName,
+                    file.getInputStream());
+            if (aBoolean) {
+                // 说明上传文件成功，需要把上传信息保存到数据库中
+                UploadLog uploadLog = new UploadLog();
+                String headPic = ftpProperties.getHttpPath() + "/" + customFilePath + "/" + newFileName;
+                uploadLog.setHeadPicPath(headPic);
+                uploadLog.setOriginalFileName(oleFileName);
+                uploadLog.setNewFileName(newFileName);
+                uploadLog.setUploadDatetime(DateTime.now().toString());
+                uploadLogMapper.insert(uploadLog);
+            }
+            return aBoolean;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * @Author zyb
+     * @Description 文件上传方法, 自定义文件上传路径
+     * @Date 2020/7/23 18:08
+     * @Param [file, customFilePath]
+     * @Return java.lang.Boolean
+     **/
+    public Boolean uploadWithCustomFilePath(MultipartFile file, String customFilePath) {
+        // 1.获取文件的远程名称(为了获取后缀名)
+        String oleFileName = file.getOriginalFilename();
+        // 2.生成新的文件名
+        String newFileName = FileNameUtils.getNewFileName();
+        // 3.截取后缀名，拼接到新的文件名上
+        assert oleFileName != null;
+        newFileName += oleFileName.substring(oleFileName.lastIndexOf(POINT));
+        // 4.获取文件的上传路径(2020/07/10)
+//        String filePath = DateUtils.formatDate(new Date(), DATE_FORMAT);
+        // 5.调用文件上传工具类
+        try {
+            Boolean aBoolean = FtpUtils.upload(
+                    ftpProperties.getHost(),
+                    ftpProperties.getPort(),
+                    ftpProperties.getUsername(),
+                    ftpProperties.getPassword(),
+                    ftpProperties.getBasePath(),
+                    customFilePath,
+                    newFileName,
+                    file.getInputStream());
+            if (aBoolean) {
+                // 说明上传文件成功，需要把上传信息保存到数据库中
+                UploadLog uploadLog = new UploadLog();
+                String headPic = ftpProperties.getHttpPath() + "/" + customFilePath + "/" + newFileName;
+                uploadLog.setHeadPicPath(headPic);
+                uploadLog.setOriginalFileName(oleFileName);
+                uploadLog.setNewFileName(newFileName);
+                uploadLog.setUploadDatetime(DateTime.now().toString());
+                uploadLogMapper.insert(uploadLog);
+            }
+            return aBoolean;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.pro.mapper.NewsMapper">
+    <resultMap id="BaseResultMap" type="com.aaa.pro.model.News">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="digest" property="digest" jdbcType="VARCHAR"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP"/>
+        <result column="body" property="body" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="newsFuzzyQuery" resultMap="BaseResultMap">
+        select title,digest,gmt_create
+        from t_news
+        where
+        <if test="title != null and title != '' ">
+            title LIKE CONCAT(CONCAT('%',#{title}),'%')
+        </if>
+    </select>
+</mapper>

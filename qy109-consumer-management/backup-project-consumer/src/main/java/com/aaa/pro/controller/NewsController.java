@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-;
-
 /**
  * @ProjectName: qy109-second-phase-project
  * @Package: com.aaa.pro.controller
@@ -44,7 +42,7 @@ public class NewsController {
      * @Date 2020/7/21 17:31
      */
     @PostMapping("/newsDelete")
-    public Integer newsDelete(@RequestBody News news) {
+    public Integer newsDelete(News news) {
         return iProjectService.newsDelete(news);
     }
 
@@ -54,7 +52,7 @@ public class NewsController {
      * @Date 2020/7/21 17:32
      */
     @PostMapping("/newsDeleteByIds")
-    public Integer newsDeleteByIds(@RequestParam("ids[]") List<Integer> ids) {
+    public Integer newsDeleteByIds(List<Integer> ids) {
         return iProjectService.newsDeleteByIds(ids);
     }
 
@@ -65,7 +63,7 @@ public class NewsController {
      * @Date 2020/7/21 17:33
      */
     @PostMapping("/newsUpdate")
-    public Integer newsUpdate(@RequestBody News news) {
+    public Integer newsUpdate(News news) {
         return iProjectService.newsUpdate(news);
     }
 
@@ -75,7 +73,7 @@ public class NewsController {
      * @Date 2020/7/21 19:12
      */
     @PostMapping("/newsAdd")
-    public Integer newsAdd(@RequestBody News news) {
+    public Integer newsAdd(News news) {
         return iProjectService.newsAdd(news);
     }
 
@@ -85,7 +83,7 @@ public class NewsController {
      * @Date 2020/7/21 14:49
      */
     @PostMapping("/newsFuzzyQuery")
-    public ResultData newsFuzzyQuery(@RequestParam("title") String title, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize) {
+    public ResultData newsFuzzyQuery(String title, Integer pageNo, Integer pageSize) {
         return iProjectService.newsFuzzyQuery(title, pageNo, pageSize);
     }
 

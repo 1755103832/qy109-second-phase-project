@@ -36,10 +36,10 @@ public class TokenFilter extends ZuulFilter {
     /**
      * @Author zyb
      * @Description 过滤器的类型，一共有四个类型。
-     * pre：到达路由之前执行；
-     * routing：到达路由的时候执行；
-     * post：到达路由之后执行；
-     * error：路由中抛出错误就会执行
+     * pre：到达路由之前执行；(在执行转发代码之前过滤器生效)
+     * routing：到达路由的时候执行；(在执行转发代码的时候过滤器生效)
+     * post：到达路由之后执行；(在执行转发代码之后过滤器生效)
+     * error：路由中抛出错误就会执行；()
      * @Date 2020/7/19 10:44
      * @Param []
      * @Return java.lang.String

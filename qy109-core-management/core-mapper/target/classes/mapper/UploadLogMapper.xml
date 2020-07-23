@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.pro.mapper.UploadLogMapper">
+    <resultMap id="BaseResultMap" type="com.aaa.pro.model.UploadLog">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="head_pic_path" property="headPicPath" jdbcType="VARCHAR"/>
+        <result column="original_file_name" property="originalFileName" jdbcType="VARCHAR"/>
+        <result column="new_file_name" property="newFileName" jdbcType="VARCHAR"/>
+        <result column="upload_datetime" property="uploadDatetime" jdbcType="VARCHAR"/>
+    </resultMap>
+</mapper>
