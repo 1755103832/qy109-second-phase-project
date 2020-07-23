@@ -78,4 +78,20 @@
         where qualification_level in ('丙级','丁级')
         and owned_district = #{ownedDistrict, jdbcType=VARCHAR}
     </select>
+
+    <select id="selectUnitInfoByPage" resultMap="BaseResultMap">
+        select id,unit_name,oa,qualification_level,certificate_code,belong_industry,linkman,phone,score
+        from t_mapping_unit
+    </select>
+
+    <select id="fuzzySelectUnitInfoByUnitName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id,unit_name,oa,qualification_level,certificate_code,belong_industry,linkman,phone,score
+        from t_mapping_unit
+        <where>
+            1 = 1
+            <if test="unitName != null and unitName != '' ">
+                and unitName like concat('%',concat(#{unitName, jdbcType=VARCHAR},'%'))
+            </if>
+        </where>
+    </select>
 </mapper>

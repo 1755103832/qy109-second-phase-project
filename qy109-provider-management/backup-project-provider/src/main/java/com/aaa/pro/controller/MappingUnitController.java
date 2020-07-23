@@ -4,17 +4,21 @@ import com.aaa.pro.base.BaseService;
 import com.aaa.pro.base.CommonController;
 import com.aaa.pro.model.MappingUnit;
 import com.aaa.pro.service.MappingUnitService;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
- * @Author zyb
- * @Date Create in 2020/7/18 18:56
- * @Description
- **/
+ * @description:
+ *    单位信息
+ * @author: Wen
+ * @date: 2020/7/23 20:12
+ */
 @RestController
 public class MappingUnitController extends CommonController<MappingUnit> {
 
@@ -31,6 +35,49 @@ public class MappingUnitController extends CommonController<MappingUnit> {
         return mappingUnitService;
     }
 
+    /**
+     * @description:
+     *   分页查询单位信息
+     * @params: [pageNum, pageSize]
+     * @return: com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     * @author: Wen
+     * @date: 2020/7/22 10:25
+     */
+    @GetMapping("/selectUnitInfoByPage")
+    public PageInfo<MappingUnit> selectUnitInfoByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        return mappingUnitService.selectUnitInfoByPage(pageNum, pageSize);
+    }
+
+    /**
+     * @description:
+     *
+     * @params: [id]
+     * @return: com.aaa.pro.model.MappingUnit
+     * @author: Wen
+     * @date: 2020/7/22 11:34
+     */
+    @GetMapping("/selectUnitInfoById")
+    public MappingUnit selectUnitInfoById(@RequestParam("id") Long id) {
+        return mappingUnitService.selectUnitInfoById(id);
+    }
+
+    /**
+     * @description:
+     *    根据单位名称查询单位信息（模糊查询）
+     * @params: [unitName, pageNum, pageSize]
+     * @return: com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     * @author: Wen
+     * @date: 2020/7/22 11:37
+     */
+    @GetMapping("/fuzzySelectUnitInfoByUnitName")
+    public PageInfo<MappingUnit> fuzzySelectUnitInfoByUnitName(@RequestParam("unitName") String unitName,
+                                                               @RequestParam("pageNum") Integer pageNum,
+                                                               @RequestParam("pageSize") Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MappingUnit> mappingUnits = mappingUnitService.fuzzySelectUnitInfoByUnitName(unitName);
+        return mappingUnits.size() > 0 ? new PageInfo<>(mappingUnits) : null;
+
+    }
     /**
      * @Author zyb
      * @Description 查询白名单人员信息

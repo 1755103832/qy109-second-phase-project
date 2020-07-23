@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aaa.pro.mapper.ScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.aaa.pro.model.Score" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="score_plus" property="scorePlus" jdbcType="INTEGER" />
+    <result column="score_subtract" property="scoreSubtract" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="unit_id" property="unitId" jdbcType="BIGINT" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectScoreByRefId" resultType="com.aaa.pro.model.Score" parameterType="java.lang.Integer">
+    select * from t_score where unit_id = #{unitid}
+  </select>
+</mapper>

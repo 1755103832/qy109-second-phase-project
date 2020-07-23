@@ -862,4 +862,45 @@ public interface IProjectService {
             produces = MediaType.APPLICATION_JSON_VALUE)
     ResultData uploadWithCustomFilePath(MultipartFile file,
                                         @RequestParam("customFilePath") String customFilePath);
+
+
+    /**
+     * @description:
+     *   单位审核--查询特殊岗位人员信息
+     * @params: [userId]
+     * @return: java.util.List<com.aaa.pro.model.SpecialPost>
+     * @author: Wen
+     * @date: 2020/7/20 21:11
+     */
+    @PostMapping("/querySpecialPost")
+    List<SpecialPost> selectSpecialPost(@RequestParam("userId") Long userId);
+
+    /**
+     * @description:
+     *   单位审核--分页查询单位信息
+     * @params: [pageNum, pageSize]
+     * @return: com.github.pagehelper.PageInfo<com.aaa.pro.model.MappingUnit>
+     * @author: Wen
+     * @date: 2020/7/22 11:41
+     */
+    @GetMapping("/selectUnitInfoByPage")
+    PageInfo<MappingUnit> selectUnitInfoByPage(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
+
+    /**
+     * @description:
+     *   单位审核--查询单位详细信息（id）
+     * @params: [id]
+     * @return: com.aaa.pro.model.MappingProject
+     * @author: Wen
+     * @date: 2020/7/22 11:41
+     */
+    @GetMapping("/selectUnitInfoById")
+    MappingUnit selectUnitInfoById(@RequestParam("id") Long id);
+
+    @GetMapping("/fuzzySelectUnitInfoByUnitName")
+    PageInfo<MappingProject> fuzzySelectUnitInfoByUnitName(@RequestParam("projectName") String projectName,
+                                                           @RequestParam("pageNum") Integer pageNum,
+                                                           @RequestParam("pageSize") Integer pageSize);
+
+
 }

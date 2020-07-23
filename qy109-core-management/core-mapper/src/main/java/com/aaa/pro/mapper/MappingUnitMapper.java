@@ -1,6 +1,7 @@
 package com.aaa.pro.mapper;
 
 import com.aaa.pro.model.MappingUnit;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -11,6 +12,26 @@ import java.util.List;
  * @Description
  **/
 public interface MappingUnitMapper extends Mapper<MappingUnit> {
+
+    /**
+     * @description:
+     *   分页查询单位信息
+     * @params: []
+     * @return: java.util.List<com.aaa.pro.model.MappingProject>
+     * @author: Wen
+     * @date: 2020/7/22 10:15
+     */
+    List<MappingUnit> selectUnitInfoByPage();
+
+    /**
+     * @description:
+     *   通过项目名称模糊查询项目信息
+     * @params: [unitName]
+     * @return: java.util.List<com.aaa.pro.model.MappingUnit>
+     * @author: Wen
+     * @date: 2020/7/22 10:53
+     */
+    List<MappingUnit> fuzzySelectUnitInfoByUnitName(@Param("unitName") String unitName);
 
     /**
      * @Author zyb
