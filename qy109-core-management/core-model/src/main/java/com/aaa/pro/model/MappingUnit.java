@@ -1,5 +1,6 @@
 package com.aaa.pro.model;
 
+import com.aaa.pro.base.BaseModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -19,22 +20,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "t_mapping_unit")
-public class MappingUnit implements Serializable {
+public class MappingUnit extends BaseModel {
 
-    @Id
-    private Long id;
-
-    /**
-     * 创建时间
-     */
-    @Column(name = "create_time")
-    private Date createTime;
-
-    /**
-     * 修改时间
-     */
-    @Column(name = "modify_time")
-    private Date modifyTime;
 
     /**
      * 备注

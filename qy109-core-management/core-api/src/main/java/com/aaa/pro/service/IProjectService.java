@@ -902,5 +902,18 @@ public interface IProjectService {
                                                            @RequestParam("pageNum") Integer pageNum,
                                                            @RequestParam("pageSize") Integer pageSize);
 
+    /**
+     * @description:
+     *     修改单位信息
+     * @params: [mappingUnit]
+     * @return: com.aaa.pro.base.ResultData
+     * @author: Wen
+     * @date: 2020/7/27 20:58
+     */
+    @PostMapping("/updateUnitInfo")
+    ResultData updateUnitInfo(@RequestBody MappingUnit mappingUnit);
+
+
+
 
 }

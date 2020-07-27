@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @description:
- *    测绘管理-单位基本信息-负责人信息
+ *    测绘管理--单位负责人信息
  * @params:
  * @return:
  * @author: Wen

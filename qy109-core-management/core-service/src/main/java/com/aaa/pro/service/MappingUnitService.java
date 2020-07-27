@@ -72,6 +72,18 @@ public class MappingUnitService extends BaseService<MappingUnit> {
     }
 
     /**
+     * @description:
+     *    修改单位信息
+     * @params: [mappingUnit]
+     * @return:
+     * @author: Wen
+     * @date: 2020/7/27 20:34
+     */
+    public int updateUnitInfo(MappingUnit mappingUnit) {
+        return mappingUnitMapper.updateByPrimaryKeySelective(mappingUnit);
+    }
+
+    /**
      * @Author zyb
      * @Description 查询白名单人员信息
      * @Date 2020/7/18 18:55

@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+/**
+ * @description:
+ *   测绘管理--特殊岗位人员信息
+ * @author: Wen
+ * @date: 2020/7/27 10:44
+ */
 @RestController
 public class SpecialPostController {
 

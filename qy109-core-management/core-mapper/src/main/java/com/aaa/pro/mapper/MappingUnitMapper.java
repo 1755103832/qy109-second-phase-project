@@ -7,10 +7,11 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 /**
- * @Author zyb
- * @Date Create in 2020/7/18 18:48
- * @Description
- **/
+ * @description:
+ *   测绘管理--单位信息
+ * @author: Wen
+ * @date: 2020/7/27 19:38
+ */
 public interface MappingUnitMapper extends Mapper<MappingUnit> {
 
     /**

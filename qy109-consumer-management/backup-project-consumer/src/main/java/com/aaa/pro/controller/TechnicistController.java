@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @description:
- *   测绘管理--单位审核--技术人员基本信息
+ *   测绘管理--技术人员信息
  * @params:
  * @return:
  * @author: Wen

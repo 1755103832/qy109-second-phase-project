@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @description:
- *    测绘管理-单位基本信息-技术人员信息
+ *    测绘管理--技术人员信息
  * @params:
  * @return:
  * @author: Wen
@@ -26,7 +26,7 @@ public class TechnicistController {
 
     /**
      * @description:
-     *   查询技术人员信息
+     *   查询技术人员信息（id）
      * @params: [userId]
      * @return: java.util.List<com.aaa.pro.model.Technicist>
      * @author: Wen

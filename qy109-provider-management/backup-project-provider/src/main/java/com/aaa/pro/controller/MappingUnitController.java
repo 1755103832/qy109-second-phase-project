@@ -1,21 +1,21 @@
 package com.aaa.pro.controller;
 
+import cn.hutool.core.date.DateUtil;
 import com.aaa.pro.base.BaseService;
 import com.aaa.pro.base.CommonController;
+import com.aaa.pro.base.ResultData;
 import com.aaa.pro.model.MappingUnit;
 import com.aaa.pro.service.MappingUnitService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * @description:
- *    单位信息
+ *    测绘管理--单位信息
  * @author: Wen
  * @date: 2020/7/23 20:12
  */
@@ -50,7 +50,7 @@ public class MappingUnitController extends CommonController<MappingUnit> {
 
     /**
      * @description:
-     *
+     *   查询单位信息（id）
      * @params: [id]
      * @return: com.aaa.pro.model.MappingUnit
      * @author: Wen
@@ -78,6 +78,28 @@ public class MappingUnitController extends CommonController<MappingUnit> {
         return mappingUnits.size() > 0 ? new PageInfo<>(mappingUnits) : null;
 
     }
+
+    /**
+     * @description:
+     *   修改单位信息
+     * @params: [mappingUnit]
+     * @return: ResultData
+     * @author: Wen
+     * @date: 2020/7/27 20:37
+     */
+    @PostMapping("/updateUnitInfo")
+    ResultData updateUnitInfo(@RequestBody MappingUnit mappingUnit){
+        mappingUnit.setModifyTime(DateUtil.now());
+        int i = mappingUnitService.updateUnitInfo(mappingUnit);
+        if(i > 0){
+            return super.updateSuccess();
+        }else{
+            return super.updateFailed();
+        }
+    }
+
+
+
     /**
      * @Author zyb
      * @Description 查询白名单人员信息
