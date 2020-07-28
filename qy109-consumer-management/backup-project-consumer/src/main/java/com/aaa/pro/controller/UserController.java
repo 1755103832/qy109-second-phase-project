@@ -4,19 +4,17 @@ import com.aaa.pro.base.BaseController;
 import com.aaa.pro.base.ResultData;
 import com.aaa.pro.model.User;
 import com.aaa.pro.service.IProjectService;
-import feign.Response;
+
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Company: com.aaa.jkm
@@ -27,103 +25,101 @@ import java.util.List;
  * @description：
  */
 @RestController
-//@Api(value = "用户",tags = "用户操作接口")
+@Api(value = "用户",tags = "用户操作接口")
 @RequestMapping("/user")
 public class UserController extends BaseController {
     @Autowired
     private IProjectService iProjectService;
-
     /**
-     * @Description: 用户管理中新增用户
      * @Author: jkm
-     * @Date: 2020/5/20 14:43
-     * @Param: [user]
-     * @return:
+     * @Description:    查询所有用户信息
+     * @Date: 20:58 2020/7/21
+     * @param: []
+     * @return java.util.Map
      */
-    @PostMapping("/addUser")
-//    @ApiOperation(value = "添加用户",notes = "用户管理的新增用户")
-    public Boolean addUser(User user) {
-        return iProjectService.addUser(user);
+    @GetMapping ("/user/selectAllUser")
+    @ApiOperation(value = "查询用户",notes = "查询用户接口")
+    public Map selectAllUser(){
+        return iProjectService.selectAllUser();
     }
 
+    /**
+     * @Author: jkm
+     * @Description:    新增用户
+     * @Date: 20:59 2020/7/27
+     * @param: [user]
+     * @return com.aaa.pro.base.ResultData
+     */
+    @PostMapping("/user/addUser")
+    @ApiOperation(value = "添加用户",notes = "添加用户接口")
+    public Boolean addUser(User user){
+        return iProjectService.addUser(user);
+    }
+    /**
+     * @Author: jkm
+     * @Description:    修改用户信息
+     * @Date: 20:06 2020/7/28
+     * @param: [userId]
+     * @return java.lang.Boolean
+     */
+    @ApiOperation(value = "删除用户",notes = "删除用户接口")
+    @PostMapping("/deleteUserById")
+    public Boolean deleteUserById( @RequestParam("userId") Long userId){
+        return iProjectService.deleteUserById(userId);
+
+    }
 
     /**
-     * @Description: 用户管理中删除用户
+     * @Description: 批量删除用户
      * @Author: jkm
-     * @Date: 2020/5/21 15:44
-     * @Param: [ids]
-     * @return:
+     * @Date: 2020/7/21 20:51
+     * @Param: [ids, tokenId]
+     * @return: com.aaa.pro.base.ResultData
      */
-    @DeleteMapping("/delUser")
-    @ApiOperation(value = "删除用户", notes = "用户管理的删除用户")
-    public ResultData delUser(List<Long> ids) {
+    @GetMapping("/delUser")
+    public ResultData delUser(@RequestParam("ids") List<Long> ids){
         return iProjectService.delUser(ids);
     }
 
 
+
     /**
-     * @Description: 用户管理中修改用户信息
+     * @Description: 修改用户信息
      * @Author: jkm
-     * @Date: 2020/5/21 15:47
+     * @Date: 2020/7/21 15:56
      * @Param: [user]
-     * @return:
+     * @return: com.aaa.pro.base.ResultData
      */
     @PostMapping("/updateUser")
-    @ApiOperation(value = "修改用户信息", notes = "用户管理的修改用户信息")
-    public ResultData updateUser(User user) {
+    @ApiOperation(value = "修改用户",notes = "修改用户接口")
+    public ResultData updateUser(@RequestBody User user){
+
         return iProjectService.updateUser(user);
     }
 
 
     /**
-     * @Description: 用户管理中的导出Excle
+     * @Description: 导出用户信息
      * @Author: jkm
-     * @Date: 2020/5/21 16:25
+     * @Date: 2020/721 16:26
      * @Param: []
+     * @return: com.aaa.pro.base.ResultData
      */
-    @GetMapping("/exportExcle")
-    @ApiOperation(value = "导出Excle", notes = "用户管理的导出用户信息")
-    public ResponseEntity<byte[]> exportExcle() {
-        ResponseEntity<byte[]> result = null;
-        Response response = iProjectService.exportExcle();
-        Response.Body body = response.body();
-        try (InputStream inputStream = body.asInputStream()) {
-            // feign文件下载
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[10240];
-            while (true) {
-                int len = inputStream.read(buf);
-                if (len < 0) {
-                    break;
-                }
-                bos.write(buf, 0, len);
-            }
-            //网上也有这种将数据读入到byte[]里面的操作，但是会有问题，有可能一些数据没有读完整，导致最终下载的文件打不开，所以最好还是上面那种常规的读取操作
-            //byte[] b = new byte[inputStream.available()];
-            //inputStream.read(b);
-            byte[] b = bos.toByteArray();
-            HttpHeaders heads = new HttpHeaders();
-            heads.add(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=user.xls");
-            heads.add(HttpHeaders.CONTENT_TYPE, "application/vnd.ms-excel;charset=utf-8");
-            heads.add(HttpHeaders.CONNECTION, "close");
-            result = new ResponseEntity<>(b, heads, HttpStatus.OK);
-        } catch (IOException e) {
-
-        }
-        return result;
+    @GetMapping("/exportExcel")
+    public ResultData exportExcel(@RequestParam("response") HttpServletResponse response){
+       return iProjectService.exportExcel(response);
     }
 
-
     /**
-     * @Description: 查询用户，带条件
+     * @Description: 带条件查询用户信息
      * @Author: jkm
-     * @Date: 2020/5/21 22:54
+     * @Date: 2020/7/21 22:31
      * @Param: [map]
-     * @return:
+     * @return: com.aaa.pro.base.ResultData
      */
-    @PostMapping("selectUser")
-    ResultData selectUserAll(HashMap map) {
-        return iProjectService.selectUserAll(map);
+    @PostMapping("/selectUserAll")
+    public ResultData selectUserAll(@RequestBody Map map){
+       return iProjectService.selectUserAll(map);
     }
 
 }

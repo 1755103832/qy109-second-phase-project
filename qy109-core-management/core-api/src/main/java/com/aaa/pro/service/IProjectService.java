@@ -213,52 +213,6 @@ public interface IProjectService {
 
 
     /**
-     * @return java.lang.Boolean
-     * @Author: jkm
-     * @Description: 添加用户
-     * @Date: 18:48 2020/7/16
-     * @param: [user]
-     */
-    @PostMapping("/addUser")
-    Boolean addUser(@RequestBody User user);
-
-    /**
-     * @Author: jkm
-     * @Description: 查询所有用户信息
-     */
-    @PostMapping("/selectAllUser")
-    PageInfo selectAllUser(@RequestParam("pageNo") Integer pageNo,
-                           @RequestParam("pageSize") Integer pageSize);
-
-    /**
-     * @Author: jkm
-     * @Description: 根据主键删除用户
-     */
-    @PostMapping("/deleteUser")
-    Integer deleteUser(@RequestBody User user);
-
-    /**
-     * @Author: jkm
-     * @Description: 根据id 批量删除用户
-     */
-    @PostMapping("/deleteMoreUser")
-    Integer deletrMoreUser(@RequestBody List<Object> ids);
-
-    /**
-     * @Author: jkm
-     * @Description: 根据id查询用户
-     */
-    @PostMapping("/selectUserById")
-    User selectUserById(@RequestParam("id") Long id);
-
-    /**
-     * @Author: jkm
-     * @Description: 根据id修改用户信息
-     */
-    @PostMapping("/updateUserById")
-    Integer updateUserById(@RequestBody User user);
-
-    /**
      * @Author zyb
      * @Description 分页查询所需字段数据(项目信息)
      * @Date 2020/7/17 10:11
@@ -394,40 +348,75 @@ public interface IProjectService {
      * @Date: 19:30 2020/7/17
      * @param: [userId]
      */
-    @PostMapping("/selectAllEquipmentByUserId")
+    @PostMapping("/equipment/selectAllEquipmentByUserId")
     List<Equipment> selectAllEquipmentByUserId(@RequestParam("userId") Long userId);
+    /**
+     * @Author: jkm
+     * @Description:    查询所有用户信息
+     * @Date: 20:58 2020/7/21
+     * @param: []
+     * @return java.util.Map
+     */
+    @GetMapping ("/user/selectAllUser")
+    Map selectAllUser();
+    /**
+     * @Author: jkm
+     * @Description:    新增用户
+     * @Date: 20:59 2020/7/27
+     * @param: [user]
+     * @return com.aaa.pro.base.ResultData
+     */
+    @PostMapping("/user/addUser")
+    Boolean addUser(@RequestBody User user);
+    /**
+     * @Author: jkm
+     * @Description:    修改用户信息
+     * @Date: 20:06 2020/7/28
+     * @param: [userId]
+     * @return java.lang.Boolean
+     */
+    @PostMapping("/user/deleteUserById")
+    Boolean deleteUserById(@RequestParam("userId") Long userId);
 
     /**
-     * @return com.github.pagehelper.PageInfo
+     * @Description: 批量删除用户
      * @Author: jkm
-     * @Description: 查询所有角色信息
-     * @Date: 18:12 2020/7/17
-     * @param: [pageNo, pageSize]
+     * @Date: 2020/7/21 20:51
+     * @Param: [ids, tokenId]
+     * @return: com.aaa.pro.base.ResultData
      */
-    @GetMapping("/selectAllRole")
-    PageInfo selectAllRole(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize);
+    @GetMapping("/user/delUser")
+    ResultData delUser(@RequestParam("ids") List<Long> ids);
 
     /**
-     * @return com.github.pagehelper.PageInfo
+     * @Description: 修改用户信息
      * @Author: jkm
-     * @Description: 根据条件查询
-     * @Date: 18:11 2020/7/17
-     * @param: [map, pageNo, pageSize]
+     * @Date: 2020/7/21 15:56
+     * @Param: [user]
+     * @return: com.aaa.pro.base.ResultData
      */
-    @PostMapping("/selectRoleByField")
-    PageInfo selectRoleByField(@RequestBody Map map,
-                               @RequestParam("pageNo") Integer pageNo,
-                               @RequestParam("pageSize") Integer pageSize);
+    @PostMapping("/user/updateUser")
+    ResultData updateUser(@RequestBody User user);
+
 
     /**
-     * @return com.aaa.pro.model.Role
+     * @Description: 导出用户信息
      * @Author: jkm
-     * @Description: 根据主键查询角色信息
-     * @Date: 18:11 2020/7/17
-     * @param: [roleId]
+     * @Date: 2020/721 16:26
+     * @Param: []
+     * @return: com.aaa.pro.base.ResultData
      */
-    @GetMapping("selectRoleByPrimaryKey")
-    Role selectRoleByPrimaryKey(@RequestParam("roleId") Long roleId);
+    @GetMapping("/user/exportExcel")
+    ResultData exportExcel(@RequestParam("response") HttpServletResponse response);
+    /**
+     * @Description: 带条件查询用户信息
+     * @Author: jkm
+     * @Date: 2020/7/21 22:31
+     * @Param: [map]
+     * @return: com.aaa.pro.base.ResultData
+     */
+    @PostMapping("/user/selectUserAll")
+    ResultData selectUserAll(@RequestBody Map map);
 
     /**
      * @Author zyb
@@ -691,7 +680,7 @@ public interface IProjectService {
      * @Author jkm
      * @Date 2020/7/20 20:35
      */
-    @PostMapping("/newsPostPageInfo")
+    @PostMapping("/news/newsPostPageInfo")
     PageInfo<News> newsPostPageInfo(@RequestBody News news,
                                     @RequestParam("pageNo") Integer pageNo,
                                     @RequestParam("pageSize") Integer pageSize);
@@ -701,7 +690,7 @@ public interface IProjectService {
      * @Author jkm
      * @Date 2020/7/21 17:31
      */
-    @PostMapping("/newsDelete")
+    @PostMapping("/news/newsDelete")
     Integer newsDelete(@RequestBody News news);
 
     /**
@@ -709,7 +698,7 @@ public interface IProjectService {
      * @Author jkm
      * @Date 2020/7/21 17:32
      */
-    @PostMapping("/newsDeleteByIds")
+    @PostMapping("/news/newsDeleteByIds")
     Integer newsDeleteByIds(@RequestParam("ids") List<Integer> ids);
 
 
@@ -718,7 +707,7 @@ public interface IProjectService {
      * @Author jkm
      * @Date 2020/7/21 17:33
      */
-    @PostMapping("/newsUpdate")
+    @PostMapping("/news/newsUpdate")
     Integer newsUpdate(@RequestBody News news);
 
     /**
@@ -726,7 +715,7 @@ public interface IProjectService {
      * @Author jkm
      * @Date 2020/7/21 19:12
      */
-    @PostMapping("/newsAdd")
+    @PostMapping("/news/newsAdd")
     Integer newsAdd(@RequestBody News news);
 
     /**
@@ -734,94 +723,87 @@ public interface IProjectService {
      * @Author jkm
      * @Date 2020/7/21 14:49
      */
-    @PostMapping("/newsFuzzyQuery")
+    @PostMapping("/news/newsFuzzyQuery")
     ResultData newsFuzzyQuery(@RequestParam("title") String title,
                               @RequestParam("pageNo") Integer pageNo,
                               @RequestParam("pageSize") Integer pageSize);
 
+    /**
+     * @Description: 查询所有的角色
+     * @Author: jkm
+     * @Date: 2020/7/20 19:01
+     * @Param: []
+     * @return: com.aaa.pro.base.ResultData
+     */
+    @GetMapping("/role/allRoles")
+   ResultData selectAllRole();
+
+    /**
+     * @Author: jkm
+     * @Time: 10:28 2020/7/23
+     * @Params: [id]
+     * @Return: java.util.List
+     * @Throws:
+     * @Description:
+     * 通过userID获取对应的角色
+     *
+     */
+    @GetMapping ("/role/selectRolesByUserId")
+    List<Role> selectRolesByUserId(@RequestParam("id") String  id);
+
+
 
     /**
      * @Description: 简单的分页查询
-     * @Author: sgz
-     * @Date: 2020/6/3 18:51
+     * @Author: jkm
+     * @Date: 2020/7/20 19:01
      * @Param: [roleVo]
-     * @return:
+     * @return: com.aaa.pro.base.ResultData
      */
-    @PostMapping("/pageRoles")
+    @PostMapping("/role/pageRoles")
     ResultData selectAllRoleByPage(@RequestBody RoleVo roleVo);
 
     /**
      * @Description: 删除角色
-     * @Author: sgz
-     * @Date: 2020/6/3 18:51
+     * @Author: jkm
+     * @Date: 2020/7/20 19:01
      * @Param: [roleId]
-     * @return:
+     * @return: com.aaa.pro.base.ResultData
      */
-    @PostMapping("/deleteRole")
-    ResultData deleteRole(@RequestParam("roleId") Long roleId);
+    @PostMapping("/role/deleteRole")
+    ResultData deleteRole(@RequestParam("roleId") String roleId);
 
     /**
      * @Description: 新增角色以及批量新增权限
-     * @Author: sgz
-     * @Date: 2020/6/3 18:52
+     * @Author: jkm
+     * @Date: 2020/7/20 19:01
      * @Param: [roleVo]
-     * @return:
+     * @return: com.aaa.pro.base.ResultData
      */
-    @PostMapping("/insertRole")
+    @PostMapping("/role/insertRole")
     ResultData insertRole(@RequestBody RoleVo roleVo);
 
-
+    /**
+     * @Author: jkm
+     * @Time: 17:31 2020/7/24
+     * @Params: [role]
+     * @Return: java.util.Map
+     * @Throws:
+     * @Description:
+     * 通过获取到role 添加角色信息
+     *
+     */
+    @PostMapping("/role/addRole")
+    Map addRole(@RequestBody Role role);
     /**
      * @Description: 修改角色及其权限
-     * @Author: sgz
-     * @Date: 2020/6/3 18:52
+     * @Author: jkm
+     * @Date: 2020/7/20 19:01
      * @Param: [roleVo]
-     * @return:
+     * @return: com.aaa.pro.base.ResultData
      */
-    @PostMapping("/updateRole")
+    @PostMapping("/role/updateRole")
     ResultData updateRole(@RequestBody RoleVo roleVo);
-
-    /**
-     * @Description: 批量删除用户
-     * @Author: jkm
-     * @Date: 2020/5/20 20:51
-     * @Param: [ids, tokenId]
-     * @return:
-     */
-    @DeleteMapping("/delUser")
-    ResultData delUser(@RequestBody List<Long> ids);
-
-
-    /**
-     * @Description: 修改员工信息
-     * @Author: jkm
-     * @Date: 2020/5/21 15:56
-     * @Param: [user]
-     * @return:
-     */
-    @PostMapping("/updateUser")
-    ResultData updateUser(@RequestBody User user);
-
-
-    /**
-     * @Description: 导出用户信息
-     * @Author: jkm
-     * @Date: 2020/5/21 16:26
-     * @Param: []
-     * @return:
-     */
-    @GetMapping("/exportExcle")
-    Response exportExcle();
-
-    /**
-     * @Description: 带条件查询用户信息
-     * @Author: jkm
-     * @Date: 2020/5/21 22:31
-     * @Param: [map]
-     * @return:
-     */
-    @PostMapping("/selectUser")
-    ResultData selectUserAll(@RequestBody HashMap map);
 
     /**
      * @Author zyb

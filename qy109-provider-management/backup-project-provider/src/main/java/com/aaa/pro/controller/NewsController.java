@@ -7,10 +7,7 @@ import com.aaa.pro.model.News;
 import com.aaa.pro.service.NewsService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class NewsController extends CommonController<News> {
      * @Date 2020/7/20 20:31
      */
     @PostMapping("/newsPostPageInfo")
-    public PageInfo<News> newsPostPageInfo(News news, Integer pageNo, Integer pageSize) {
+    public PageInfo<News> newsPostPageInfo(News news,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize) {
         PageInfo<News> resultList = getBaseService().selectListByPage(news, pageNo, pageSize);
         if (null != resultList && resultList.getSize() > 0) {
             return resultList;
@@ -56,7 +53,7 @@ public class NewsController extends CommonController<News> {
      * @Date 2020/7/21 15:22
      */
     @PostMapping("/newsDelete")
-    public Integer newsDelete(@RequestBody News news) {
+    public Integer newsDelete(News news) {
         Integer integer = newsService.deleteByPrimaryKey(news);
         if (integer > 0) {
             return integer;
@@ -84,7 +81,7 @@ public class NewsController extends CommonController<News> {
      * @Date 2020/7/21 15:41
      */
     @PostMapping("/newsUpdate")
-    public Integer newsUpdate(@RequestBody News news) {
+    public Integer newsUpdate(News news) {
         Integer integer = newsService.updateByPrimaryKeySelective(news);
         if (integer > 0) {
             return integer;
@@ -98,7 +95,7 @@ public class NewsController extends CommonController<News> {
      * @Date 2020/7/21 15:36
      */
     @PostMapping("/newsAdd")
-    public Integer newsAdd(@RequestBody News news) {
+    public Integer newsAdd(News news) {
         Integer integer = newsService.insertSelective(news);
         if (integer > 0) {
             return integer;

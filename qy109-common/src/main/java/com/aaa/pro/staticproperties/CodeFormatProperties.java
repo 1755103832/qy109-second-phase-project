@@ -22,4 +22,13 @@ public class CodeFormatProperties {
      * data静态常量
      */
     public static final String DATA = "data";
+    /**
+     * 出现异常常量
+     */
+    public static final String EXP = "出现异常";
+
+    /**
+     * 人事部常量
+     */
+    public static final String PD = "人事部";
 }

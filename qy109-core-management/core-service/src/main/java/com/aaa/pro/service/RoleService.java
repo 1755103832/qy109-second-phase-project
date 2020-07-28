@@ -5,8 +5,10 @@ import com.aaa.pro.base.BaseService;
 import com.aaa.pro.base.ResultData;
 import com.aaa.pro.mapper.RoleMapper;
 import com.aaa.pro.mapper.RoleMenuMapper;
+import com.aaa.pro.mapper.UserRoleMapper;
 import com.aaa.pro.model.Role;
 import com.aaa.pro.model.RoleMenu;
+import com.aaa.pro.model.UserRole;
 import com.aaa.pro.vo.RoleVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,50 @@ public class RoleService extends BaseService<Role> {
 
     @Autowired
     RoleMenuMapper roleMenuMapper;
+
+    @Autowired
+    UserRoleMapper userRoleMapper;
+
+    /**
+     * @Author: Sgz
+     * @Time: 10:25 2020/7/23
+     * @Params: [id]
+     * @Return: java.util.List
+     * @Throws:
+     * @Description: 通过userId查询该用户所对应的角色 获取角色列表
+     */
+
+    public List<Role> selectRoleIdByUserId(Long userId) {
+        UserRole userRole = new UserRole();
+        Role role = new Role();
+        userRole.setUserId(userId);
+        // 判断有没有拿到userId
+        if ("".equals(userId) || userId == null) {
+            return null;
+        } else {
+            // 当拿到userId 判断有么有获取到对应的RoleIDs
+            List<UserRole> userRoleIds = userRoleMapper.select(userRole);
+            // 如果拿到了数据 就通过rolId获取对应的roleName
+            // 通过循环拿到userRole对象
+            if (userRoleIds.size() > 0) {
+                for (UserRole userRoleId : userRoleIds) {
+                    // 从对象中获取roleId
+                    Long roleId = userRoleId.getRoleId();
+                    // 把RoleId给role对象
+                    role.setRoleId(roleId);
+                    // 通过role对象获取到roleList
+                    List<Role> roleList = roleMapper.select(role);
+                    if (roleList.size() > 0) {
+                        return roleList;
+                    }
+
+
+                }
+            }
+            return null;
+        }
+
+    }
 
     /**
      * @Description: 查询所有的角色
@@ -99,13 +145,9 @@ public class RoleService extends BaseService<Role> {
             if (list.size() > 0) {
                 //说明权限不是是空的  需要删除
                 int i1 = roleMenuMapper.deleteRoleMenu(roleId);
-                if (i1 > 0) {
-                    //说明删除成功
-                    return true;
-                } else {
-                    //删除失败
-                    return false;
-                }
+                //说明删除成功
+                //删除失败
+                return i1 > 0;
             } else {
                 //说明权限是空的  不要删除
                 return true;
@@ -115,6 +157,42 @@ public class RoleService extends BaseService<Role> {
             return false;
         }
 
+    }
+
+    /**
+     * @Author: Sgz
+     * @Time: 17:27 2020/7/24
+     * @Params: [role]
+     * @Return: java.lang.Boolean
+     * @Throws:
+     * @Description: 根据roleId决定添加、更新
+     * 如果roleId存在 就说明此角色已经存在 此时应该是修改操作
+     * 如果roleId不存在 则说明role不存在 此时进行添加操作
+     */
+    public Boolean insertRole(Role role) {
+        // 利用工具类创建现在的时间
+        String s = DateUtil.now();
+
+
+        // 判断role是否存在 如果role不存在 说明没有拿到数据
+        if ("".equals(role) || role == null) {
+            return false;
+        } else {
+            // 如果没有拿到roleId 说明此时时进行添加操作
+            if (role.getRoleId() == null) {
+                // 把创建时间存入到role中
+                role.setCreateTime(s);
+                // 判断是否 添加成功 i>0说明添加成功
+                int i = roleMapper.insert(role);
+                return i > 0;
+            } else {
+                // 把更新时间存入到role中
+                role.setModifyTime(s);
+                // 判断是否更新成功
+                int i = roleMapper.updateByPrimaryKey(role);
+                return i > 0;
+            }
+        }
     }
 
 
@@ -148,12 +226,8 @@ public class RoleService extends BaseService<Role> {
                     list.add(rm);
                 }
                 Integer i = roleMenuMapper.batchInsertRoleMenu(list);
-                if (i > 0) {
-                    //说明批量新增也成功了  那就返回
-                    return true;
-                } else {
-                    return false;
-                }
+                //说明批量新增也成功了  那就返回
+                return i > 0;
             }
         }
         //新增失败直接false
@@ -206,10 +280,8 @@ public class RoleService extends BaseService<Role> {
                                 arr.add(rm);
                             }
                             int i3 = roleMenuMapper.batchInsertRoleMenu(arr);
-                            if (i3 > 0) {
-                                //说明修改彻底结束
-                                return true;
-                            }
+                            //说明修改彻底结束
+                            return i3 > 0;
                         }
                     }
                 }
